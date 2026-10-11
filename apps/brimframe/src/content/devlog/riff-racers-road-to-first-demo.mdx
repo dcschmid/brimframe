@@ -8,6 +8,11 @@ game: 'riff-racers'
 featured: true
 ---
 
+import { Picture } from 'astro:assets';
+import trackWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.png';
+import driverKartWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.png';
+import gameplayWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png';
+
 I’m working towards the first public demo of Riff Racers, aiming for December 2026. There’s still work to do before I can put a build out, particularly on the
 racing AI and handling.
 
@@ -29,11 +34,41 @@ Each track is meant to have its own layout and atmosphere. I’m trying out
 shortcuts, risky jumps, alternative routes and pit lanes, then seeing how they
 affect a race. Some of those ideas will get cut if they don’t work well in play.
 
+<figure class="devlog-figure">
+  <Picture
+    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.png"
+    alt="Work-in-progress Riff Racers track at night, with a curved road running past a large building with glowing stained-glass windows."
+    widths={[480, 800, 1200, 1600]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    src={trackWip}
+    loading="lazy"
+  />
+  <figcaption>
+    Work in progress: one of the current tracks taking shape. Layout, lighting
+    and visual details are still being refined.
+  </figcaption>
+</figure>
+
 ## Twelve drivers, twelve karts
 
 I want you to be able to tell the drivers and karts apart by their designs,
 even before you look at the colours. I’m still working on the models and
 animations, and there’s balancing to do as well.
+
+<figure class="devlog-figure">
+  <Picture
+    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.png"
+    alt="A Riff Racers driver sitting in a red, white and black kart, with two other drivers and karts lined up behind."
+    widths={[480, 800, 1200, 1600]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    src={driverKartWip}
+    loading="lazy"
+  />
+  <figcaption>
+    An early look at the drivers and karts. The goal is for every pairing to
+    have its own character rather than feel like a simple colour swap.
+  </figcaption>
+</figure>
 
 ## The racing still needs work too
 
@@ -45,6 +80,21 @@ The computer-controlled drivers need particular attention. At higher
 difficulties, I want them to choose better racing lines, use shortcuts and be
 more aggressive. Simply giving them more speed wouldn’t do that. Getting
 those decisions right is still taking work.
+
+<figure class="devlog-figure">
+  <Picture
+    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png"
+    alt="Gameplay from Riff Racers showing several karts racing through a brightly lit track at sunset with the race HUD visible."
+    widths={[480, 800, 1200, 1600]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp', 'png']}
+    src={gameplayWip}
+  />
+  <figcaption>
+    Racing in the current build. Handling, AI behaviour, track readability and
+    race flow are all still being tuned.
+  </figcaption>
+</figure>
 
 ## The look of the game
 

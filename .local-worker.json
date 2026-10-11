@@ -1,0 +1,9 @@
+{
+  "dev_script": "dev",
+  "base_url": "http://127.0.0.1:4321",
+  "frontend_qc": {
+    "pages": ["/", "/games/", "/about/", "/devlog/", "/contact/"],
+    "viewports": ["320x800", "768x1024", "1440x1000"],
+    "expect": ["BRIMFRAME"]
+  }
+}

@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 import { games } from './config/games';
 
 const devlog = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/devlog' }),
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: './src/content/devlog' }),
   schema: ({ image }) =>
     z
       .object({

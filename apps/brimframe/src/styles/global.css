@@ -943,6 +943,26 @@ nav ul {
 .article-content > :first-child {
   margin-top: 0;
 }
+
+.devlog-figure {
+  margin: 2.5rem 0 2.75rem;
+}
+.devlog-figure img {
+  width: 100%;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.devlog-figure figcaption {
+  margin-top: 0.75rem;
+  max-width: 65ch;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+.devlog-figure figcaption p {
+  margin: 0;
+}
 .tags {
   list-style: none;
   padding: 0;

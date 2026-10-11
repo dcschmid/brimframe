@@ -14,7 +14,7 @@ apps/brimframe/
   src/assets/           Owned images and original game logos
   src/components/       Navigation, wordmark, hero, game feature, devlog, SEO
   src/config/           Typed site, legal, game and value configuration
-  src/content/devlog/   Markdown entries; draft example included
+  src/content/devlog/   Markdown/MDX entries; draft example included
   src/content.config.ts Build-time collection loader and validated schema
   src/layouts/          Shared document and editorial layouts
   src/pages/            Static routes plus rss.xml feed endpoint
@@ -196,7 +196,8 @@ use `--control-border`; keep the quieter `--border` token for decorative divider
 
 ## Devlog authoring
 
-Create a flat, kebab-case `.md` file in `src/content/devlog/`:
+Create a flat, kebab-case `.md` file in `src/content/devlog/`; use `.mdx` when
+the article embeds figures (see below).
 
 ```yaml
 ---
@@ -223,9 +224,16 @@ can override the filename and must use kebab-case.
 Start article Markdown with prose or an `##` heading because the page supplies
 the `h1`. Articles include publication/update dates, topics, image optimisation,
 Article metadata with Daniel as the author, and adjacent-post navigation. Real posts automatically receive
-static article URLs and appear in the sitemap. No public posts ship initially.
+static article URLs and appear in the sitemap.
 Write real development notes in Daniel’s first-person voice. Do not turn them
 into team announcements or invent a development history to fill the layout.
+
+Articles with screenshots use `.mdx`: import `Picture` from `astro:assets` and
+the images from `src/assets/devlog/<post>/` after the frontmatter, then place
+each figure as `<figure class="devlog-figure">` with the `Picture`, a real
+`<figcaption>`, meaningful `alt`, explicit `widths`/`sizes`, and lazy loading.
+Originals stay byte-identical in `src/assets/` and are never served; the build
+emits responsive AVIF/WebP/PNG derivatives for them.
 
 ## SEO, accessibility and privacy
 
