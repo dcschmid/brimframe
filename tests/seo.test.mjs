@@ -79,14 +79,15 @@ test('every indexable page carries canonical, og:image and twitter card', async 
             .replace(/\\u003c/g, '<'),
         ),
       );
-    assert.ok(
-      blocks.some((b) => b['@type'] === 'Organization'),
-      p,
-    );
+    const org = blocks.find((b) => b['@type'] === 'Organization');
+    assert.ok(org, `${p}: Organization JSON-LD`);
+    assert.equal(org.founder?.name, 'Daniel Schmid', `${p}: founder`);
+    assert.match(org.logo, /og-image\.png$/, `${p}: logo`);
+    assert.equal(org.email, 'dcschmid@murena.io', `${p}: email`);
   }
 });
 
-test('devlog articles emit Article and BreadcrumbList JSON-LD', async () => {
+test('devlog articles emit BlogPosting and BreadcrumbList JSON-LD', async () => {
   const feed = await read('rss.xml');
   const $ = load(feed, { xmlMode: true });
   const links = $('item > link')
@@ -104,10 +105,19 @@ test('devlog articles emit Article and BreadcrumbList JSON-LD', async () => {
             .replace(/\\u003c/g, '<'),
         ),
       );
-    const article = blocks.find((b) => b['@type'] === 'Article');
+    const article = blocks.find((b) => b['@type'] === 'BlogPosting');
     const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList');
-    assert.ok(article, `${link}: needs Article JSON-LD`);
+    assert.ok(article, `${link}: needs BlogPosting JSON-LD`);
+    assert.ok(article.headline, `${link}: headline`);
+    assert.equal(article.author?.name, 'Daniel Schmid', `${link}: author`);
     assert.ok(article.datePublished, `${link}: datePublished`);
+    const image = article.image;
+    assert.ok(image, `${link}: image from real content`);
+    assert.match(
+      typeof image === 'object' ? image.url : image,
+      /^https:\/\/brimframe\.de\//,
+      `${link}: absolute image URL`,
+    );
     assert.ok(crumbs, `${link}: needs BreadcrumbList JSON-LD`);
     assert.deepEqual(
       crumbs.itemListElement.map((e) => e.position),

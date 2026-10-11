@@ -59,6 +59,7 @@ pnpm exec playwright install firefox
 pnpm test:e2e         # Production Firefox navigation, keyboard, reflow, axe
 pnpm validate:render  # Fetch and validate against Render's current official schema
 pnpm validate         # All checks, in order, including build
+pnpm notify:indexnow  # Ping IndexNow (Bing, Yandex, …) with built sitemap URLs, after deploy
 ```
 
 `pnpm test` expects a production build first. The content integration test builds
@@ -223,7 +224,7 @@ can override the filename and must use kebab-case.
 
 Start article Markdown with prose or an `##` heading because the page supplies
 the `h1`. Articles include publication/update dates, topics, image optimisation,
-Article metadata with Daniel as the author, and adjacent-post navigation. Real posts automatically receive
+BlogPosting structured data (Daniel as author, real screenshot as image) and adjacent-post navigation. Real posts automatically receive
 static article URLs and appear in the sitemap.
 Write real development notes in Daniel’s first-person voice. Do not turn them
 into team announcements or invent a development history to fill the layout.
@@ -241,8 +242,8 @@ All pages have unique titles/descriptions, Open Graph and social card metadata,
 with a centrally configurable social image (1200×630 `public/og-image.png`,
 regenerated with `node scripts/make-og-image.mjs`; `og:image` carries width,
 height and alt). Indexable pages also include canonical URLs. The SEO component
-emits only known Organization/Article facts; devlog articles add a
-BreadcrumbList graph. The official `@astrojs/sitemap` integration,
+emits only known Organization facts (logo, founder, email, slogan); devlog articles emit
+BlogPosting JSON-LD with a BreadcrumbList graph and use their hero image for `og:image`.
 `public/robots.txt` (points crawlers at the sitemap) and the `@astrojs/rss`
 devlog feed (`/rss.xml`, published posts only, linked from every page head)
 use `https://brimframe.de`. The custom

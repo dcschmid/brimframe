@@ -2,6 +2,8 @@
 title: 'Riff Racers: The Road to the First Demo'
 description: 'I’m working towards a Riff Racers demo in December 2026. Here’s what I’m planning for the five tracks, 12 drivers and 12 karts, and what still needs work.'
 publishDate: 2026-10-11
+heroImage: '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png'
+heroImageAlt: 'Gameplay from Riff Racers showing several karts racing through a brightly lit track at sunset with the race HUD visible.'
 tags: ['riff-racers', 'development', 'demo']
 draft: false
 game: 'riff-racers'
@@ -11,7 +13,6 @@ featured: true
 import { Picture } from 'astro:assets';
 import trackWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.png';
 import driverKartWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.png';
-import gameplayWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png';
 
 I’m working towards the first public demo of Riff Racers, aiming for December 2026. There’s still work to do before I can put a build out, particularly on the
 racing AI and handling.
@@ -80,21 +81,6 @@ The computer-controlled drivers need particular attention. At higher
 difficulties, I want them to choose better racing lines, use shortcuts and be
 more aggressive. Simply giving them more speed wouldn’t do that. Getting
 those decisions right is still taking work.
-
-<figure class="devlog-figure">
-  <Picture
-    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png"
-    alt="Gameplay from Riff Racers showing several karts racing through a brightly lit track at sunset with the race HUD visible."
-    widths={[480, 800, 1200, 1600]}
-    sizes="(max-width: 768px) 100vw, 800px"
-    formats={['avif', 'webp', 'png']}
-    src={gameplayWip}
-  />
-  <figcaption>
-    Racing in the current build. Handling, AI behaviour, track readability and
-    race flow are all still being tuned.
-  </figcaption>
-</figure>
 
 ## The look of the game
 

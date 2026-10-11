@@ -10,7 +10,10 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
-  image?: string;
+  image?: string | undefined;
+  imageWidth?: number | undefined;
+  imageHeight?: number | undefined;
+  imageAlt?: string | undefined;
   type?: 'website' | 'article';
   structuredData?: Record<string, unknown>;
   breadcrumbs?: { name: string; path?: string }[];

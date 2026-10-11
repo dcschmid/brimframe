@@ -1,6 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import { getPublishedPosts, formatDate } from '../../utils/devlog';
 import { site } from '../../config/site';
@@ -19,21 +19,37 @@ const posts = await getPublishedPosts();
 const index = posts.findIndex((entry) => entry.id === post.id);
 const newer = posts[index - 1];
 const older = posts[index + 1];
+const postUrl = new URL(`/devlog/${post.id}/`, site.url).href;
+const ogImage = post.data.heroImage
+  ? await getImage({
+      src: post.data.heroImage,
+      width: 1200,
+      format: 'webp',
+    })
+  : null;
 const metadata = {
   '@context': 'https://schema.org',
-  '@type': 'Article',
+  '@type': 'BlogPosting',
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.publishDate.toISOString(),
-  ...(post.data.updatedDate
-    ? { dateModified: post.data.updatedDate.toISOString() }
-    : {}),
+  dateModified: (post.data.updatedDate ?? post.data.publishDate).toISOString(),
   ...(post.data.heroImage
-    ? { image: new URL(post.data.heroImage.src, site.url).href }
-    : {}),
+    ? {
+        image: {
+          '@type': 'ImageObject',
+          url: new URL(ogImage!.src, site.url).href,
+          width: ogImage!.attributes.width,
+          height: ogImage!.attributes.height,
+        },
+      }
+    : site.socialImage
+      ? { image: new URL(site.socialImage, site.url).href }
+      : {}),
   author: { '@type': 'Person', name: site.developerName },
   publisher: { '@type': 'Organization', name: site.name, url: site.url },
-  mainEntityOfPage: new URL(`/devlog/${post.id}/`, site.url).href,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  url: postUrl,
 };
 ---
 
@@ -42,6 +58,10 @@ const metadata = {
   description={post.data.description}
   type="article"
   structuredData={metadata}
+  image={ogImage?.src}
+  imageWidth={ogImage?.attributes.width}
+  imageHeight={ogImage?.attributes.height}
+  imageAlt={post.data.heroImageAlt}
   breadcrumbs={[
     { name: 'Home', path: '/' },
     { name: 'Devlog', path: '/devlog/' },
