@@ -1,0 +1,32 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import DevlogList from '../../components/DevlogList.astro';
+import { site } from '../../config/site';
+import { getPublishedPosts } from '../../utils/devlog';
+const posts = await getPublishedPosts();
+---
+
+<SiteLayout
+  title="Devlog"
+  description={`Development notes from ${site.developerName} on making Riff Racers: what I’m working on, what changed and why.`}
+>
+  <div class="container page-heading">
+    <p class="eyebrow">
+      <span class="accent-line" aria-hidden="true"></span>From the Studio
+    </p>
+    <h1>
+      Development
+      <br />
+      notes.
+    </h1>
+    <p class="page-intro">
+      Notes from BrimFrame: what I’m working on, what changed and why.
+    </p>
+  </div>
+  <section class="container devlog-page" aria-labelledby="updates-title">
+    <h2 id="updates-title" class="visually-hidden">
+      Published updates
+    </h2>
+    <DevlogList posts={posts} />
+  </section>
+</SiteLayout>

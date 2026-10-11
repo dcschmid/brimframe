@@ -1,0 +1,69 @@
+---
+import Frame from '../assets/brand/hero-frame.svg';
+---
+
+<!-- Replace this decorative treatment through Hero's named artwork slot. -->
+<div class="hero-artwork" aria-hidden="true">
+  <div class="hero-architecture">
+    <Frame class="hero-frame" focusable="false" />
+  </div>
+</div>
+
+<style>
+  .hero-artwork {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse at 78% 70%, #a454260c, transparent 42%),
+      radial-gradient(ellipse at 75% 16%, #678da210, transparent 40%),
+      linear-gradient(110deg, var(--background) 35%, #0e151c);
+  }
+  .hero-architecture {
+    position: absolute;
+    width: clamp(35rem, 64vw, 64rem);
+    right: max(-5rem, calc((100vw - 1700px) / 2));
+    top: 50%;
+    transform: translateY(-50%);
+    mask-image: linear-gradient(90deg, transparent, #000 28%);
+  }
+  .hero-architecture :global(.hero-frame) {
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: 47.99rem) {
+    .hero-artwork {
+      position: relative;
+      height: auto;
+      margin-top: 1.5rem;
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        #000 10%,
+        #000 88%,
+        transparent
+      );
+      background: radial-gradient(
+        ellipse at 64% 60%,
+        #b468350b,
+        transparent 70%
+      );
+    }
+    .hero-architecture {
+      position: relative;
+      width: min(112%, 40rem);
+      margin-left: -9%;
+      right: auto;
+      top: auto;
+      transform: none;
+      mask-image: linear-gradient(90deg, transparent, #000 16%);
+    }
+  }
+  @media (forced-colors: active) {
+    .hero-artwork {
+      display: none;
+    }
+  }
+</style>

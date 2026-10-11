@@ -1,0 +1,107 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import Values from '../components/Values.astro';
+import { site } from '../config/site';
+import { Picture } from 'astro:assets';
+import danielPortrait from '../assets/about/daniel-portrait.png';
+---
+
+<EditorialLayout
+  title="About BrimFrame"
+  displayFont
+  eyebrow="The Solo Studio"
+  description="Meet Daniel Schmid, the solo developer behind BrimFrame and Riff Racers. How indie games brought him back to gaming and where the studio name came from."
+  intro={site.studioIntroduction}
+>
+  <section class="editorial-split">
+    <h2>Who I am</h2>
+    <div class="prose">
+      <Picture
+        src={danielPortrait}
+        widths={[640, 1024, 1600]}
+        sizes="(min-width: 52rem) 42rem, calc(100vw - 3rem)"
+        alt="Daniel at his laptop, working on a game, on a sunlit terrace"
+        class="about-portrait"
+        loading="eager"
+        decoding="async"
+      />
+      <p>
+        I’m Daniel. I’ve worked as a web developer for about twenty years, and I
+        live in Munich with my girlfriend and our cat.
+      </p>
+      <p>
+        I played a lot of games when I was younger. Later, they took a back seat
+        for a long time. Indie games got me interested again, and I started
+        wanting to make something of my own.
+      </p>
+      <p>
+        I’d like to make games for people with different tastes. I’m starting
+        with a racer, but I don’t expect every game I make to be for the same
+        audience.
+      </p>
+    </div>
+  </section>
+
+  <section class="editorial-split">
+    <h2>A solo studio</h2>
+    <div class="prose">
+      <p>
+        BrimFrame is the name I make games under. I work on my own, and Riff
+        Racers is my first project here.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>Where BrimFrame came from</h2>
+    <div class="prose">
+      <p>
+        I wanted a studio name I could use beyond Riff Racers. That ruled out
+        anything too closely tied to racing, metal or music.
+      </p>
+      <p>
+        I worked through a long list of names. Some were already used by other
+        studios or companies. Others felt too generic. BrimFrame stuck.
+      </p>
+      <p>
+        “Frame” made me think of the way a game shows you a world and sets its
+        rules. It also has a straightforward link to games and visual media.
+      </p>
+      <p>
+        I liked “Brim” for its sense of an edge, and for “full to the brim”:
+        having more ideas than I can use at once. Together, BrimFrame felt like
+        a name I could keep using as the games changed.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>
+      Current focus:
+      <br />
+      Riff Racers
+    </h2>
+    <div class="prose">
+      <p>
+        Right now, most of my development time goes into Riff Racers. I’m
+        working towards a first demo, with plenty left to do on the racing and
+        computer-controlled drivers.
+      </p>
+      <a class="text-link" href="/games/">
+        About Riff Racers <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>How I approach games</h2>
+    <div class="prose">
+      <p>
+        Working solo means deciding what I can reasonably finish. Sometimes that
+        means leaving a feature out, even when I like the idea.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-values">
+    <p class="eyebrow">Values</p>
+    <h2>What matters to me</h2>
+    <Values />
+  </section>
+</EditorialLayout>

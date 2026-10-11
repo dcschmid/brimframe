@@ -1,0 +1,94 @@
+---
+import BrimFrameWordmark from './BrimFrameWordmark.astro';
+import { navigation } from '../config/site';
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand-link" href="/">
+      <BrimFrameWordmark />
+      <span class="visually-hidden"> home</span>
+    </a>
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-navigation"
+      hidden
+    >
+      <span class="menu-label">Menu</span>
+      <span class="menu-lines" aria-hidden="true"></span>
+    </button>
+    <nav id="primary-navigation" aria-label="Main navigation">
+      <ul>
+        {navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#primary-navigation');
+  if (toggle && nav) {
+    const mobile = window.matchMedia('(max-width: 47.99rem)');
+    function setOpen(open: boolean) {
+      if (!toggle || !nav) return;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.querySelector('.menu-label')!.textContent = open
+        ? 'Close'
+        : 'Menu';
+      nav.hidden = mobile.matches && !open;
+    }
+    function syncViewport() {
+      if (!toggle || !nav) return;
+      const buttonHadFocus = document.activeElement === toggle;
+      const navigationHadFocus = nav.contains(document.activeElement);
+      toggle.hidden = !mobile.matches;
+      setOpen(false);
+      if (!mobile.matches && buttonHadFocus) {
+        nav.querySelector<HTMLAnchorElement>('a')?.focus();
+      } else if (mobile.matches && navigationHadFocus) {
+        toggle.focus();
+      }
+    }
+    syncViewport();
+    mobile.addEventListener('change', syncViewport);
+    toggle.addEventListener('click', () =>
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+    );
+    document.addEventListener('keydown', (event) => {
+      if (
+        event.key === 'Escape' &&
+        mobile.matches &&
+        toggle.getAttribute('aria-expanded') === 'true'
+      ) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    nav.addEventListener('click', (event) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest('a') &&
+        mobile.matches
+      )
+        setOpen(false);
+    });
+  }
+</script>

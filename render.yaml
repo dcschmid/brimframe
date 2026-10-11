@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=https://render.com/schema/render.yaml.json
+services:
+  - type: web
+    name: brimframe
+    runtime: static
+    buildCommand: >-
+      npx --yes pnpm@10.33.0 install --frozen-lockfile &&
+      npx --yes pnpm@10.33.0 --filter @brimframe/studio build
+    staticPublishPath: apps/brimframe/dist
+    autoDeployTrigger: checksPass
+    domains:
+      - brimframe.de
+    renderSubdomainPolicy: enabled
+    buildFilter:
+      paths:
+        - apps/brimframe/**
+        - package.json
+        - pnpm-lock.yaml
+        - pnpm-workspace.yaml
+        - .node-version
+        - .npmrc
+        - render.yaml
+        - .github/workflows/**
+        - scripts/**
+        - tests/**
+        - playwright.config.ts
+        - tsconfig.tools.json
+        - .prettierrc.json
+        - .prettierignore
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=()
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /_astro/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /og-image.png
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /favicon.svg
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /robots.txt
+        name: Cache-Control
+        value: public, max-age=3600

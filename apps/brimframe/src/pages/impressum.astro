@@ -1,0 +1,55 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { legal } from '../config/site';
+---
+
+<EditorialLayout
+  title="Legal Notice / Impressum"
+  eyebrow="Legal Notice"
+  noindex={!legal.ready}
+  description="Owner and contact information for the BrimFrame website."
+  intro="Information about the owner of this website."
+>
+  <section class="editorial-split">
+    <h2>Website owner</h2>
+    <div class="prose">
+      {legal.businessName ? (
+        <p>{legal.businessName}</p>
+      ) : (
+        <p class="legal-placeholder">[Owner’s full legal name required]</p>
+      )}
+      {legal.addressLines.length ? (
+        <address>
+          {legal.addressLines.map((line) => (
+            <div>{line}</div>
+          ))}
+        </address>
+      ) : (
+        <p class="legal-placeholder">[Postal address required]</p>
+      )}
+      {legal.representative && <p>Represented by: {legal.representative}</p>}
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>Contact</h2>
+    <div class="prose">
+      {legal.email ? (
+        <p>
+          <a href={`mailto:${legal.email}`}>{legal.email}</a>
+        </p>
+      ) : (
+        <p class="legal-placeholder">[Contact email required]</p>
+      )}
+      {legal.phone && <p>Telephone: {legal.phone}</p>}
+    </div>
+  </section>
+  {(legal.vatId || legal.registration) && (
+    <section class="editorial-split">
+      <h2>Additional information</h2>
+      <div class="prose">
+        {legal.vatId && <p>VAT identification number: {legal.vatId}</p>}
+        {legal.registration && <p>{legal.registration}</p>}
+      </div>
+    </section>
+  )}
+</EditorialLayout>

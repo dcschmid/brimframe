@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import DevlogCard from './DevlogCard.astro';
+interface Props {
+  posts: CollectionEntry<'devlog'>[];
+}
+const { posts } = Astro.props;
+---
+
+{posts.length ? (
+  <div class="devlog-grid">
+    {posts.map((post) => (
+      <DevlogCard post={post} wide={posts.length === 1} />
+    ))}
+  </div>
+) : (
+  <div class="devlog-empty">
+    <h3>No posts yet.</h3>
+    <p>
+      When I have an update to share, I’ll write about the work on Riff Racers
+      here.
+    </p>
+  </div>
+)}

@@ -1,0 +1,91 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { contactHref, site } from '../config/site';
+---
+
+<EditorialLayout
+  title="Accessibility"
+  eyebrow="Using the Website"
+  description="Practical accessibility features on the BrimFrame website and how to report a problem."
+  intro="This page explains the website’s accessibility features and how to report a problem."
+>
+  <section class="editorial-split">
+    <h2>Accessibility on this site</h2>
+    <div class="prose">
+      <p>
+        BrimFrame aims to make this website usable by as many people as
+        possible. It is designed with WCAG 2.2 Level AA principles in mind, but
+        has not received formal certification or a comprehensive independent
+        audit.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>Using the site</h2>
+    <div class="prose">
+      <ul>
+        <li>
+          Pages use headings and landmarks to help you find the content. Press
+          Tab once to show “Skip to main content”, then Enter to move past the
+          navigation.
+        </li>
+        <li>
+          Use Tab to move between controls and Enter to follow links. Escape
+          closes the mobile menu.
+        </li>
+        <li>
+          Focused links and buttons have a visible outline. Text and controls
+          use contrasting colours, with space around touch targets.
+        </li>
+        <li>
+          Text can be enlarged and the layout reflows on narrow screens. You can
+          also increase line, letter and word spacing through your browser or
+          reading tools.
+        </li>
+        <li>
+          System high-contrast colours are supported. The current page remains
+          marked in the navigation, and controls keep visible borders.
+        </li>
+        <li>
+          Informative images have text alternatives. Decorative graphics are
+          hidden from assistive technologies.
+        </li>
+        <li>
+          The site respects your reduced-motion preference and uses no
+          autoplaying audio or video.
+        </li>
+        <li>
+          The main content and navigation remain available with JavaScript
+          disabled.
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="editorial-split">
+    <h2>Report a problem</h2>
+    <div class="prose">
+      {contactHref ? (
+        <>
+          <p>
+            If you encounter an accessibility problem or have difficulty using
+            any part of this website, please contact me at{' '}
+            <a href={contactHref}>
+              {site.contactEmail ?? 'the BrimFrame contact page'}
+            </a>
+            .
+          </p>
+          <p>
+            Please describe which page you were using and what happened. Details
+            about your browser or assistive technology can help, but are
+            optional.
+          </p>
+        </>
+      ) : (
+        <p>
+          Please <a href="/contact/">check the contact page</a> for available
+          ways to report an accessibility problem.
+        </p>
+      )}
+    </div>
+  </section>
+</EditorialLayout>

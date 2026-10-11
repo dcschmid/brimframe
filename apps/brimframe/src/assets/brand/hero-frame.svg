@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" width="900" height="680" fill="none">
+  <defs>
+    <linearGradient id="bf-wall" x1="180" y1="60" x2="270" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18212a"/><stop offset=".5" stop-color="#111920"/><stop offset="1" stop-color="#0c1218"/>
+    </linearGradient>
+    <linearGradient id="bf-face" x1="390" y1="80" x2="710" y2="565" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3b474f"/><stop offset=".22" stop-color="#202b33"/><stop offset=".52" stop-color="#101820"/><stop offset=".82" stop-color="#121a21"/><stop offset="1" stop-color="#303638"/>
+    </linearGradient>
+    <linearGradient id="bf-side" x1="290" y1="135" x2="340" y2="565" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35424b"/><stop offset=".32" stop-color="#152029"/><stop offset=".7" stop-color="#0c131a"/><stop offset="1" stop-color="#35251d"/>
+    </linearGradient>
+    <linearGradient id="bf-bevel" x1="390" y1="90" x2="650" y2="350" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#829096"/><stop offset=".3" stop-color="#34424b"/><stop offset=".7" stop-color="#1b262f"/><stop offset="1" stop-color="#44413a"/>
+    </linearGradient>
+    <linearGradient id="bf-edge" x1="370" y1="115" x2="705" y2="545" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c0ccce"/><stop offset=".24" stop-color="#73858d"/><stop offset=".5" stop-color="#273a45"/><stop offset=".8" stop-color="#b87b4f"/><stop offset="1" stop-color="#f9b175"/>
+    </linearGradient>
+    <linearGradient id="bf-light" x1="690" y1="50" x2="735" y2="557" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#80543b"/><stop offset=".3" stop-color="#f97316"/><stop offset=".6" stop-color="#ffb779"/><stop offset="1" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="bf-inset" x1="510" y1="170" x2="620" y2="555" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#080e14"/><stop offset=".45" stop-color="#111820"/><stop offset="1" stop-color="#1b1816"/>
+    </linearGradient>
+    <linearGradient id="bf-f-face" x1="425" y1="175" x2="555" y2="550" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#39464e"/><stop offset=".3" stop-color="#26343e"/><stop offset=".55" stop-color="#16222c"/><stop offset=".84" stop-color="#131c24"/><stop offset="1" stop-color="#302921"/>
+    </linearGradient>
+    <linearGradient id="bf-f-bevel" x1="465" y1="220" x2="475" y2="555" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#566771"/><stop offset=".3" stop-color="#233640"/><stop offset=".66" stop-color="#61412d"/><stop offset="1" stop-color="#b6774d"/>
+    </linearGradient>
+    <linearGradient id="bf-floor" x1="0" y1="530" x2="0" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172028"/><stop offset=".55" stop-color="#0e161e"/><stop offset="1" stop-color="#0b0f14"/>
+    </linearGradient>
+    <linearGradient id="bf-plinth" x1="420" y1="552" x2="475" y2="608" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#28343c"/><stop offset=".42" stop-color="#36434a"/><stop offset="1" stop-color="#18232b"/>
+    </linearGradient>
+    <linearGradient id="bf-reflection" x1="0" y1="572" x2="0" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffad6a" stop-opacity=".17"/><stop offset=".5" stop-color="#f97316" stop-opacity=".055"/><stop offset="1" stop-color="#f97316" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="bf-ambient">
+      <stop stop-color="#bd6739" stop-opacity=".18"/><stop offset=".55" stop-color="#6f422c" stop-opacity=".07"/><stop offset="1" stop-color="#0b0f14" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bf-cool-light">
+      <stop stop-color="#83a5b6" stop-opacity=".13"/><stop offset="1" stop-color="#83a5b6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bf-portal">
+      <stop stop-color="#ffc28d" stop-opacity=".28"/><stop offset=".3" stop-color="#f99443" stop-opacity=".12"/><stop offset="1" stop-color="#f97316" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bf-interior-light" cx="620" cy="531" r="257" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9c5e36" stop-opacity=".32"/><stop offset=".6" stop-color="#714327" stop-opacity=".14"/><stop offset="1" stop-color="#714327" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bf-contact">
+      <stop stop-color="#03080d" stop-opacity=".9"/><stop offset="1" stop-color="#03080d" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bf-edge-glow" x="340" y="20" width="440" height="590" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <filter id="bf-soft-reflection" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+  <!-- Quiet architecture and indirect lighting keep the sculpture grounded. -->
+  <ellipse cx="631" cy="386" rx="284" ry="270" fill="url(#bf-ambient)"/>
+  <ellipse cx="443" cy="133" rx="303" ry="190" fill="url(#bf-cool-light)"/>
+  <path d="M108 52L278 27V536L108 571Z" fill="url(#bf-wall)"/>
+  <path d="M108 52L126 68L278 47V27Z" fill="#24313b" fill-opacity=".35"/>
+  <path d="M133 64L278 43M133 64V518L233 498" stroke="#93a5af" stroke-opacity=".11"/>
+  <path d="M787 40L893 5V567L787 543Z" fill="url(#bf-wall)"/>
+  <path d="M811 65V519L869 536" stroke="#b9c8cf" stroke-opacity=".09"/>
+  <path d="M0 585L425 526L900 549V680H0Z" fill="url(#bf-floor)"/>
+  <g stroke="#a4b7c3" stroke-opacity=".045">
+    <path d="M0 615L425 543L900 579M0 662L425 567L900 624M182 680L448 545M497 680L547 550M786 680L641 554"/>
+  </g>
+  <ellipse cx="564" cy="590" rx="299" ry="49" fill="url(#bf-contact)"/>
+  <path d="M387 600L423 600L459 680H380ZM693 575L729 578L854 680H753Z" fill="url(#bf-reflection)" filter="url(#bf-soft-reflection)"/>
+  <!-- Outer B: shaded extrusion, inset plane, satin face and a narrow illuminated edge. -->
+  <path d="M294 127L352 91L735 43V238L700 285L749 336V552L691 588V372L645 320L680 271V105L352 148V555L294 588Z" fill="url(#bf-side)"/>
+  <path d="M412 146L678 111V234L634 274V309L691 361V561L412 549Z" fill="url(#bf-inset)"/>
+  <path d="M412 146L678 111V234L634 274V309L691 361V561L412 549Z" fill="url(#bf-interior-light)"/>
+  <ellipse cx="575" cy="539" rx="190" ry="48" fill="url(#bf-portal)"/>
+  <path d="M735 43V238L700 285L749 336V552" stroke="#ff9c56" stroke-width="13" stroke-opacity=".2" filter="url(#bf-edge-glow)"/>
+  <path d="M352 91L735 43V238L700 285L749 336V552L691 561V361L634 309V274L678 234V111L412 146V549L352 555Z" fill="url(#bf-face)"/>
+  <path d="M352 91L365 109L724 63L735 43Z" fill="url(#bf-bevel)"/>
+  <path d="M352 91V555L360 551V106Z" fill="#84949b" fill-opacity=".12"/>
+  <path d="M735 43V238L700 285L749 336V552L742 549V338L691 285L727 235V58Z" fill="#6e422b" fill-opacity=".35"/>
+  <path d="M412 146L430 163L659 133V230L678 234V111Z" fill="#060c12"/>
+  <path d="M634 309L691 361L679 369L625 321Z" fill="#0b141c" fill-opacity=".75"/>
+  <path d="M352 555V91L735 43" stroke="url(#bf-edge)" stroke-width="1.4"/>
+  <path d="M735 43V238L700 285L749 336V552" stroke="url(#bf-light)" stroke-width="2"/>
+  <path d="M412 146L678 111V234L634 274" stroke="url(#bf-light)" stroke-opacity=".8" stroke-width="1.3"/>
+  <path d="M691 361V561" stroke="#c7804d" stroke-opacity=".55"/>
+  <!-- The inset F uses separate faces and bevels so both arms read clearly. -->
+  <path d="M355 225L402 187L631 158L668 195L621 234L455 254V304L553 292L578 316L553 341L455 353V544L407 579L355 570Z" fill="url(#bf-side)"/>
+  <path d="M402 187L631 158L668 195L621 234L455 254V304L553 292L578 316L553 341L455 353V544L402 554Z" fill="url(#bf-f-face)"/>
+  <path d="M402 187L631 158L668 195L657 194L628 167L410 195V552L402 554Z" fill="url(#bf-bevel)"/>
+  <path d="M621 234L668 195L649 214L470 238L455 254Z" fill="#070f16"/>
+  <path d="M455 304L468 314L558 303L553 292Z" fill="url(#bf-f-bevel)"/>
+  <path d="M455 353L468 365V535L455 544Z" fill="#080f16"/>
+  <path d="M402 554L455 544L473 559L417 572Z" fill="url(#bf-f-bevel)"/>
+  <path d="M402 554V187L631 158L668 195L621 234L455 254V304L553 292L578 316L553 341L455 353V544" stroke="url(#bf-edge)" stroke-width="1.2"/>
+  <path d="M402 187L631 158L668 195" stroke="#d4dee0" stroke-opacity=".8" stroke-width="1.4"/>
+  <path d="M455 254V304L553 292" stroke="#fbb27a" stroke-opacity=".6" stroke-width="1.2"/>
+  <path d="M455 353V544" stroke="#ffb77f" stroke-opacity=".65" stroke-width="1.4"/>
+  <path d="M455 353V544" stroke="#fa8d3b" stroke-width="7" stroke-opacity=".14" filter="url(#bf-edge-glow)"/>
+  <!-- A low plinth, contact shadow and diffuse floor spill, without a floating light source. -->
+  <ellipse cx="551" cy="584" rx="230" ry="31" fill="url(#bf-contact)"/>
+  <path d="M267 576L694 548L790 573L356 607Z" fill="url(#bf-plinth)"/>
+  <path d="M267 576V586L356 617V607ZM356 607L790 573V585L356 617Z" fill="#080f16"/>
+  <path d="M267 576L694 548L790 573L356 607Z" stroke="#83969f" stroke-opacity=".28"/>
+  <path d="M278 586L356 613L790 580" stroke="#eda366" stroke-opacity=".25"/>
+</svg>

@@ -1,0 +1,61 @@
+---
+import BrimFrameWordmark from './BrimFrameWordmark.astro';
+import { site, navigation } from '../config/site';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a class="brand-link" href="/">
+          <BrimFrameWordmark />
+          <span class="visually-hidden"> home</span>
+        </a>
+        <p class="footer-tagline">{site.tagline}</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul>
+          {navigation
+            .filter((item) => item.href !== '/')
+            .map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        {`© ${new Date().getFullYear()} ${site.name}.`}
+        <span class="footer-credit">
+          Independent games by {site.developerName}.
+        </span>
+      </p>
+      <nav aria-label="Legal and accessibility">
+        <ul>
+          <li>
+            <a href="/impressum/">Legal Notice / Impressum</a>
+          </li>
+          <li>
+            <a href="/datenschutz/">Privacy</a>
+          </li>
+          <li>
+            <a href="/accessibility/">Accessibility</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    {site.socialLinks.length > 0 && (
+      <nav aria-label="Social links">
+        <ul>
+          {site.socialLinks.map((link) => (
+            <li>
+              <a href={link.url}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+  </div>
+</footer>

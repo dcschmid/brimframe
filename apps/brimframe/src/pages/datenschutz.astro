@@ -1,0 +1,310 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import { legal } from '../config/site';
+import { privacy } from '../config/privacy';
+const authority = privacy.supervisoryAuthority;
+const sections = [
+  ['controller', 'Controller'],
+  ['hosting', 'Hosting'],
+  ['website-access', 'Technical website access'],
+  ['email-contact', 'Contact by email'],
+  ['cookies-tracking', 'Cookies and tracking'],
+  ['retention', 'Data retention'],
+  ['international-transfers', 'International data transfers'],
+  ['your-rights', 'Your rights'],
+  ['right-to-object', 'Right to object'],
+  ['supervisory-authority', 'Supervisory authority'],
+  ['policy-changes', 'Changes to this policy'],
+] as const;
+const updatedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(privacy.updatedDate));
+---
+
+<EditorialLayout
+  title="Privacy Policy"
+  eyebrow="Privacy Information"
+  noindex={!legal.ready}
+  description="How BrimFrame handles website access, Render hosting, email enquiries and your data protection rights."
+  intro="A straightforward explanation of the information involved in visiting this website or contacting me."
+>
+  <nav class="privacy-contents" aria-label="Privacy policy sections">
+    <ol>
+      {sections.map(([id, label]) => (
+        <li>
+          <a href={`#${id}`}>{label}</a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+  <section class="editorial-split" aria-labelledby="controller">
+    <h2 tabindex="-1" id="controller">
+      1. Controller
+    </h2>
+    <div class="prose">
+      <p>
+        The person responsible for processing personal data for BrimFrame is:
+      </p>
+      <address>
+        <div>{legal.businessName}</div>
+        {legal.addressLines.map((line) => (
+          <div>{line}</div>
+        ))}
+        {legal.email && <a href={`mailto:${legal.email}`}>{legal.email}</a>}
+      </address>
+      <p>
+        You can use this contact address for questions or requests about your
+        personal data.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="hosting">
+    <h2 tabindex="-1" id="hosting">
+      2. Hosting
+    </h2>
+    <div class="prose">
+      <p>
+        This website is hosted by {privacy.hosting.name},{' '}
+        {privacy.hosting.country}. It is a static site delivered through
+        Render’s global infrastructure and content delivery network (CDN),
+        rather than a server located exclusively in Germany or the European
+        Union.
+      </p>
+      <p>
+        Render provides a{' '}
+        <a href={privacy.hosting.dpaUrl}>Data Processing Addendum</a>. Render
+        may use subprocessors to provide its hosting infrastructure. The current
+        list is maintained on{' '}
+        <a href={privacy.hosting.subprocessorsUrl}>
+          Render’s security and subprocessors page
+        </a>
+        . Further information is available in{' '}
+        <a href={privacy.hosting.privacyUrl}>Render’s Privacy Policy</a>.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="website-access">
+    <h2 tabindex="-1" id="website-access">
+      3. Technical website access
+    </h2>
+    <div class="prose">
+      <p>
+        Delivering pages securely and reliably requires processing technical
+        connection information. This may include your IP address, the date and
+        time of a request, the requested resource, browser and device
+        information, and other technical request information transmitted by your
+        browser.
+      </p>
+      <p>
+        The legal basis is Art. 6(1)(f) GDPR. My legitimate interest is the
+        secure, reliable and efficient provision of this website. Render may
+        process technical information as required for operation, security and
+        delivery; BrimFrame does not operate application analytics or
+        behavioural tracking.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="email-contact">
+    <h2 tabindex="-1" id="email-contact">
+      4. Contact by email
+    </h2>
+    <div class="prose">
+      <p>
+        If you send me an email, I process your email address, your name if
+        provided, message content, attachments and technical email metadata to
+        respond to your enquiry and communicate with you. Email links open your
+        own email application; this website has no contact form backend.
+      </p>
+      <p>
+        The legal basis for contract-related or pre-contractual enquiries is
+        Art. 6(1)(b) GDPR. For general enquiries, it is Art. 6(1)(f) GDPR: my
+        legitimate interest in responding to people who contact BrimFrame and
+        maintaining normal business communication. Where legal retention
+        obligations apply, processing is based on Art. 6(1)(c) GDPR.
+      </p>
+      <p>
+        The current email service is {privacy.email.name} / murena.io. According
+        to{' '}
+        <a href={privacy.email.infrastructureUrl}>
+          Murena’s published provider information
+        </a>
+        , its email and cloud infrastructure is hosted in the European Union,
+        including Finland.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="cookies-tracking">
+    <h2 tabindex="-1" id="cookies-tracking">
+      5. Cookies and tracking
+    </h2>
+    <div class="prose">
+      <p>
+        This website does not use analytics, advertising trackers,
+        fingerprinting, behavioural profiling or third-party marketing scripts.
+        It sets no cookies and uses no local or session browser storage. Fonts
+        and images are served with the website; there are no external Google
+        Fonts requests or third-party embeds.
+      </p>
+      <p>
+        There is no newsletter service or optional tracking to consent to, so no
+        cookie consent banner is used. If additional services are introduced,
+        their privacy requirements will be reviewed before use.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="retention">
+    <h2 tabindex="-1" id="retention">
+      6. Data retention
+    </h2>
+    <div class="prose">
+      <p>
+        Under BrimFrame’s internal policy, general email enquiries are normally
+        deleted no later than {privacy.generalCorrespondenceRetentionMonths}{' '}
+        months after the matter has been concluded. Longer retention may be
+        necessary for an ongoing business relationship, legal obligations or the
+        establishment, exercise or defence of legal claims. This is my
+        correspondence policy, not a retention period imposed by Murena.
+      </p>
+      <p>
+        Technical information processed by the hosting provider is retained
+        according to its applicable operational and security retention policies.
+        There is no separate BrimFrame analytics database or visitor profiling
+        log.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="international-transfers">
+    <h2 tabindex="-1" id="international-transfers">
+      7. International data transfers
+    </h2>
+    <div class="prose">
+      <p>
+        Render’s global delivery infrastructure means that technical information
+        may be processed outside the European Economic Area, including in the
+        United States. Its published transfer arrangements provide for the
+        EU-U.S. Data Privacy Framework where applicable, and European Commission
+        Standard Contractual Clauses where that framework does not apply or is
+        no longer available.
+      </p>
+      <p>
+        Details of these safeguards are available in{' '}
+        <a href={privacy.hosting.dpaUrl}>Render’s Data Processing Addendum</a>.
+        You can also contact me for information about safeguards relevant to
+        your personal data. Murena’s published email infrastructure information
+        is linked in the email section above.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="your-rights">
+    <h2 tabindex="-1" id="your-rights">
+      8. Your rights
+    </h2>
+    <div class="prose">
+      <p>
+        Depending on the circumstances and applicable GDPR conditions, you can:
+      </p>
+      <ul>
+        <li>
+          Request access to your personal data and information about its use.
+        </li>
+        <li>Ask for inaccurate or incomplete data to be corrected.</li>
+        <li>Request erasure or restriction of processing.</li>
+        <li>Receive eligible data in a portable format.</li>
+        <li>Object to processing based on legitimate interests.</li>
+        <li>
+          Withdraw consent at any time where processing is based on consent,
+          without affecting the lawfulness of processing before withdrawal.
+        </li>
+        <li>
+          Lodge a complaint with a competent data protection supervisory
+          authority.
+        </li>
+      </ul>
+      <p>
+        Please contact me using the controller details above to exercise your
+        rights.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="right-to-object">
+    <h2 tabindex="-1" id="right-to-object">
+      9. Right to object
+    </h2>
+    <div class="prose">
+      <p>
+        Under Art. 21 GDPR, you may object at any time, on grounds relating to
+        your particular situation, to processing based on Art. 6(1)(f) GDPR. I
+        will stop that processing unless compelling legitimate grounds override
+        your interests, rights and freedoms, or the data is needed to establish,
+        exercise or defend legal claims.
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="supervisory-authority">
+    <h2 tabindex="-1" id="supervisory-authority">
+      10. Supervisory authority
+    </h2>
+    <div class="prose">
+      <p>
+        You may lodge a complaint with a competent data protection supervisory
+        authority, including one in the EU country where you live or work or
+        where the alleged infringement occurred. This right is not limited to
+        the authority listed here.
+      </p>
+      <address>
+        <div>{authority.name}</div>
+        {authority.addressLines.map((line) => (
+          <div>{line}</div>
+        ))}
+        <a href={`mailto:${authority.email}`}>{authority.email}</a>
+      </address>
+      <p>
+        <a href={authority.contactUrl}>
+          BayLDA contact information and complaint options
+        </a>
+      </p>
+    </div>
+  </section>
+  <section class="editorial-split" aria-labelledby="policy-changes">
+    <h2 tabindex="-1" id="policy-changes">
+      11. Changes to this policy
+    </h2>
+    <div class="prose">
+      <p>
+        I will update this policy when the website’s services or data processing
+        change. The current version is available on this page.
+      </p>
+      <p>
+        Last updated: <time datetime={privacy.updatedDate}>{updatedDate}</time>.
+      </p>
+    </div>
+  </section>
+</EditorialLayout>
+
+<style>
+  :global(.page-heading h1) {
+    font-size: clamp(2.1rem, 6vw, 5rem);
+  }
+  .privacy-contents {
+    padding-bottom: 3.5rem;
+  }
+  .privacy-contents ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    column-gap: 3rem;
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+  .privacy-contents a {
+    display: inline-block;
+    min-height: 44px;
+    padding-block: 0.5rem;
+    overflow-wrap: anywhere;
+  }
+  address {
+    margin-bottom: 1.5rem;
+  }
+</style>

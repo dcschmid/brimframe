@@ -1,0 +1,38 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import GameSpotlight from '../components/GameSpotlight.astro';
+import ContactCallout from '../components/ContactCallout.astro';
+import { games } from '../config/games';
+---
+
+<SiteLayout
+  title="Games"
+  description="Riff Racers is the first game from Daniel Schmid’s solo studio BrimFrame: an arcade racer with shortcuts and jumps, currently in development."
+>
+  <div class="container page-heading games-heading">
+    <p class="eyebrow">
+      <span class="accent-line" aria-hidden="true"></span>BrimFrame Games
+    </p>
+    <h1>
+      What I’m
+      <br />
+      making.
+    </h1>
+    <p class="page-intro">
+      Riff Racers is BrimFrame’s first game. I’m working on it now.
+    </p>
+  </div>
+  <section class="container game-page-list" aria-label="BrimFrame games">
+    {games.map((game) => (
+      <GameSpotlight game={game} />
+    ))}
+  </section>
+  <div class="container game-afterword">
+    <p class="eyebrow">Different Games. New Worlds. Same Passion.</p>
+    <p>
+      BrimFrame gives me room to try other genres later. For now, I have one
+      game to finish.
+    </p>
+  </div>
+  <ContactCallout />
+</SiteLayout>

@@ -1,0 +1,54 @@
+---
+import Wordmark from '../assets/brand/wordmark.svg';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<span class:list={['wordmark', { compact }]}>
+  <span class="visually-hidden">BRIMFRAME</span>
+  <Wordmark class="wordmark-graphic" aria-hidden="true" focusable="false" />
+  {!compact && <span class="wordmark-caption">Independent Games</span>}
+</span>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    width: var(--wordmark-width);
+    max-width: 100%;
+    color: var(--text);
+    container-type: inline-size;
+  }
+  .wordmark :global(.wordmark-graphic) {
+    width: 100%;
+    height: auto;
+  }
+  .wordmark-caption {
+    margin-top: 0.5rem;
+    /* Scales with the wordmark but never drops below 12px. */
+    font-size: clamp(0.75rem, 4.2cqi, 0.8125rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    text-align: center;
+    text-wrap: balance;
+    /* Offset the trailing letter-space so the caption centres optically. */
+    padding-left: 0.26em;
+  }
+  @media (max-width: 47.99rem) {
+    .wordmark-caption {
+      letter-spacing: 0.14em;
+      padding-left: 0.14em;
+    }
+  }
+  @media (max-width: 25rem) {
+    .wordmark-caption {
+      letter-spacing: 0.08em;
+      padding-left: 0.08em;
+    }
+  }
+</style>

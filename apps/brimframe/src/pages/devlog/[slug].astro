@@ -1,0 +1,113 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getPublishedPosts, formatDate } from '../../utils/devlog';
+import { site } from '../../config/site';
+export async function getStaticPaths() {
+  return (await getPublishedPosts()).map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+interface Props {
+  post: CollectionEntry<'devlog'>;
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const posts = await getPublishedPosts();
+const index = posts.findIndex((entry) => entry.id === post.id);
+const newer = posts[index - 1];
+const older = posts[index + 1];
+const metadata = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  ...(post.data.updatedDate
+    ? { dateModified: post.data.updatedDate.toISOString() }
+    : {}),
+  ...(post.data.heroImage
+    ? { image: new URL(post.data.heroImage.src, site.url).href }
+    : {}),
+  author: { '@type': 'Person', name: site.developerName },
+  publisher: { '@type': 'Organization', name: site.name, url: site.url },
+  mainEntityOfPage: new URL(`/devlog/${post.id}/`, site.url).href,
+};
+---
+
+<SiteLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  structuredData={metadata}
+  breadcrumbs={[
+    { name: 'Home', path: '/' },
+    { name: 'Devlog', path: '/devlog/' },
+    { name: post.data.title },
+  ]}
+>
+  <article class="container article-page">
+    <header class="article-heading">
+      <a class="text-link" href="/devlog/">
+        <span aria-hidden="true">←</span> Back to the devlog
+      </a>
+      <p class="eyebrow">From the Studio</p>
+      <h1>{post.data.title}</h1>
+      <p class="page-intro">{post.data.description}</p>
+      <div class="article-meta">
+        <span>By {site.developerName}</span>
+        <time datetime={post.data.publishDate.toISOString()}>
+          {formatDate(post.data.publishDate)}
+        </time>
+        {post.data.updatedDate && (
+          <span>
+            Updated{' '}
+            <time datetime={post.data.updatedDate.toISOString()}>
+              {formatDate(post.data.updatedDate)}
+            </time>
+          </span>
+        )}
+      </div>
+      {post.data.tags.length > 0 && (
+        <ul class="tags" aria-label="Topics">
+          {post.data.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+    {post.data.heroImage && (
+      <Picture
+        class="article-image"
+        src={post.data.heroImage}
+        alt={post.data.heroImageAlt ?? ''}
+        widths={[480, 800, 1200]}
+        sizes="(max-width: 768px) 100vw, 800px"
+        formats={['avif', 'webp', 'png']}
+        loading="eager"
+        fetchpriority="high"
+      />
+    )}
+    <div class="prose article-content">
+      <Content />
+    </div>
+    {(newer || older) && (
+      <nav class="article-navigation" aria-label="Other devlog updates">
+        {newer && (
+          <a href={`/devlog/${newer.id}/`}>
+            <span>Newer update</span>
+            {newer.data.title}
+          </a>
+        )}
+        {older && (
+          <a href={`/devlog/${older.id}/`}>
+            <span>Older update</span>
+            {older.data.title}
+          </a>
+        )}
+      </nav>
+    )}
+  </article>
+</SiteLayout>

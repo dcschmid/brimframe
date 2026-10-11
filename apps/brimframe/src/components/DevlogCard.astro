@@ -1,0 +1,40 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils/devlog';
+interface Props {
+  post: CollectionEntry<'devlog'>;
+  wide?: boolean;
+}
+const { post, wide = false } = Astro.props;
+---
+
+<article class="devlog-card">
+  {post.data.heroImage && (
+    <Picture
+      src={post.data.heroImage}
+      alt={post.data.heroImageAlt ?? ''}
+      widths={[480, 800, 1200]}
+      sizes={
+        wide
+          ? '(min-width: 1280px) 1184px, calc(100vw - 5rem)'
+          : '(min-width: 1280px) 384px, (min-width: 768px) 45vw, calc(100vw - 5rem)'
+      }
+      formats={['avif', 'webp', 'png']}
+      loading="lazy"
+      class="devlog-image"
+    />
+  )}
+  <p class="article-meta">
+    <time datetime={post.data.publishDate.toISOString()}>
+      {formatDate(post.data.publishDate)}
+    </time>
+  </p>
+  <h3>
+    <a href={`/devlog/${post.id}/`}>
+      {post.data.title}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </h3>
+  <p>{post.data.description}</p>
+</article>

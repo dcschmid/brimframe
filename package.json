@@ -1,0 +1,35 @@
+{
+  "name": "brimframe-workspace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "pnpm": "10.33.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @brimframe/studio dev",
+    "build": "pnpm --filter @brimframe/studio build",
+    "preview": "pnpm --filter @brimframe/studio preview",
+    "check": "pnpm --filter @brimframe/studio check && tsc -p tsconfig.tools.json",
+    "typecheck": "pnpm check",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "playwright test",
+    "validate:render": "node scripts/validate-render.mjs",
+    "validate": "pnpm lint && pnpm check && pnpm build && pnpm test && pnpm test:e2e && pnpm validate:render"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.19.2",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "cheerio": "1.2.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "5.9.3",
+    "yaml": "2.9.1"
+  }
+}

@@ -1,0 +1,63 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SEO from '../components/SEO.astro';
+import { site } from '../config/site';
+import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import orbitronFont from '@fontsource-variable/orbitron/files/orbitron-latin-wght-normal.woff2?url';
+import '../styles/global.css';
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  structuredData?: Record<string, unknown>;
+  breadcrumbs?: { name: string; path?: string }[];
+  language?: string;
+  /** Preload the display face; only pages that actually use it should. */
+  displayFont?: boolean;
+}
+const { language = site.language, displayFont = false, ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B0F14" />
+    <SEO {...seo} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} Devlog`}
+      href="/rss.xml"
+    />
+    <link
+      rel="preload"
+      href={interFont}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    {displayFont && (
+      <link
+        rel="preload"
+        href={orbitronFont}
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+    )}
+  </head>
+  <body>
+    <SiteHeader />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

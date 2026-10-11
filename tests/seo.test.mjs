@@ -1,0 +1,147 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile, stat } from 'node:fs/promises';
+import path from 'node:path';
+import { load } from 'cheerio';
+
+const root = path.resolve('apps/brimframe/dist');
+const read = (p) => readFile(path.join(root, p), 'utf8');
+
+test('robots.txt ships and points crawlers at the sitemap', async () => {
+  const robots = await read('robots.txt');
+  assert.match(robots, /User-agent: \*\nAllow: \//);
+  assert.match(robots, /Sitemap: https:\/\/brimframe\.de\/sitemap-index\.xml/);
+});
+
+test('RSS feed is valid and excludes drafts; items carry absolute links', async () => {
+  const feed = await read('rss.xml');
+  const $ = load(feed, { xmlMode: true });
+  assert.equal($('channel > title').text(), 'BrimFrame Devlog');
+  assert.equal($('channel > language').text(), 'en');
+  assert.ok(
+    $('item').length === 0 || $('item > link').length === $('item').length,
+  );
+  const links = $('item > link')
+    .toArray()
+    .map((el) => $(el).text());
+  assert.ok(
+    !links.some((l) => l.includes('authoring-example')),
+    'drafts must not appear in the feed',
+  );
+  for (const link of links) {
+    assert.match(link, /^https:\/\/brimframe\.de\/devlog\/[a-z0-9-]+\/$/);
+  }
+});
+
+test('every indexable page carries canonical, og:image and twitter card', async () => {
+  for (const p of ['index.html', 'games/index.html', 'devlog/index.html']) {
+    const $ = load(await read(p));
+    assert.equal($('link[rel="canonical"]').length, 1, p);
+    assert.match(
+      $('link[rel="canonical"]').attr('href'),
+      /^https:\/\/brimframe\.de\//,
+      p,
+    );
+    assert.equal($('meta[property="og:image"]').length, 1, p);
+    assert.match(
+      $('meta[property="og:image"]').attr('content'),
+      /og-image\.png$/,
+      p,
+    );
+    assert.equal(
+      $('meta[property="og:image:width"]').attr('content'),
+      '1200',
+      p,
+    );
+    assert.equal(
+      $('meta[property="og:image:height"]').attr('content'),
+      '630',
+      p,
+    );
+    assert.ok($('meta[property="og:image:alt"]').attr('content').length > 0, p);
+    assert.equal(
+      $('meta[name="twitter:card"]').attr('content'),
+      'summary_large_image',
+      p,
+    );
+    assert.equal(
+      $('link[rel="alternate"][type="application/rss+xml"]').length,
+      1,
+      p,
+    );
+    assert.equal($('link[rel="sitemap"]').length, 1, p);
+    const blocks = $('script[type="application/ld+json"]')
+      .toArray()
+      .map((el) =>
+        JSON.parse(
+          $(el)
+            .html()
+            .replace(/\\u003c/g, '<'),
+        ),
+      );
+    assert.ok(
+      blocks.some((b) => b['@type'] === 'Organization'),
+      p,
+    );
+  }
+});
+
+test('devlog articles emit Article and BreadcrumbList JSON-LD', async () => {
+  const feed = await read('rss.xml');
+  const $ = load(feed, { xmlMode: true });
+  const links = $('item > link')
+    .toArray()
+    .map((el) => $(el).text());
+  for (const link of links) {
+    const slug = link.split('/').filter(Boolean).pop();
+    const page = load(await read(`devlog/${slug}/index.html`));
+    const blocks = page('script[type="application/ld+json"]')
+      .toArray()
+      .map((el) =>
+        JSON.parse(
+          page(el)
+            .html()
+            .replace(/\\u003c/g, '<'),
+        ),
+      );
+    const article = blocks.find((b) => b['@type'] === 'Article');
+    const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList');
+    assert.ok(article, `${link}: needs Article JSON-LD`);
+    assert.ok(article.datePublished, `${link}: datePublished`);
+    assert.ok(crumbs, `${link}: needs BreadcrumbList JSON-LD`);
+    assert.deepEqual(
+      crumbs.itemListElement.map((e) => e.position),
+      [1, 2, 3],
+      `${link}: three crumbs`,
+    );
+    assert.equal(
+      crumbs.itemListElement[1].item,
+      'https://brimframe.de/devlog/',
+      `${link}: devlog crumb`,
+    );
+    assert.equal(
+      crumbs.itemListElement[2].item,
+      undefined,
+      `${link}: last crumb carries no item`,
+    );
+  }
+});
+
+test('404 page is noindexed and has no canonical', async () => {
+  const $ = load(await read('404.html'));
+  assert.match($('meta[name="robots"]').attr('content'), /^noindex/);
+  assert.equal($('link[rel="canonical"]').length, 0);
+});
+
+test('OG image is a real 1200x630 PNG within social-card size budget', async () => {
+  const { createRequire } = await import('node:module');
+  const sharp = createRequire(import.meta.url)(
+    '../apps/brimframe/node_modules/sharp',
+  );
+  const meta = await sharp(path.join(root, 'og-image.png')).metadata();
+  assert.equal(meta.format, 'png');
+  assert.equal(meta.width, 1200);
+  assert.equal(meta.height, 630);
+  const { size } = await stat(path.join(root, 'og-image.png'));
+  assert.ok(size < 300 * 1024, `og-image.png too large: ${size}`);
+});

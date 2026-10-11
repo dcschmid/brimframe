@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brimframe.de/sitemap-index.xml

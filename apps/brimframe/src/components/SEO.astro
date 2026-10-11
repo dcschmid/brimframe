@@ -1,0 +1,82 @@
+---
+import { site } from '../config/site';
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  image?: string;
+  type?: 'website' | 'article';
+  structuredData?: Record<string, unknown>;
+  breadcrumbs?: { name: string; path?: string }[];
+}
+const {
+  title,
+  description = site.description,
+  noindex = false,
+  image = site.socialImage,
+  type = 'website',
+  structuredData,
+  breadcrumbs,
+} = Astro.props;
+const fullTitle =
+  title === site.name
+    ? `${site.name} — Independent Games`
+    : `${title} — ${site.name}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const socialImage = image ? new URL(image, site.url).href : null;
+const metadata = structuredData ?? {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  ...(site.socialLinks.length > 0
+    ? { sameAs: site.socialLinks.map((link) => link.url) }
+    : {}),
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+{!noindex && <link rel="canonical" href={canonical} />}
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:type" content={type} />
+{socialImage && (
+  <>
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
+  </>
+)}
+<meta
+  name="twitter:card"
+  content={socialImage ? 'summary_large_image' : 'summary'}
+/>
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+{socialImage && <meta name="twitter:image" content={socialImage} />}
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(metadata).replace(/</g, '\\u003c')}
+/>
+{breadcrumbs && breadcrumbs.length > 0 && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: crumb.name,
+        ...(crumb.path ? { item: new URL(crumb.path, site.url).href } : {}),
+      })),
+    }).replace(/</g, '\\u003c')}
+  />
+)}

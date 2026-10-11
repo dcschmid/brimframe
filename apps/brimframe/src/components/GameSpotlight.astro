@@ -1,0 +1,288 @@
+---
+import { Picture } from 'astro:assets';
+import LinkButton from './LinkButton.astro';
+import type { Game } from '../config/games';
+interface Props {
+  game: Game;
+  headingLevel?: 'h2' | 'h3';
+}
+const { game, headingLevel: Heading = 'h2' } = Astro.props;
+---
+
+<article class="game-spotlight" aria-labelledby={`${game.id}-title`}>
+  <div class="game-visual">
+    {game.artwork ? (
+      <Picture
+        src={game.artwork}
+        alt={game.artworkAlt}
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        formats={['avif', 'webp', 'png']}
+        quality={90}
+        loading="lazy"
+      />
+    ) : (
+      <div class="track-lines" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+    )}
+    <div class="game-identity">
+      <p class="eyebrow">BrimFrame Presents</p>
+      {game.logo ? (
+        <Picture
+          src={game.logo}
+          width={900}
+          widths={[240, 360, 540, 720, 900, 1350]}
+          sizes="(min-width: 1280px) 448px, (min-width: 768px) 41vw, (min-width: 540px) 448px, calc(100vw - 96px)"
+          formats={['avif', 'webp', 'png']}
+          fallbackFormat="png"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="game-logo"
+        />
+      ) : (
+        <p class="game-title-text">{game.title}</p>
+      )}
+    </div>
+  </div>
+  <div class="game-details">
+    <div class="game-labels">
+      <span>{game.genre}</span>
+      {game.status && (
+        <span class="status">
+          <span aria-hidden="true" />
+          {game.status}
+        </span>
+      )}
+    </div>
+    <Heading id={`${game.id}-title`}>{game.title}</Heading>
+    <p>{game.description}</p>
+    <div class="game-site-action">
+      {game.gameSiteUrl ? (
+        <LinkButton href={game.gameSiteUrl} arrow>
+          Visit the {game.title} website
+        </LinkButton>
+      ) : (
+        <p class="game-site-status">Dedicated game site in development.</p>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .game-spotlight {
+    --card-pad: clamp(1.75rem, 4vw, 3rem);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    background: #10161d;
+    color: var(--text);
+    border-radius: var(--radius);
+    overflow: hidden;
+    /* Tucked, layered depth: a tight contact shadow plus two wide, soft ones
+       with negative spread so the card sits in the page rather than floating. */
+    box-shadow:
+      0 1px 2px #0b0f1410,
+      0 0.75rem 1.5rem -0.75rem #0b0f1426,
+      0 2.5rem 5rem -2.5rem #0b0f1438;
+  }
+  /* One continuous hairline above both panels, so the edge reads as a single object. */
+  .game-spotlight::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 1px solid #ffffff1c;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .game-visual {
+    position: relative;
+    isolation: isolate;
+    min-height: 23rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 15% 90%, #244b8230, transparent 65%),
+      radial-gradient(ellipse at 85% 15%, #8849361c, transparent 55%),
+      linear-gradient(140deg, #111923, #090e16 70%);
+  }
+  .game-visual::before,
+  .game-visual::after {
+    content: '';
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    pointer-events: none;
+    border-color: #a4b5ce40;
+    border-style: solid;
+  }
+  .game-visual::before {
+    left: calc(var(--card-pad) - 1.25rem);
+    top: calc(var(--card-pad) - 1.25rem);
+    border-width: 1px 0 0 1px;
+  }
+  .game-visual::after {
+    right: calc(var(--card-pad) - 1.25rem);
+    bottom: calc(var(--card-pad) - 1.25rem);
+    border-width: 0 1px 1px 0;
+  }
+  .game-visual > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.7;
+  }
+  .game-identity {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--card-pad);
+    overflow-wrap: anywhere;
+  }
+  /* Same top edge and left edge as the labels in the details panel. */
+  .game-identity .eyebrow {
+    align-self: flex-start;
+    margin: 0;
+    color: var(--text);
+    letter-spacing: 0.16em;
+  }
+  .game-title-text {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    margin: auto;
+    padding-block: 2rem;
+    text-align: center;
+    letter-spacing: -0.05em;
+  }
+  .game-logo {
+    width: min(100%, 28rem);
+    height: auto;
+    margin: auto;
+    padding-block: 2rem 1rem;
+    box-sizing: content-box;
+    object-fit: contain;
+  }
+  .track-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .track-lines span {
+    position: absolute;
+    width: 120%;
+    height: 6rem;
+    border: 1px solid #6379a12b;
+    transform: rotate(-24deg);
+    top: 62%;
+    left: -12%;
+  }
+  .track-lines span:nth-child(2) {
+    top: 69%;
+    height: 4rem;
+    border-color: #b3744f20;
+  }
+  .track-lines span:nth-child(3) {
+    top: 78%;
+    height: 2rem;
+  }
+  .game-details {
+    padding: var(--card-pad);
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #ffffff14;
+    background: linear-gradient(160deg, #19212a, #131a21 72%);
+  }
+  .game-labels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    margin-bottom: auto;
+    font-size: var(--fs-label);
+    line-height: 1.6;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    max-width: 100%;
+    color: var(--text-soft);
+  }
+  .status > span {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .game-details h2,
+  .game-details h3 {
+    font-size: clamp(2rem, 3.2vw, 2.75rem);
+    line-height: 1.1;
+    margin-block: 2.25rem 1rem;
+  }
+  .game-details > p {
+    color: var(--muted);
+    font-size: var(--fs-body);
+    max-width: 38ch;
+    margin-bottom: 2.25rem;
+    overflow-wrap: anywhere;
+  }
+  .game-site-action {
+    border-top: 1px solid #ffffff1f;
+    margin-top: auto;
+    padding-top: 1.25rem;
+  }
+  .game-site-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: var(--fs-ui);
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 47.99rem) {
+    .game-spotlight {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .game-visual {
+      min-height: 17rem;
+    }
+    .game-details {
+      border-left: 0;
+      border-top: 1px solid #ffffff14;
+    }
+    .game-labels {
+      margin-bottom: 0;
+    }
+    .game-details h2,
+    .game-details h3 {
+      margin-block: 1.5rem 0.75rem;
+    }
+    .game-details > p {
+      margin-bottom: 1.75rem;
+    }
+  }
+  @media (forced-colors: active) {
+    .game-spotlight {
+      border: 1px solid CanvasText;
+    }
+  }
+</style>

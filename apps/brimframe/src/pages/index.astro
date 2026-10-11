@@ -1,0 +1,85 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Hero from '../components/Hero.astro';
+import GameSpotlight from '../components/GameSpotlight.astro';
+import Values from '../components/Values.astro';
+import DevlogList from '../components/DevlogList.astro';
+import ContactCallout from '../components/ContactCallout.astro';
+import { games } from '../config/games';
+import { site } from '../config/site';
+import { getPublishedPosts } from '../utils/devlog';
+const posts = (await getPublishedPosts()).slice(0, 3);
+---
+
+<SiteLayout title={site.name} displayFont>
+  <Hero />
+  <section
+    id="our-games"
+    class="section light-section"
+    aria-labelledby="games-title"
+  >
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / Games</p>
+          <h2 id="games-title">The first game: Riff Racers.</h2>
+        </div>
+        <a class="text-link" href="/games/">
+          About Riff Racers <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      {games.slice(0, 1).map((game) => (
+        <GameSpotlight game={game} headingLevel="h3" />
+      ))}
+    </div>
+  </section>
+  <section class="section studio-section" aria-labelledby="about-title">
+    <div class="container studio-grid">
+      <p class="eyebrow">02 / The Studio</p>
+      <h2 id="about-title">
+        A solo studio.
+        <br />
+        Room for different games.
+      </h2>
+      <div class="studio-copy">
+        <p class="lead">{site.studioIntroduction}</p>
+        <p>
+          Riff Racers is where I’m starting. I chose the BrimFrame name so a
+          future game could take a different direction.
+        </p>
+        <a class="text-link" href="/about/">
+          Read the BrimFrame story <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="section values-section" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">03 / The Approach</p>
+          <h2 id="values-title">What I try to get right.</h2>
+        </div>
+      </div>
+      <Values />
+    </div>
+  </section>
+  <section
+    class:list={['section notes-section', { 'is-empty': posts.length === 0 }]}
+    aria-labelledby="devlog-title"
+  >
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">04 / From the Studio</p>
+          <h2 id="devlog-title">Development notes.</h2>
+        </div>
+        <a class="text-link" href="/devlog/">
+          Read the Devlog <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <DevlogList posts={posts} />
+    </div>
+  </section>
+  <ContactCallout />
+</SiteLayout>

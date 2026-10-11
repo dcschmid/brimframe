@@ -1,0 +1,188 @@
+---
+import HeroArtwork from './HeroArtwork.astro';
+import LinkButton from './LinkButton.astro';
+import { site } from '../config/site';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-content">
+    <p class="eyebrow">
+      <span class="accent-line" aria-hidden="true"></span>
+      <span class="eyebrow-label">
+        Independent Solo Game Studio&nbsp;· Germany
+      </span>
+    </p>
+    <h1 id="hero-title">
+      <span>Different Games.</span>
+      <span>New Worlds.</span>
+      <span class="hero-last-line">Same Passion.</span>
+    </h1>
+    <p class="hero-description">
+      I’m {site.developerName}, a solo game developer in Germany. I’m currently
+      making Riff Racers, the first game from BrimFrame.
+    </p>
+    <div class="button-group">
+      <LinkButton href="/games/" arrow>
+        Explore Games
+      </LinkButton>
+      <LinkButton href="/about/" variant="secondary">
+        About BrimFrame
+      </LinkButton>
+    </div>
+  </div>
+  <slot name="artwork">
+    <HeroArtwork />
+  </slot>
+  <div class="container hero-footnote">
+    <span>Currently developing Riff Racers.</span>
+    <a href="#our-games">
+      See Riff Racers <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes line-grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes footnote-nudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+  .hero {
+    position: relative;
+    isolation: isolate;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-content {
+    position: relative;
+    padding-block: clamp(4.5rem, 8vw, 7.5rem) 0;
+  }
+  .hero-content > .eyebrow,
+  .hero-content h1 span,
+  .hero-description,
+  .hero-content .button-group,
+  .hero-footnote {
+    animation: hero-rise 700ms ease-out both;
+  }
+  .hero-content > .eyebrow {
+    animation-delay: 40ms;
+  }
+  .accent-line {
+    transform-origin: left;
+    animation: line-grow 600ms ease-out 220ms both;
+  }
+  h1 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: clamp(2rem, 4.8vw, 4.25rem);
+    line-height: 1.14;
+    letter-spacing: -0.045em;
+    max-width: 17ch;
+    font-weight: 600;
+  }
+  h1 span {
+    display: block;
+  }
+  h1 span:nth-of-type(1) {
+    animation-delay: 160ms;
+  }
+  h1 span:nth-of-type(2) {
+    animation-delay: 280ms;
+  }
+  h1 span:nth-of-type(3) {
+    animation-delay: 400ms;
+  }
+  .hero-last-line {
+    color: var(--accent-soft);
+    text-shadow: 0 0 34px #f973163d;
+  }
+  .hero-description {
+    max-width: 52ch;
+    color: var(--text-soft);
+    font-size: clamp(1.0625rem, 1.35vw, 1.1875rem);
+    line-height: 1.7;
+    text-wrap: pretty;
+    margin: 1.75rem 0 2.25rem;
+    animation-delay: 520ms;
+  }
+  .hero-content .button-group {
+    animation-delay: 620ms;
+  }
+  .hero-footnote {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: clamp(3.5rem, 6vw, 6rem);
+    padding-bottom: 1.5rem;
+    animation-delay: 740ms;
+    color: var(--muted);
+    font-size: var(--fs-small);
+    letter-spacing: 0.04em;
+  }
+  .hero-footnote a > span {
+    animation: footnote-nudge 2.4s ease-in-out 1.4s infinite;
+  }
+  .hero-footnote a {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    min-height: 44px;
+  }
+  .hero-footnote > span {
+    align-self: center;
+  }
+  @media (min-width: 48rem) and (max-width: 74.99rem) {
+    .hero-description {
+      max-width: 38ch;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .hero-content {
+      padding-top: 3.5rem;
+    }
+    .hero-footnote {
+      margin-top: 0.5rem;
+    }
+  }
+  @media (max-width: 30rem) {
+    .button-group :global(.button) {
+      width: 100%;
+      justify-content: space-between;
+    }
+    h1 {
+      font-size: clamp(1.85rem, 6.65vw, 2.75rem);
+    }
+    .hero-description {
+      font-size: 1.0625rem;
+    }
+    .hero-footnote {
+      flex-wrap: wrap;
+    }
+    .hero-footnote > span {
+      display: none;
+    }
+  }
+</style>

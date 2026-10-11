@@ -1,0 +1,41 @@
+---
+import SiteLayout from './SiteLayout.astro';
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  intro: string;
+  noindex?: boolean;
+  language?: string;
+  displayFont?: boolean;
+}
+const {
+  title,
+  description,
+  eyebrow,
+  intro,
+  noindex = false,
+  language,
+  displayFont = false,
+} = Astro.props;
+---
+
+<SiteLayout
+  title={title}
+  description={description}
+  noindex={noindex}
+  displayFont={displayFont}
+  {...(language ? { language } : {})}
+>
+  <div class="page-heading container">
+    <p class="eyebrow">
+      <span class="accent-line" aria-hidden="true"></span>
+      {eyebrow}
+    </p>
+    <h1>{title}</h1>
+    <p class="page-intro">{intro}</p>
+  </div>
+  <div class="editorial-body container">
+    <slot />
+  </div>
+</SiteLayout>
