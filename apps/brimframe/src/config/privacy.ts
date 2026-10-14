@@ -1,7 +1,7 @@
 // Provider information was checked against the linked official sources.
 // Reassess this notice when accounts, providers or website services change.
 export const privacy = {
-  updatedDate: '2026-10-11',
+  updatedDate: '2026-10-14',
   generalCorrespondenceRetentionMonths: 12,
   hosting: {
     name: 'Render Services, Inc.',

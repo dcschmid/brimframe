@@ -15,6 +15,8 @@ export default defineConfig({
   projects: [{ name: 'firefox', use: { ...devices['Desktop Firefox'] } }],
   webServer: {
     command: 'pnpm preview',
+    // Playwright owns this process; Astro must keep it in the foreground.
+    env: { ASTRO_PREVIEW_BACKGROUND: '0' },
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 30000,

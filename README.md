@@ -233,8 +233,8 @@ Articles with screenshots use `.mdx`: import `Picture` from `astro:assets` and
 the images from `src/assets/devlog/<post>/` after the frontmatter, then place
 each figure as `<figure class="devlog-figure">` with the `Picture`, a real
 `<figcaption>`, meaningful `alt`, explicit `widths`/`sizes`, and lazy loading.
-Originals stay byte-identical in `src/assets/` and are never served; the build
-emits responsive AVIF/WebP/PNG derivatives for them.
+Prepared sources stay in `src/assets/` and are never served; the build emits
+responsive AVIF/WebP derivatives with PNG or JPEG fallbacks.
 
 ## SEO, accessibility and privacy
 
@@ -260,7 +260,12 @@ styles. The mobile menu enhances an always-available HTML navigation list;
 without JavaScript the links remain visible. Escape closes the enhanced menu
 and returns focus to its button. There is no focus trap, autoplay or flashing.
 
-The application adds no trackers, external embeds, cookies or local storage.
+The application adds no trackers, cookies or local storage. Devlog videos reuse
+`VideoEmbed.astro`: a local responsive poster, keyboard-accessible Play control,
+visible title and privacy notice. No YouTube iframe, thumbnail or preconnection
+loads before Play. That click creates one `youtube-nocookie.com` iframe with
+autoplay; the direct YouTube link also works without JavaScript. Consent is not
+stored between pages. The Privacy page describes this optional external content.
 This does not certify GDPR compliance. The V1 Privacy page explains Render
 static hosting and technical request processing, Murena email contact, legal
 bases, international transfers, retention and data subject rights. Provider

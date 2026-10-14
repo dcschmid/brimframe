@@ -1,0 +1,308 @@
+---
+title: 'Razorline Riot – Faster, Tighter, Meaner'
+description: 'Razorline Riot is the second rebuilt track for Riff Racers — a tighter, faster and more aggressive circuit built around hard drifts, industrial hazards, a risky shortcut and a jump that rewards commitment. Here’s how it went from an old demo layout to a finished track.'
+publishDate: 2026-10-14T16:00:00Z
+heroImage: '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-arena-hero.png'
+heroImageAlt: 'Karts racing through the Riot Arena between packed grandstands, flame towers and ramps beneath a purple skyline.'
+tags: ['riff-racers', 'development', 'razorline-riot', 'track-design']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import arena from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-arena-hero.png';
+import knifeAlley from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-knife-alley.png';
+import razorBridge from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-razor-bridge.png';
+import corePit from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-core-pit-hazards.png';
+import riskJump from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-risk-jump.png';
+import outerRing from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-outer-ring.png';
+import pitlane from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-pitlane.png';
+import finale from '../../assets/devlog/2026-10-razorline-riot/riff-racers-devlog-razorline-riot-finale.png';
+
+After finishing [Iron Chorus](/devlog/riff-racers-iron-chorus-reworked/), I knew the second track couldn’t just be more of the same.
+
+Iron Chorus is loud, heavy and theatrical. It feels like racing straight through a metal festival and an industrial complex at the same time. For the next track in [Riff Racers](/games/#riff-racers-title), I wanted something different — faster, tighter and a little less forgiving.
+
+That became **Razorline Riot**.
+
+The idea was simple enough at the beginning: take the energy of thrash metal and punk, turn it into a race track, and make the player feel like they’re constantly being pushed forward.
+
+Getting there was anything but simple.
+
+<VideoEmbed
+  videoId="wDDfm4oY-no"
+  title="Riff Racers – Razorline Riot Track Showcase"
+  poster={arena}
+  posterAlt="Karts racing through the Riot Arena between packed grandstands and flame towers."
+  fallbackUrl="https://www.youtube.com/watch?v=wDDfm4oY-no"
+/>
+
+## Starting over instead of patching the old track
+
+Razorline Riot already existed in the original demo, but fairly early on I decided not to keep rebuilding around the old layout.
+
+I did the same thing with Iron Chorus, and it turned out to be the right decision there too.
+
+So instead of asking how I could improve the old version, I started with a much more useful question:
+
+**What should Razorline Riot actually feel like to drive?**
+
+The answer was very different from Iron Chorus.
+
+I wanted shorter sight lines, harder direction changes, corners that reward a clean drift, tighter spaces and more moments where taking the fastest line also means taking a little more risk.
+
+The track gradually settled into a series of distinct areas: the Riot Arena around the start and finish, the tight Knife Alley section, the elevated Razor Bridge, the mechanical Core Pit, a risky shortcut, the faster outer ring and finally the run back into the arena.
+
+That structure became the backbone for everything that followed.
+
+<figure class="devlog-figure">
+  <Picture
+    src={knifeAlley}
+    alt="Karts cornering through Knife Alley beneath steel gantries, with large chevrons and drift marks on the road."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    Knife Alley: short sight lines, tight corners and very little time to
+    settle.
+  </figcaption>
+</figure>
+
+## Making the track feel fast without just adding straights
+
+One thing I really wanted to avoid was creating speed simply by making the track wider and filling it with long straights.
+
+Razorline Riot is supposed to feel fast because you’re busy.
+
+You’re setting up the next corner while exiting the previous one. You’re deciding whether to keep momentum or brake for a cleaner line. You’re trying to judge whether the risky route is worth taking this lap.
+
+That was also why the lap time mattered.
+
+The final track sits roughly in the range I was aiming for, with a normal lap landing around the low one-minute-and-teens depending on how cleanly you drive.
+
+It feels substantial without becoming a long endurance lap.
+
+More importantly, most of that time is spent actually driving rather than waiting for the next interesting part.
+
+<figure class="devlog-figure">
+  <Picture
+    src={razorBridge}
+    alt="A red kart approaching Razor Bridge’s steel pylon and suspension cables above the industrial skyline."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    Razor Bridge takes the racing line above the industrial sections below.
+  </figcaption>
+</figure>
+
+## The shortcut needed to be more than another road
+
+The shortcut was one of the parts that took the most iteration.
+
+At first, it technically worked, but it still looked and felt like an alternate road that had been attached to the main track afterwards.
+
+That wasn’t good enough.
+
+I wanted the choice to make sense before you even reached it.
+
+The final version opens naturally out of the main route. The barriers and road geometry separate, the line becomes narrower, and the shortcut gradually turns into something more dangerous.
+
+And then comes the jump.
+
+The jump was important because it finally gave the shortcut a proper **risk versus reward** identity. A clean approach can save time. Get the entry wrong, miss the landing or carry the wrong speed and the safer route suddenly looks like the smarter option.
+
+That’s much closer to what I originally wanted Razorline Riot to be.
+
+<figure class="devlog-figure">
+  <Picture
+    src={riskJump}
+    alt="A red kart airborne over flames and machinery, aiming for the shortcut’s narrow yellow landing platform."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The shortcut’s jump. A clean approach saves time; the landing still needs to
+    be right.
+  </figcaption>
+</figure>
+
+## Giving the track some teeth
+
+Another thing that was missing for quite a while was actual danger.
+
+The track looked aggressive, but most of that aggression was visual.
+
+So during the later passes I started adding hazards that belong to the environment rather than feeling like random obstacles placed on the road.
+
+The Core Pit was an obvious place for this. Machinery, moving industrial elements and other trackside hazards now make that part of the lap feel meaningfully different from the faster outdoor sections.
+
+I’ve tried to keep these hazards readable and predictable. I don’t want Razorline Riot to become an obstacle course where the player gets hit by something they couldn’t reasonably see.
+
+The goal is that you notice a danger, learn its rhythm and eventually start exploiting that knowledge to carry more speed through the section.
+
+<figure class="devlog-figure">
+  <Picture
+    src={corePit}
+    alt="A kart turning through the Core Pit between industrial machines and suspended hazard arms above the racing line."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The Core Pit’s machinery gives this part of the lap its own rhythm.
+  </figcaption>
+</figure>
+
+## The world needed to move too
+
+One of the stranger things about building a racing environment is that a static background can look perfectly fine in a screenshot and still feel strangely dead while driving through it.
+
+Razorline Riot had that problem for a while.
+
+There were crowds, structures, lights and machinery everywhere, but too much of it simply sat there.
+
+Later polish passes added more background activity: crowd movement, industrial machinery, lighting, effects and small bits of environmental animation.
+
+None of those things are supposed to steal attention from the track itself.
+
+They’re there to make it feel like the race is happening inside a place that continues to exist beyond the racing line.
+
+That made a much bigger difference than I expected.
+
+<figure class="devlog-figure">
+  <Picture
+    src={outerRing}
+    alt="A pack of karts following the Outer Ring’s long curve beside the arrow-covered driftwall and flame towers."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The faster Outer Ring, with the driftwall marking the curve and pyro along
+    the inside.
+  </figcaption>
+</figure>
+
+## And yes, it has a pit lane now
+
+This wasn’t originally part of the plan for the track, but while working on the start and finish area I realised it would be a good time to prepare for something I want to experiment with later: **pit stops**.
+
+So Razorline Riot now has its own pit lane running alongside the start area.
+
+There’s no full pit-stop system yet. No tyre changes, repairs or strategy mechanics are active at this point.
+
+For now, the important thing was to build the infrastructure properly: pit entry, pit wall, service bays, pit exit and a layout that can support those systems later without forcing me to rebuild the entire arena again.
+
+I also wanted it to look like it belonged to Razorline Riot rather than a clean Formula 1 garage dropped into a punk racing arena.
+
+So the service area is much more industrial and improvised, with scaffolding, equipment and the same visual language as the rest of the track.
+
+I’m looking forward to coming back to that later.
+
+<figure class="devlog-figure">
+  <Picture
+    src={pitlane}
+    alt="A kart driving through the pit lane, with the pit wall on the left, service bays on the right and the exit ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The pit lane is in place. Actual pit-stop mechanics are still something to
+    explore later.
+  </figcaption>
+</figure>
+
+## The unglamorous part: making everything actually solid
+
+The final rounds were less exciting to look at, but probably some of the most important work on the track.
+
+I went through objects around the racing line and checked whether something that looked solid was actually solid.
+
+There were props that looked like you should crash into them but could simply be driven through. There were also transitions around ramps, shortcuts and the pit lane that technically worked but didn’t yet look like they belonged to the original road geometry.
+
+Those kinds of things are easy to miss when you spend most of your time driving the ideal racing line.
+
+So I deliberately started driving badly.
+
+Into barriers. Into props. Into the side of ramps. Into the wrong side of shortcut entries.
+
+It’s surprisingly effective QA.
+
+Using Defold’s physics debugging alongside the actual running game also made it much easier to check whether the visible world and the collision world actually agreed with each other.
+
+## A better workflow than “change it and hope”
+
+Riff Racers is now running on **Defold 1.14.0**, and during this track I also started using the Defold MCP much more heavily alongside the Blender workflow.
+
+That changed the iteration loop quite a bit.
+
+Instead of mostly editing files and then discovering problems much later, I can inspect the project, change something, build it, launch the game, check the real behaviour and go back around again.
+
+For visual work, the same rule still applies as before: something isn’t finished just because it looks good in Blender or because the collection is technically correct.
+
+It has to work from the actual racing camera.
+
+That sounds obvious, but it has probably been one of the most useful lessons from rebuilding these tracks.
+
+## Razorline Riot finally feels like Razorline Riot
+
+The thing I’m happiest about is that the second track no longer feels like another version of Iron Chorus.
+
+Iron Chorus is big, theatrical and heavy.
+
+Razorline Riot is sharper.
+
+It pushes you from corner to corner, gives you less time to settle and rewards a cleaner, more aggressive rhythm.
+
+The bridge, the machinery, the risky shortcut, the jump, the pit lane and the crowd all help visually, but the real difference is in the way the lap flows.
+
+That was the goal from the beginning.
+
+It just took quite a few rebuilds, polish passes, collision fixes and questionable jumps into scenery to get there.
+
+And I think it was worth it.
+
+<figure class="devlog-figure">
+  <Picture
+    src={finale}
+    alt="Karts rounding the final arena corner past packed grandstands, glowing chevrons and flame towers."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    Back into the Riot Arena for the final part of the lap.
+  </figcaption>
+</figure>
+
+**Razorline Riot is finished.**
+
+Which means it’s time to move on to the next track.

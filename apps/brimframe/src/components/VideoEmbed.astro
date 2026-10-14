@@ -15,6 +15,7 @@ interface Props {
 }
 const { videoId, title, poster, posterAlt, fallbackUrl } = Astro.props;
 const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+const privacyId = `video-privacy-${videoId}`;
 ---
 
 <figure class="video-embed">
@@ -28,12 +29,20 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
       src={poster}
       alt={posterAlt}
       widths={[480, 800, 1200]}
+      width={1200}
       sizes="(max-width: 768px) 100vw, 800px"
-      formats={['webp', 'png']}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
       loading="lazy"
       class="video-poster"
     />
-    <button type="button" class="video-play" aria-label={`Play ${title}`}>
+    <button
+      type="button"
+      class="video-play"
+      aria-label={`Play ${title}`}
+      aria-describedby={privacyId}
+      hidden
+    >
       <svg
         viewBox="0 0 24 24"
         width="30"
@@ -46,8 +55,13 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
     </button>
   </div>
   <figcaption class="video-fallback">
+    <p class="video-title">{title}</p>
+    <p class="video-privacy" id={privacyId}>
+      By loading the video, content from YouTube will be loaded and data may be
+      transferred to Google/YouTube.
+    </p>
     <a href={fallbackUrl} rel="noopener" target="_blank">
-      Watch {title} on YouTube <span aria-hidden="true">↗</span>
+      Watch on YouTube <span aria-hidden="true">↗</span>
     </a>
   </figcaption>
 </figure>
@@ -59,20 +73,26 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
   for (const facade of facades) {
     const button = facade.querySelector<HTMLButtonElement>('.video-play');
     if (!button) continue;
-    button.addEventListener('click', () => {
-      const embedUrl = facade.dataset.embedUrl ?? '';
-      const title = facade.dataset.title ?? 'Video';
-      const iframe = document.createElement('iframe');
-      iframe.src = `${embedUrl}?autoplay=1&rel=0`;
-      iframe.title = title;
-      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-      iframe.allowFullscreen = true;
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.loading = 'lazy';
-      iframe.className = 'video-frame';
-      facade.replaceChildren(iframe);
-      iframe.focus();
-    });
+    button.hidden = false;
+    button.addEventListener(
+      'click',
+      () => {
+        const embedUrl = facade.dataset.embedUrl ?? '';
+        const title = facade.dataset.title ?? 'Video';
+        const iframe = document.createElement('iframe');
+        iframe.src = `${embedUrl}?autoplay=1`;
+        iframe.title = title;
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.loading = 'lazy';
+        iframe.className = 'video-frame';
+        facade.replaceChildren(iframe);
+        iframe.focus();
+      },
+      { once: true },
+    );
   }
 </script>
 
@@ -92,6 +112,13 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
     position: absolute;
     inset: 0;
   }
+  .video-facade:has(.video-poster)::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #00000033;
+    pointer-events: none;
+  }
   .video-poster {
     width: 100%;
     height: 100%;
@@ -100,10 +127,11 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
   }
   .video-play {
     position: absolute;
+    z-index: 1;
     inset: 0;
     margin: auto;
-    width: 76px;
-    height: 76px;
+    width: 4.75rem;
+    height: 4.75rem;
     display: grid;
     place-items: center;
     padding: 0;
@@ -115,6 +143,9 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
     transition:
       transform var(--motion) ease,
       background var(--motion) ease;
+  }
+  .video-play[hidden] {
+    display: none;
   }
   .video-play:is(:hover, :focus-visible) {
     background: var(--accent-soft);
@@ -138,6 +169,17 @@ const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
   }
   .video-fallback a {
     color: var(--text);
+  }
+  .video-fallback p {
+    margin: 0 0 0.5rem;
+  }
+  .video-fallback .video-title {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .video-fallback .video-privacy {
+    font-size: var(--fs-small);
+    line-height: 1.6;
   }
   .video-fallback a:is(:hover, :focus-visible) {
     color: var(--accent-soft);
