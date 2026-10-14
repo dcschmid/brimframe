@@ -1,0 +1,279 @@
+---
+title: 'Iron Chorus: From Demo Track to Real Circuit'
+description: 'Iron Chorus started as one of Riff Racers’ earliest demo tracks. After several redesigns it has grown into a fuller circuit with new environments, hazards, shortcuts and a pitlane.'
+publishDate: 2026-10-14
+heroImage: '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage.png'
+heroImageAlt: 'Riff Racers karts racing past the main stage on the rebuilt Iron Chorus track, with the crowd and speaker towers filling the arena.'
+tags: ['riff-racers', 'development', 'iron-chorus', 'track-design']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import mainStageBeforeAfter from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage-before-after.png';
+import ampCanyon from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-amp-canyon.png';
+import crowd from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-crowd.png';
+import backstageShortcut from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-backstage-shortcut.png';
+import forge from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-forge.png';
+import pitlane from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-pitlane.png';
+import heroJump from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-hero-jump.png';
+import finale from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-finale.png';
+import trailerPoster from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-trailer-poster.jpg';
+
+**Iron Chorus was one of the first tracks I built for Riff Racers.** It worked, you could race on it, and it already had some of the heavy metal atmosphere I wanted for the game.
+
+But after spending more time on Riff Racers — updating the characters, the karts and the overall visual direction — the track started to feel like exactly what it was: an early demo track.
+
+So I decided to rebuild it. Not from scratch, but pretty close.
+
+<VideoEmbed
+  videoId="v3FUxVP3HwU"
+  title="Riff Racers – Iron Chorus Track Rework trailer"
+  poster={trailerPoster}
+  posterAlt="A Riff Racers kart driving through the industrial pitlane section of Iron Chorus, shown as the trailer poster."
+  fallbackUrl="https://www.youtube.com/watch?v=v3FUxVP3HwU"
+/>
+
+## The old Iron Chorus did its job
+
+The original version was simple. There was a road, some speakers, a crowd, a few ramps and enough scenery to communicate the basic idea: this is a racing game set inside a ridiculous heavy metal festival.
+
+And honestly, that was fine at the time.
+
+The problem was that the rest of Riff Racers kept moving forward. The characters became more expressive, the karts got a stronger visual identity, and I settled on a more consistent stylized 3D look for the game. Iron Chorus suddenly felt very flat in comparison.
+
+The track was also short. A good lap could be finished in roughly 40 seconds, and many sections were essentially just roads connecting one corner to the next.
+
+I wanted the new version to feel more like an actual place. Not just a road with metal-themed props next to it.
+
+<figure class="devlog-figure">
+  <Picture
+    src={mainStageBeforeAfter}
+    alt="Side-by-side comparison of the Iron Chorus start and finish straight: the older, simpler version on the left and the rebuilt version with the main stage and crowd on the right."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The start and finish straight before and after the rework. Same corner, a
+    lot more going on.
+  </figcaption>
+</figure>
+
+## Making the track feel like a journey
+
+One of the main goals of the rework was to give each part of the lap its own identity.
+
+You now move through different areas of the Iron Chorus festival instead of driving through variations of the same scenery. The start and finish sit inside the main festival arena, surrounded by the crowd and the main stage. From there the track moves into huge speaker and amplifier structures, elevated sections, industrial areas, backstage passages and eventually back towards the arena.
+
+The idea is that you should be able to look at a screenshot and immediately know roughly where on the track it was taken.
+
+That sounds like a small thing, but it made a surprisingly big difference.
+
+It also helped me move away from the very flat layout of the original track. Iron Chorus now has much more verticality. Parts of the circuit pass above and below other sections, there are larger elevation changes, and the jumps are integrated into the track instead of simply looking like ramps someone dropped onto the road five minutes before the race.
+
+<figure class="devlog-figure">
+  <Picture
+    src={ampCanyon}
+    alt="A kart racing through the rebuilt Amp Canyon section of Iron Chorus, with towering speaker and amplifier structures on both sides of the road."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    Amp Canyon: one of the sections that now has its own look instead of
+    repeating the same scenery.
+  </figcaption>
+</figure>
+
+## Low poly shouldn’t mean low effort
+
+This rework also taught me something about the visual style of Riff Racers.
+
+I still want the game to have a clean, stylized and relatively low-poly look. But there is a pretty big difference between _stylized_ and _unfinished_.
+
+Some of the earlier assets were technically doing their job, but they were too simple. The audience was a good example. From a distance, the original grandstands often looked more like rows of colored blocks than actual people. For the new version I spent more time making the spectators readable as spectators, while still keeping them simple enough for a racing game where you fly past them at speed.
+
+The same happened with the stages, speaker towers, industrial machinery, flames and trackside props.
+
+I don’t want to fill the screen with tiny details nobody will ever notice. I’d rather have fewer shapes, but make those shapes look deliberate.
+
+That has become a useful rule for the rest of the game:
+
+**Low poly is the art style. It isn’t an excuse for an asset to look unfinished.**
+
+<figure class="devlog-figure">
+  <Picture
+    src={crowd}
+    alt="The rebuilt crowd and grandstands around the Iron Chorus main stage, with the Riff Racers screen and speaker towers behind the start straight."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The crowd now reads as spectators instead of rows of colored blocks, even at
+    racing speed.
+  </figcaption>
+</figure>
+
+## The track needed more than prettier scenery
+
+Another thing I wanted to improve was the actual racing.
+
+Some early versions of Iron Chorus looked nicer but still felt a little too much like a decorated road. So the later passes became much more focused on gameplay.
+
+Shortcuts now have proper entrances and exits instead of suddenly appearing in the middle of the main route. Jumps are built into the surrounding road geometry. Solid-looking objects actually need to behave like solid objects when you hit them.
+
+That last one sounds obvious, but it is exactly the kind of thing that becomes very noticeable once you start polishing a track. If there is a huge equipment case sitting next to the racing line and you can simply drive through it, the illusion falls apart immediately.
+
+I went through the track again specifically looking for those kinds of problems: missing collisions, awkward barriers, track seams, objects clipping into one another, strange ramp transitions and visual glitches.
+
+Not glamorous work, but probably some of the most important work in the whole rework.
+
+<figure class="devlog-figure">
+  <Picture
+    src={backstageShortcut}
+    alt="A kart taking the backstage shortcut on Iron Chorus, with the main road visible beyond the elevated section."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The backstage shortcut now has a proper entrance and exit instead of
+    appearing in the middle of the main route.
+  </figcaption>
+</figure>
+
+## Adding some danger
+
+Iron Chorus also has more going on during the race now.
+
+The industrial sections gave me a good excuse to experiment with moving hazards and environmental elements instead of keeping everything static. Presses, flames and machinery can now be more than background decoration.
+
+The important part was not turning the track into an obstacle course. Riff Racers is still a racing game.
+
+The hazards are there to make lines more interesting and give parts of the track their own rhythm. They need to be visible, predictable and fair enough that getting hit feels like a mistake rather than bad luck.
+
+That’s the balance I’m aiming for.
+
+<figure class="devlog-figure">
+  <Picture
+    src={forge}
+    alt="The forge section of Iron Chorus with flames, industrial machinery and a moving hazard beside the racing line."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The forge section: hazards that make the line more interesting without
+    turning the track into an obstacle course.
+  </figcaption>
+</figure>
+
+## A world that doesn’t stop at the track barriers
+
+I also wanted the areas around the road to feel less frozen.
+
+Crowds can move, stage elements can animate, machines can run in the background, lights can move and the forge areas can feel like they are actually operating.
+
+Not everything needs to move. In fact, making everything move tends to look worse. But a few carefully placed animations make the whole environment feel much more alive.
+
+It helps sell the idea that these races are happening inside a ridiculous travelling metal event rather than on an isolated test track.
+
+## The pitlane
+
+One of the later additions is the new pitlane next to the start and finish area.
+
+There is no full pit-stop system yet, so this is very much groundwork for the future. But I wanted to reserve the space now instead of trying to bolt a pitlane onto a finished track six months from now.
+
+The area already has its own pit wall, service bays and backstage equipment, and the layout is prepared so I can later hook actual pit-stop mechanics into it.
+
+I’m not quite ready to talk about exactly what those mechanics will be yet. I have a few ideas.
+
+<figure class="devlog-figure">
+  <Picture
+    src={pitlane}
+    alt="The new pitlane beside the Iron Chorus start and finish straight, with service bays, a pit wall and backstage equipment."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The new pitlane. The space is reserved and the layout is ready for pit-stop
+    mechanics that are still in the ideas stage.
+  </figcaption>
+</figure>
+
+## Longer laps, hopefully better laps
+
+The other major change is the length of the circuit.
+
+I’m aiming for roughly **one minute to one minute thirty seconds per lap**, depending on the driver and the route they take.
+
+The important part was not reaching that number by simply adding longer straights. The extra time needed to come from actual racing: more corners, elevation changes, different lines, shortcuts, jumps and sections with their own gameplay.
+
+Iron Chorus is still supposed to be fast. There is just more happening during a lap now.
+
+<figure class="devlog-figure">
+  <Picture
+    src={heroJump}
+    alt="A kart mid-air on the hero jump of Iron Chorus, with the festival arena and crowd visible in the background."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The hero jump: one of the moments that makes the longer lap feel like actual
+    racing instead of a longer road.
+  </figcaption>
+</figure>
+
+## When is a track actually finished?
+
+This was probably the hardest part.
+
+There is always one more thing you could improve. Another prop. Another light. Another animation. Another corner that could maybe be five percent better.
+
+At some point you have to stop.
+
+Iron Chorus has now gone through several major iterations, followed by passes for collision, track flow, hazards, animation, the pitlane, AI behaviour and visual glitches.
+
+And I’m finally at the point where I can call it finished. Or at least the game-development version of finished:
+
+**finished until I find an actual bug.**
+
+More importantly, Iron Chorus now gives me a quality benchmark for the other tracks. I know roughly how detailed the environments should be, how much background activity feels right, what the spectator areas should look like, how large the landmarks need to be and how much variety I want inside a single lap.
+
+That should make rebuilding the remaining tracks a little less chaotic. Hopefully.
+
+<figure class="devlog-figure">
+  <Picture
+    src={finale}
+    alt="Riff Racers karts racing past the main stage on Iron Chorus as the sun sets over the festival arena."
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    loading="lazy"
+  />
+  <figcaption>
+    The rebuilt Iron Chorus, with the main stage and the full festival around
+    the start and finish straight.
+  </figcaption>
+</figure>
+
+## Next up
+
+Iron Chorus is only the first of the original demo tracks to receive this treatment. There are four more waiting.
+
+And each of them needs to feel like its own place rather than simply being Iron Chorus with different colors.
+
+The next one is **Razorline Riot**.
+
+That track is supposed to be faster, tighter and more aggressive, so I already know I’m going to regret some of the ideas I have for it.
+
+But that’s a problem for the next devlog.
+
+For now, Iron Chorus is done.
+
+And I’m pretty happy to finally say that.

@@ -307,6 +307,8 @@ h3 {
   max-width: 100%;
   margin-right: auto;
   text-decoration: none;
+  /* Keep the tall footer wordmark fully in view when focused, not just its top edge. */
+  scroll-margin-bottom: 1.5rem;
 }
 nav ul {
   list-style: none;

@@ -1,0 +1,153 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props {
+  /** YouTube video id, e.g. "v3FUxVP3HwU". */
+  videoId: string;
+  /** Accessible name for the player and the play control. */
+  title: string;
+  /** Local poster shown before the visitor chooses to play. */
+  poster: ImageMetadata;
+  /** Descriptive text for the poster image. */
+  posterAlt: string;
+  /** Public video page, used as the fallback link. */
+  fallbackUrl: string;
+}
+const { videoId, title, poster, posterAlt, fallbackUrl } = Astro.props;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+---
+
+<figure class="video-embed">
+  <div
+    class="video-facade"
+    data-video-id={videoId}
+    data-embed-url={embedUrl}
+    data-title={title}
+  >
+    <Picture
+      src={poster}
+      alt={posterAlt}
+      widths={[480, 800, 1200]}
+      sizes="(max-width: 768px) 100vw, 800px"
+      formats={['webp', 'png']}
+      loading="lazy"
+      class="video-poster"
+    />
+    <button type="button" class="video-play" aria-label={`Play ${title}`}>
+      <svg
+        viewBox="0 0 24 24"
+        width="30"
+        height="30"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M8 5v14l11-7z" fill="currentColor" />
+      </svg>
+    </button>
+  </div>
+  <figcaption class="video-fallback">
+    <a href={fallbackUrl} rel="noopener" target="_blank">
+      Watch {title} on YouTube <span aria-hidden="true">↗</span>
+    </a>
+  </figcaption>
+</figure>
+
+<script>
+  // Privacy-first: no request to YouTube/Google until the visitor clicks play.
+  // The facade (local poster + button) is replaced by a youtube-nocookie iframe.
+  const facades = document.querySelectorAll<HTMLElement>('.video-facade');
+  for (const facade of facades) {
+    const button = facade.querySelector<HTMLButtonElement>('.video-play');
+    if (!button) continue;
+    button.addEventListener('click', () => {
+      const embedUrl = facade.dataset.embedUrl ?? '';
+      const title = facade.dataset.title ?? 'Video';
+      const iframe = document.createElement('iframe');
+      iframe.src = `${embedUrl}?autoplay=1&rel=0`;
+      iframe.title = title;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.loading = 'lazy';
+      iframe.className = 'video-frame';
+      facade.replaceChildren(iframe);
+      iframe.focus();
+    });
+  }
+</script>
+
+<style>
+  .video-embed {
+    margin: 2.5rem 0 2.75rem;
+  }
+  .video-facade {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .video-facade picture {
+    position: absolute;
+    inset: 0;
+  }
+  .video-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+  }
+  .video-play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 76px;
+    height: 76px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    color: #0b0f14;
+    background: var(--accent);
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 6px 24px #00000066;
+    transition:
+      transform var(--motion) ease,
+      background var(--motion) ease;
+  }
+  .video-play:is(:hover, :focus-visible) {
+    background: var(--accent-soft);
+    transform: scale(1.06);
+  }
+  .video-play:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 4px;
+  }
+  :global(.video-frame) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .video-fallback {
+    margin-top: 0.75rem;
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+  .video-fallback a {
+    color: var(--text);
+  }
+  .video-fallback a:is(:hover, :focus-visible) {
+    color: var(--accent-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .video-play {
+      transition: none;
+    }
+    .video-play:is(:hover, :focus-visible) {
+      transform: none;
+    }
+  }
+</style>
