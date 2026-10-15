@@ -1,7 +1,7 @@
 // Provider information was checked against the linked official sources.
 // Reassess this notice when accounts, providers or website services change.
 export const privacy = {
-  updatedDate: '2026-10-14',
+  updatedDate: '2026-10-15',
   generalCorrespondenceRetentionMonths: 12,
   hosting: {
     name: 'Render Services, Inc.',
@@ -13,6 +13,16 @@ export const privacy = {
   email: {
     name: 'Murena Workspace',
     infrastructureUrl: 'https://murena.com/workspace/',
+  },
+  analytics: {
+    name: 'Fathom Analytics',
+    provider: 'Conva Ventures Inc.',
+    country: 'Canada',
+    privacyUrl: 'https://usefathom.com/legal/privacy',
+    dpaUrl: 'https://usefathom.com/legal/dpa',
+    dataJourneyUrl: 'https://usefathom.com/data',
+    dataIsolationUrl: 'https://usefathom.com/features/data-isolation',
+    retentionUrl: 'https://usefathom.com/',
   },
   supervisoryAuthority: {
     name: 'Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)',

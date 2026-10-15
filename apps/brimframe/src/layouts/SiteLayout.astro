@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import SEO from '../components/SEO.astro';
 import { site } from '../config/site';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
@@ -58,6 +59,7 @@ const { language = site.language, displayFont = false, ...seo } = Astro.props;
   </head>
   <body>
     <SiteHeader />
+    <AnalyticsConsent />
     <main id="main-content" tabindex="-1">
       <slot />
     </main>

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.ts';
 import { AxeBuilder } from '@axe-core/playwright';
 import { checkSkipLink } from './accessibility.ts';
 
@@ -10,7 +10,7 @@ const embedUrl =
   'https://www.youtube-nocookie.com/embed/wDDfm4oY-no?autoplay=1';
 
 for (const width of [320, 375, 768, 1440]) {
-  test(`Razorline Riot is readable and loads only local assets at ${width}px`, async ({
+  test(`Razorline Riot is readable and loads only local assets before consent at ${width}px`, async ({
     page,
     context,
   }) => {

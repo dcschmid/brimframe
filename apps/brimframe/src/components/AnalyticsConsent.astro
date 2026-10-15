@@ -1,0 +1,274 @@
+<section
+  id="analytics-consent"
+  class="analytics-consent"
+  aria-labelledby="analytics-consent-title"
+  hidden
+>
+  <div class="container consent-inner">
+    <div class="consent-copy">
+      <h2 id="analytics-consent-title" tabindex="-1">
+        Your privacy choices
+      </h2>
+      <p>
+        May I use Fathom Analytics to understand how you use BrimFrame and
+        improve the website? It processes your IP address, browser, page and
+        referrer information to produce website statistics. It loads only if you
+        accept.
+      </p>
+      <p>
+        Your choice is saved on this device for 180 days. You can change it or
+        withdraw consent at any time using “Cookie settings” in the footer.{' '}
+        <a href="/datenschutz/#cookies-tracking">Read the Privacy Policy</a>.
+      </p>
+      <p class="consent-status" role="status" aria-live="polite"></p>
+    </div>
+    <div class="consent-actions">
+      <button
+        class="button button-secondary"
+        type="button"
+        data-consent="rejected"
+      >
+        Reject analytics
+      </button>
+      <button
+        class="button button-secondary"
+        type="button"
+        data-consent="accepted"
+      >
+        Accept analytics
+      </button>
+      <button class="consent-close" type="button" hidden>
+        Keep current choice
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import {
+    ANALYTICS_CONSENT_KEY,
+    ANALYTICS_CONSENT_MAX_AGE,
+    parseAnalyticsConsent,
+    type AnalyticsChoice,
+  } from '../utils/analytics-consent';
+
+  const banner = document.querySelector<HTMLElement>('#analytics-consent');
+  const settings =
+    document.querySelector<HTMLButtonElement>('.cookie-settings');
+  const heading = document.querySelector<HTMLElement>(
+    '#analytics-consent-title',
+  );
+  const status = document.querySelector<HTMLElement>('.consent-status');
+  const close = document.querySelector<HTMLButtonElement>('.consent-close');
+
+  if (banner && settings && heading && status && close) {
+    const fathomOptOutKey = 'blockFathomTracking';
+    const consentOptOut = 'brimframe-consent-v1';
+
+    function readConsent() {
+      try {
+        const value = localStorage.getItem(ANALYTICS_CONSENT_KEY);
+        const stored = parseAnalyticsConsent(value);
+        if (value && !stored) localStorage.removeItem(ANALYTICS_CONSENT_KEY);
+        return stored;
+      } catch {
+        return null;
+      }
+    }
+
+    let consent = readConsent();
+    let scriptRequested = false;
+    let expiryTimer: ReturnType<typeof setTimeout>;
+    let openedFromSettings = false;
+
+    const setVisible = (visible: boolean) => {
+      banner.hidden = !visible;
+      settings.setAttribute('aria-expanded', String(visible));
+      close.hidden = !consent;
+    };
+
+    const finish = () => {
+      setVisible(false);
+      const target = openedFromSettings
+        ? settings
+        : document.querySelector<HTMLElement>('#main-content');
+      target?.focus();
+      openedFromSettings = false;
+    };
+
+    const loadAnalytics = () => {
+      if (
+        !import.meta.env.PROD ||
+        consent?.choice !== 'accepted' ||
+        scriptRequested
+      )
+        return;
+      try {
+        // Preserve opt-outs set independently through Fathom's own controls.
+        if (localStorage.getItem(fathomOptOutKey) === consentOptOut)
+          localStorage.removeItem(fathomOptOutKey);
+      } catch {
+        return;
+      }
+      scriptRequested = true;
+      const script = document.createElement('script');
+      script.src = 'https://cdn.usefathom.com/script.js';
+      script.dataset.site = 'RRAEUJZF';
+      script.dataset.auto = 'false';
+      script.defer = true;
+      script.addEventListener('load', () => {
+        // Recheck consent in case the response arrived after expiry or a change.
+        if (
+          consent?.choice === 'accepted' &&
+          readConsent()?.choice === 'accepted'
+        ) {
+          (
+            window as Window & { fathom?: { trackPageview: () => void } }
+          ).fathom?.trackPageview();
+        }
+      });
+      document.head.append(script);
+    };
+
+    const stopAnalytics = () => {
+      try {
+        // Fathom checks this flag before its pagehide/visit-duration beacon.
+        if (!localStorage.getItem(fathomOptOutKey))
+          localStorage.setItem(fathomOptOutKey, consentOptOut);
+      } catch {
+        // Reload also removes the provider when browser storage is unavailable.
+      }
+      window.location.reload();
+    };
+
+    const syncConsent = () => {
+      clearTimeout(expiryTimer);
+      consent = readConsent();
+      if (scriptRequested && consent?.choice !== 'accepted') {
+        // A fresh document removes the provider's listeners and pending script.
+        stopAnalytics();
+        return;
+      }
+      setVisible(!consent);
+      loadAnalytics();
+      if (consent) {
+        expiryTimer = setTimeout(
+          syncConsent,
+          Math.min(
+            consent.updatedAt + ANALYTICS_CONSENT_MAX_AGE - Date.now(),
+            2_147_483_647,
+          ),
+        );
+      }
+    };
+
+    settings.hidden = false;
+    settings.addEventListener('click', () => {
+      openedFromSettings = true;
+      status.textContent = consent
+        ? `Analytics is currently ${consent.choice === 'accepted' ? 'on' : 'off'}.`
+        : '';
+      setVisible(true);
+      heading.focus();
+      heading.scrollIntoView({ block: 'start' });
+    });
+    close.addEventListener('click', finish);
+    banner
+      .querySelectorAll<HTMLButtonElement>('[data-consent]')
+      .forEach((button) => {
+        button.addEventListener('click', () => {
+          const choice = button.dataset.consent as AnalyticsChoice;
+          let saved = false;
+          try {
+            localStorage.setItem(
+              ANALYTICS_CONSENT_KEY,
+              JSON.stringify({ choice, updatedAt: Date.now() }),
+            );
+            saved = true;
+          } catch {
+            if (choice === 'rejected' && scriptRequested) {
+              // Removing an old acceptance can still work when writes exceed quota.
+              try {
+                localStorage.removeItem(ANALYTICS_CONSENT_KEY);
+              } catch {
+                // An inaccessible store is treated as no consent on the next load.
+              }
+            }
+            status.textContent =
+              'Your browser could not save your choice. Analytics remains off.';
+          }
+          if (!saved && choice === 'accepted') return;
+          if (scriptRequested && choice === 'rejected') {
+            stopAnalytics();
+            return;
+          }
+          consent = saved ? readConsent() : null;
+          if (saved) syncConsent();
+          finish();
+        });
+      });
+    window.addEventListener('storage', (event) => {
+      if (event.key === ANALYTICS_CONSENT_KEY || event.key === null)
+        syncConsent();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') syncConsent();
+    });
+    syncConsent();
+  }
+</script>
+
+<style>
+  .analytics-consent {
+    background: var(--surface);
+    border-block: 1px solid var(--control-border);
+  }
+  .consent-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+  }
+  .consent-copy {
+    flex: 1 1 32rem;
+    min-width: 0;
+  }
+  h2 {
+    margin-bottom: var(--space-2);
+    font-size: var(--fs-lead);
+    letter-spacing: normal;
+  }
+  p {
+    margin-bottom: var(--space-1);
+    font-size: var(--fs-small);
+    color: var(--text-soft);
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  a {
+    display: inline-block;
+    min-height: 44px;
+    padding-block: var(--space-1);
+  }
+  .consent-status:empty {
+    display: none;
+  }
+  .consent-actions {
+    display: grid;
+    flex: 1 1 14rem;
+    gap: var(--space-2);
+  }
+  .button {
+    width: 100%;
+  }
+  .consent-close {
+    min-height: 44px;
+    border: 0;
+    background: none;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+</style>

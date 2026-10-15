@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, FATHOM_SCRIPT_URL } from './fixtures.ts';
 import { AxeBuilder } from '@axe-core/playwright';
 import { checkSkipLink } from './accessibility.ts';
 
@@ -253,7 +253,7 @@ test('content and controls remain usable with text enlarged to 200%', async ({
   }
 });
 
-test('no third-party requests, cookies or local storage; reduced motion is respected', async ({
+test('no tracking or storage before consent; reduced motion is respected', async ({
   page,
   context,
 }) => {
@@ -265,6 +265,8 @@ test('no third-party requests, cookies or local storage; reduced motion is respe
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const route of routes) {
     await page.goto(route);
+    const analytics = page.locator(`head script[src="${FATHOM_SCRIPT_URL}"]`);
+    await expect(analytics).toHaveCount(0);
     await page.evaluate(() => document.fonts.ready);
     expect(
       await page.evaluate(() => localStorage.length + sessionStorage.length),

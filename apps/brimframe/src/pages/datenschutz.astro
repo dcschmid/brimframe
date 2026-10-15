@@ -28,7 +28,7 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
   title="Privacy Policy"
   eyebrow="Privacy Information"
   noindex={!legal.ready}
-  description="How BrimFrame handles website access, Render hosting, email enquiries and your data protection rights."
+  description="How BrimFrame handles website access, Fathom analytics, Render hosting, email enquiries and your data protection rights."
   intro="A straightforward explanation of the information involved in visiting this website or contacting me."
 >
   <nav class="privacy-contents" aria-label="Privacy policy sections">
@@ -102,8 +102,8 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
         The legal basis is Art. 6(1)(f) GDPR. My legitimate interest is the
         secure, reliable and efficient provision of this website. Render may
         process technical information as required for operation, security and
-        delivery; BrimFrame does not operate application analytics or
-        behavioural tracking.
+        delivery. Website statistics are described in the cookies and tracking
+        section below.
       </p>
     </div>
   </section>
@@ -142,9 +142,38 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
     </h2>
     <div class="prose">
       <p>
-        This website does not use analytics, advertising trackers,
-        fingerprinting, behavioural profiling or third-party marketing scripts.
-        BrimFrame sets no cookies and uses no local or session browser storage.
+        I use {privacy.analytics.name}, provided by {privacy.analytics.provider}
+        , {privacy.analytics.country}, to see which pages people visit and how
+        they find BrimFrame. Only after you choose “Accept analytics” does its
+        script load from cdn.usefathom.com. It sends page and referrer
+        information; the request also includes your IP address and browser’s
+        user-agent. Fathom processes these to count visits using a site-specific
+        signature with a daily changing salt. It does not use analytics cookies
+        or advertising profiles spanning different websites.
+      </p>
+      <p>
+        The legal basis for analytics is your consent under Art. 6(1)(a) GDPR.
+        You can reject analytics and use the website normally. You can withdraw
+        consent or change your choice through “Cookie settings” in the footer.
+        Withdrawing consent reloads the page to stop the loaded analytics
+        script; it does not affect processing carried out before withdrawal.
+        Further details are available in Fathom’s{' '}
+        <a href={privacy.analytics.privacyUrl}>Privacy Policy</a>,{' '}
+        <a href={privacy.analytics.dpaUrl}>Data Processing Agreement</a> and{' '}
+        <a href={privacy.analytics.dataJourneyUrl}>data journey</a>.
+      </p>
+      <p>
+        BrimFrame sets no cookies. Your analytics choice and the time you made
+        it are saved in local browser storage under
+        “brimframe.analytics-consent.v1” for 180 days. This preference is used
+        only to remember your choice; it is not sent to Fathom. When it expires,
+        analytics stays off until you accept again. If the preference cannot be
+        saved, analytics stays off and you may be asked again on your next
+        visit. After withdrawal, a local “blockFathomTracking” preference also
+        prevents remaining requests from the loaded script. A block set by
+        BrimFrame remains until you accept again or clear your browser storage.
+      </p>
+      <p>
         Fonts, images and video posters are served with the website; there are
         no external Google Fonts requests. YouTube players are not loaded when
         you open a page.
@@ -160,8 +189,9 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
       </p>
       <p>
         The choice to load a video applies to that player on the current page;
-        BrimFrame does not remember it. No site-wide cookie consent banner is
-        used. You can read the article without loading the video.
+        BrimFrame does not remember it. The analytics banner does not grant
+        permission to load a video. You can read the article without loading the
+        video.
       </p>
     </div>
   </section>
@@ -181,8 +211,10 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
       <p>
         Technical information processed by the hosting provider is retained
         according to its applicable operational and security retention policies.
-        There is no separate BrimFrame analytics database or visitor profiling
-        log.
+        Fathom keeps analytics history for as long as the customer account is
+        active, unless the records are deleted earlier, as described in its{' '}
+        <a href={privacy.analytics.retentionUrl}>data retention information</a>.
+        Changing the daily salt does not delete previously stored analytics.
       </p>
     </div>
   </section>
@@ -205,6 +237,16 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
         You can also contact me for information about safeguards relevant to
         your personal data. Murena’s published email infrastructure information
         is linked in the email section above.
+      </p>
+      <p>
+        According to Fathom’s{' '}
+        <a href={privacy.analytics.dataIsolationUrl}>
+          data isolation documentation
+        </a>
+        , EU visitors’ IP addresses are processed and anonymised in the EU
+        before analytics records are sent to its US infrastructure for storage.
+        The provider is based in Canada. Its processing arrangements are
+        described in the Data Processing Agreement linked above.
       </p>
     </div>
   </section>

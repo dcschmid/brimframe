@@ -41,6 +41,17 @@ import { site, navigation } from '../config/site';
             <a href="/datenschutz/">Privacy</a>
           </li>
           <li>
+            <button
+              class="cookie-settings"
+              type="button"
+              aria-controls="analytics-consent"
+              aria-expanded="false"
+              hidden
+            >
+              Cookie settings
+            </button>
+          </li>
+          <li>
             <a href="/accessibility/">Accessibility</a>
           </li>
         </ul>
@@ -59,3 +70,21 @@ import { site, navigation } from '../config/site';
     )}
   </div>
 </footer>
+
+<style>
+  .cookie-settings {
+    display: inline-block;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+  .cookie-settings:hover {
+    text-decoration-color: var(--accent);
+  }
+</style>

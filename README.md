@@ -4,7 +4,7 @@ The first studio website for **BrimFrame**, an independent solo game studio by
 **Daniel Schmid**, based in Germany. Built as a static Astro site with TypeScript,
 semantic HTML and CSS. The public site is English only.
 Riff Racers is the only current game. There is no press section, newsletter,
-tracking, contact backend or standalone game application.
+contact backend or standalone game application. Fathom provides website analytics.
 
 ## Workspace
 
@@ -74,7 +74,8 @@ to 200%, reader-defined line/letter/word spacing, active navigation indicators
 in light and dark forced-colour modes, mobile menu
 pointer and keyboard operation, Escape focus restoration, the first-Tab skip link
 on every route (including isolated Devlog articles and 404s),
-JavaScript-disabled navigation, no third-party requests, no client storage,
+JavaScript-disabled navigation, no third-party requests or client storage before
+consent,
 reduced motion, 404s, drafts, zero posts and multiple posts. Axe checks target
 WCAG 2.2 AA; passing automation is not a complete accessibility audit.
 
@@ -260,14 +261,41 @@ styles. The mobile menu enhances an always-available HTML navigation list;
 without JavaScript the links remain visible. Escape closes the enhanced menu
 and returns focus to its button. There is no focus trap, autoplay or flashing.
 
-The application adds no trackers, cookies or local storage. Devlog videos reuse
+`AnalyticsConsent.astro`, included by the shared layout, loads Fathom Analytics
+(site ID `RRAEUJZF`) only after an explicit **Accept analytics** choice. **Reject
+analytics** has equal prominence. Until acceptance, no Fathom script, preconnect
+or pageview request is made. The banner sits below the header in normal document
+flow, so it does not cover content or keyboard focus. **Cookie settings** in the
+footer reopens it without changing the existing choice.
+
+The preference and its timestamp are stored in first-party local storage under
+`brimframe.analytics-consent.v1` for **180 days**; no cookie is set. Missing,
+invalid, expired or inaccessible storage leaves analytics off. Withdrawal after
+loading Fathom first sets its `blockFathomTracking` local-storage flag to
+`brimframe-consent-v1` to suppress its departure beacon, then reloads the page to
+remove its listeners. A later acceptance removes only this app-owned flag;
+independent Fathom opt-outs are preserved. The flag persists until acceptance or
+clearing browser storage. Other open tabs observe preference changes. Analytics
+consent does not enable YouTube players. With
+JavaScript disabled, tracking and the consent controls stay off. Astro development
+mode never requests Fathom, even after acceptance.
+
+The provider script uses `data-auto="false"`; its load handler checks consent
+again before recording one pageview, including after delayed responses. Browser
+tests stub the provider's CDN requests so test visits never reach the live account and
+verify acceptance, rejection, persistence, withdrawal, expiry and storage failure.
+In Fathom’s site firewall, restrict **Allowed domains** to `brimframe.de` to keep
+Render previews and local production previews out of live statistics; see the
+[official environment exclusion instructions](https://usefathom.com/docs/script/local).
+
+Devlog videos reuse
 `VideoEmbed.astro`: a local responsive poster, keyboard-accessible Play control,
 visible title and privacy notice. No YouTube iframe, thumbnail or preconnection
 loads before Play. That click creates one `youtube-nocookie.com` iframe with
 autoplay; the direct YouTube link also works without JavaScript. Consent is not
 stored between pages. The Privacy page describes this optional external content.
 This does not certify GDPR compliance. The V1 Privacy page explains Render
-static hosting and technical request processing, Murena email contact, legal
+static hosting and technical request processing, Fathom analytics, Murena email contact, legal
 bases, international transfers, retention and data subject rights. Provider
 information is linked to official sources rather than copied into a fixed
 subprocessor list. No provider-specific retention period is invented.
@@ -348,8 +376,8 @@ and social artwork can be supplied later.
 - [ ] Review Render subprocessors
 - [ ] Verify Murena Art. 28 DPA availability
 - [ ] Confirm final public business email
-- [ ] Confirm no analytics/tracking were added
-- [ ] Confirm no third-party embeds were added
+- [ ] Verify Fathom consent banner, withdrawal, site ID, allowed domains and processing agreement
+- [ ] Confirm YouTube resources load only after Play
 - [ ] Review Privacy page against production deployment
 - [ ] Review Legal Notice factual information
 - [ ] Perform final accessibility test
