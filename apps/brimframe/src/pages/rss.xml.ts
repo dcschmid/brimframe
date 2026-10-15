@@ -11,7 +11,7 @@ export const GET = async (context: APIContext) => {
     site: context.site ?? new URL(site.url),
     items: posts.map((post) => ({
       title: post.data.title,
-      description: post.data.description,
+      description: post.data.excerpt ?? post.data.description,
       pubDate: post.data.publishDate,
       link: `/devlog/${post.id}/`,
       categories: post.data.tags,

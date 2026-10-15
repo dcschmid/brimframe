@@ -36,5 +36,5 @@ const { post, wide = false } = Astro.props;
       <span aria-hidden="true">↗</span>
     </a>
   </h3>
-  <p>{post.data.description}</p>
+  <p>{post.data.excerpt ?? post.data.description}</p>
 </article>

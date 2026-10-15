@@ -1,0 +1,385 @@
+---
+title: 'Riff Racers Devlog: Into the Cathedral'
+description: 'A look behind the creation of Cathedral Circuit, the dark gothic third track for Riff Racers, featuring shortcuts, jumps, hazards, a pit lane and a living cathedral environment.'
+intro: 'Track 3 is finished — and this one took Riff Racers somewhere quite a bit darker.'
+excerpt: 'Riff Racers heads somewhere darker. Cathedral Circuit brings gothic ruins, risky shortcuts, huge jumps and a living night-time cathedral to the first demo.'
+publishDate: 2026-10-15
+heroImage: '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-hero.webp'
+heroImageAlt: 'Karts racing towards the open gothic nave of Cathedral Circuit beneath stained glass, chandeliers and a moonlit sky.'
+tags: ['riff-racers', 'development', 'cathedral-circuit', 'track-design']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import hero from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-hero.webp';
+import grandApse from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-grand-apse.webp';
+import cloister from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-cloister-shortcut.webp';
+import galleryGap from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-gallery-gap.webp';
+import bellTower from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-bell-tower.webp';
+import closeRacing from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-close-racing.webp';
+import pitlane from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-pitlane.webp';
+import finalApproach from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-final-approach.webp';
+
+After the noise and aggression of the [previous tracks](/devlog/riff-racers-razorline-riot/), I wanted the third demo track to feel completely different.
+
+Not just another circuit with a different color palette.
+
+I wanted somewhere that felt old, huge, slightly dangerous, and almost impossible to build a race track through.
+
+So naturally, I built one through a ruined cathedral.
+
+Welcome to **Cathedral Circuit**.
+
+<VideoEmbed
+  videoId="MvOc2T5NI2g"
+  title="Riff Racers – Cathedral Circuit Track Showcase"
+  poster={hero}
+  posterAlt="A pack of karts approaching Cathedral Circuit's moonlit nave, with stained-glass windows and firelit grandstands."
+  fallbackUrl="https://www.youtube.com/watch?v=MvOc2T5NI2g"
+/>
+
+## A darker side of Riff Racers
+
+The initial idea was fairly simple:
+
+A race at night, running through the remains of a massive gothic cathedral.
+
+Moonlight through broken arches. Stained glass. Firelight. Old stone. Towers disappearing into the darkness.
+
+But there was one problem I ran into pretty quickly.
+
+Making something dark is easy.
+
+Making something dark **and still readable at racing speed** is much harder.
+
+Early versions leaned too heavily into black and very dark materials. They looked atmospheric when standing still, but once I actually started driving the track, a lot of the architecture simply disappeared.
+
+Walls blended into the background. Corners became harder to read. Depth was getting lost.
+
+So the final look became much more about contrast than darkness.
+
+Deep blues and muted purples form most of the environment, while fire, stained glass and warmer lighting pick out the important parts of the scene.
+
+The track is still probably the darkest one in Riff Racers so far, but hopefully not in the sense of _“I have no idea where I'm going.”_
+
+## Building a track through the architecture
+
+One thing I really didn't want was a normal race track with cathedral models placed around it.
+
+The cathedral itself needed to become part of the racing line.
+
+That changed quite a lot about the layout.
+
+The route passes through large interior spaces, ruined side passages, cloisters, elevated sections and broken galleries.
+
+There are moments where you can see another part of the track above or below you, and areas you've already driven through appear again from a completely different angle.
+
+That verticality became one of the defining ideas for the track.
+
+The main nave gives the start and finish a large, open space, while other sections become much tighter and more technical before opening up again around the Grand Apse and Bell Tower.
+
+I wanted the lap to have a rhythm to it rather than throwing something at the player every few seconds.
+
+Fast section.
+
+Technical section.
+
+A moment to look around.
+
+Then something slightly stupid and dangerous.
+
+Which brings me to the shortcuts.
+
+<figure class="devlog-figure">
+  <Picture
+    src={grandApse}
+    alt="A red kart following the broad curve around the Grand Apse, with fire bowls, stone arches and a rose window ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    Cathedral Circuit's Grand Apse became one of the track's major visual
+    landmarks.
+  </figcaption>
+</figure>
+
+## The shortest route isn't always the easiest one
+
+Cathedral Circuit has several places where the fastest racing line isn't necessarily the safest one.
+
+One of the main shortcuts runs through the cloister.
+
+The normal route gives you more room and a cleaner line. The shortcut is shorter, but the entry is tighter and there is considerably less space to fix a mistake once you've committed to it.
+
+There is also a more dangerous route through one of the ruined upper sections.
+
+That one asks a bit more from the player and includes a jump through part of the broken architecture.
+
+Something I spent quite a bit of time on here was making the shortcuts feel like they actually belonged to the building.
+
+Earlier versions sometimes had the classic game-level problem of:
+
+**road → random ramp → congratulations, this is apparently a shortcut now.**
+
+It worked mechanically, but it looked wrong.
+
+So a lot of the later work was about making these routes grow naturally out of the environment.
+
+An old corridor continues where the main route turns away.
+
+A damaged gallery becomes an alternative line.
+
+A collapsed floor gradually turns into a ramp instead of suddenly placing one in the middle of the road.
+
+Small things, but they make a surprisingly big difference.
+
+<figure class="devlog-figure">
+  <Picture
+    src={cloister}
+    alt="A kart entering the narrow cloister route beneath ruined arches beside a stone courtyard and green banners."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The cloister offers a tighter, riskier alternative to the main racing line.
+  </figcaption>
+</figure>
+
+## And yes, there are jumps
+
+There are two larger jump moments on the circuit.
+
+The first crosses a ruined gap in the cathedral complex.
+
+The second appears later around the Bell Tower section and is a little less forgiving.
+
+The important part for me wasn't simply having jumps.
+
+Riff Racers already has enough opportunities to launch a car somewhere it probably shouldn't be.
+
+The challenge was making the jumps feel like a natural consequence of driving through a collapsing structure.
+
+The road now builds towards them rather than suddenly becoming a ramp.
+
+The landing areas also received quite a bit of attention, because a spectacular jump is considerably less fun when the reward is immediately driving face-first into a wall.
+
+Ask me how I know.
+
+<figure class="devlog-figure">
+  <Picture
+    src={galleryGap}
+    alt="A red kart airborne over a break in the elevated stone gallery, with the cathedral ruins and full moon beyond."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>A broken gallery becomes a jump through the ruins.</figcaption>
+</figure>
+
+## The Bell Tower needed to do something
+
+The Bell Tower became one of my favorite areas of the track.
+
+It's already one of the stronger visual landmarks, so leaving it as completely static scenery felt like a missed opportunity.
+
+There is now much more movement around that part of the circuit, including the bell mechanism itself.
+
+It also gave me a good place to introduce some environmental danger without turning the entire track into an obstacle course.
+
+That balance was important.
+
+I wanted Cathedral Circuit to have hazards, but I didn't want every corner to become a timing puzzle.
+
+It's still a racing game first.
+
+The hazards are there to give certain sections personality and occasionally make you reconsider the line you're taking.
+
+Not to spend the whole race dodging things falling from the ceiling.
+
+Although, to be fair, some things do fall from the ceiling.
+
+<figure class="devlog-figure">
+  <Picture
+    src={bellTower}
+    alt="A red kart approaching a large golden bell suspended over the road between stone towers and firelit arches."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The Bell Tower mixes verticality, movement and one of the track's
+    environmental hazards.
+  </figcaption>
+</figure>
+
+## Making the cathedral feel alive
+
+This was probably one of the biggest changes during the final passes.
+
+A huge environment can look surprisingly dead when everything in it is frozen.
+
+So Cathedral Circuit now has a lot more subtle movement in the background.
+
+Banners move.
+
+Fire flickers.
+
+Smoke and particles drift through parts of the ruins.
+
+The crowd has more variation and movement.
+
+There are people on balconies and around some of the larger spectator areas.
+
+The Bell Tower actually feels like a functioning part of the environment rather than a large static prop.
+
+None of these things are supposed to pull your attention away from driving.
+
+Most of them are details you notice somewhere in the corner of the screen while racing.
+
+But together they help the whole place feel much less like a level loaded into memory and much more like an actual event taking place.
+
+<figure class="devlog-figure">
+  <Picture
+    src={closeRacing}
+    alt="A pack of karts racing through the cathedral nave beneath glowing stained-glass windows and hanging chandeliers."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+</figure>
+
+## The pit lane is part of the track now
+
+Another thing I wanted to account for early was the pit lane.
+
+Even though not every pit-related gameplay system is necessarily doing something dramatic yet, I didn't want to reach the point later where the game suddenly needed a pit lane and there was nowhere sensible to put one.
+
+So Cathedral Circuit has one built into the architecture from the start.
+
+Rather than simply placing a second strip of asphalt next to the main straight, it runs through a section that feels like it could genuinely have been repurposed for the event.
+
+The entry and exit were also designed as proper transitions instead of hard branches from the racing line.
+
+It's one of those things that probably won't be the first feature anyone notices in a screenshot, but it makes the track much easier to build on later.
+
+<figure class="devlog-figure">
+  <Picture
+    src={pitlane}
+    alt="A red kart driving along the illuminated pit lane beside stone service bays, with the cathedral nave visible ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+  <figcaption>
+    The pit lane is built into the cathedral's architecture.
+  </figcaption>
+</figure>
+
+## Then came the unglamorous part
+
+Once the track looked good, there was still a lot of work left.
+
+And this is the bit screenshots tend not to show.
+
+Driving directly into walls.
+
+Driving into pillars.
+
+Driving into barriers.
+
+Trying to enter shortcuts from completely stupid angles.
+
+Missing jumps on purpose.
+
+Testing the sides of ramps.
+
+Finding objects that looked solid but didn't actually have collision.
+
+Finding collision where there shouldn't have been any.
+
+Watching AI drivers discover exciting new ways to become permanently attached to gothic architecture.
+
+A fair amount of the final work on Cathedral Circuit was simply trying to break it.
+
+If something looked solid, it needed to behave like it was solid.
+
+If a shortcut existed, the AI needed to understand it.
+
+If there was a jump, it had to work at more than one exact speed.
+
+If you fell off somewhere, the respawn needed to put you somewhere sensible.
+
+It isn't the glamorous part of building a track, but it is usually the difference between something that looks finished and something that actually feels finished.
+
+## One track, two very different moods
+
+One thing I'm enjoying as the first demo comes together is how different the tracks are becoming.
+
+I don't want the final set to feel like the same environment with different props.
+
+Cathedral Circuit is slower and more atmospheric in places, more vertical, and more focused on route choice and environmental danger.
+
+It still has the speed and exaggerated arcade feel that [Riff Racers](/games/#riff-racers-title) is built around, but it expresses that in a very different way.
+
+And that was really the goal.
+
+When you leave one track and load another, I want it to feel like you've gone somewhere new.
+
+## Three down
+
+With Cathedral Circuit finished, that's another major piece of the first Riff Racers demo in place.
+
+There are still more tracks to finish, more drivers to work on, and plenty of small things that will inevitably appear once everything starts coming together.
+
+But seeing the environments develop their own identity is probably one of the most satisfying parts of the project so far.
+
+Cathedral Circuit started as:
+
+_"What if we race through a giant ruined cathedral at night?"_
+
+It ended up becoming one of the more complicated tracks I've built for the game.
+
+Which, in retrospect, was probably inevitable.
+
+<figure class="devlog-figure">
+  <Picture
+    src={finalApproach}
+    alt="A red kart approaching the illuminated Riff Racers finish gantry, with the cathedral nave rising behind it."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    loading="lazy"
+  />
+</figure>
+
+**Cathedral Circuit is now complete and will be part of the upcoming Riff Racers demo.**
+
+More soon.
+
+— Daniel<br />
+**BrimFrame**

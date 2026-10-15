@@ -10,6 +10,8 @@ const devlog = defineCollection({
       .object({
         title: z.string().min(1).max(120),
         description: z.string().min(1).max(300),
+        intro: z.string().min(1).max(300).optional(),
+        excerpt: z.string().min(1).max(300).optional(),
         publishDate: z.coerce.date(),
         updatedDate: z.coerce.date().optional(),
         heroImage: image().optional(),

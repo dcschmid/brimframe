@@ -75,7 +75,7 @@ const metadata = {
       </a>
       <p class="eyebrow">From the Studio</p>
       <h1>{post.data.title}</h1>
-      <p class="page-intro">{post.data.description}</p>
+      <p class="page-intro">{post.data.intro ?? post.data.description}</p>
       <div class="article-meta">
         <span>By {site.developerName}</span>
         <time datetime={post.data.publishDate.toISOString()}>

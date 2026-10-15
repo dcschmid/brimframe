@@ -196,11 +196,10 @@ test('new article appears in the devlog and keeps automatic adjacent navigation'
   await page.goto('/devlog/');
   await page.getByRole('link', { name: title, exact: true }).click();
   await expect(page).toHaveURL(route);
-  await expect(page.locator('.article-navigation a')).toHaveAttribute(
-    'href',
-    ironChorus,
-  );
-  await page.locator('.article-navigation a').click();
+  await expect(
+    page.getByRole('link', { name: /Older update/ }),
+  ).toHaveAttribute('href', ironChorus);
+  await page.getByRole('link', { name: /Older update/ }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Iron Chorus: From Demo Track to Real Circuit',
   );
