@@ -1,0 +1,265 @@
+---
+title: 'Riff Racers – Building Frostfire Run'
+description: 'A look at Frostfire Run, the fifth and final track of the first Riff Racers demo lineup, from ice-and-fire level design to shortcuts, hazards and final polish.'
+intro: 'Finishing the fifth and final track of the first planned Riff Racers demo lineup.'
+excerpt: 'Frostfire Run started with ice and fire, but getting it to work as one track took a rebuild of the road flow, shortcuts, jumps and pit lane. The first five-track demo lineup is now complete.'
+publishDate: 2026-10-16
+heroImage: '../../assets/devlog/2026-10-frostfire-run/frostfire-run-hero.webp'
+heroImageAlt: 'A Riff Racers kart approaching Glacier Cut on Frostfire Run, with blue ice towers, glowing orange fissures and dark basalt beside the road.'
+tags: ['riff-racers', 'development', 'frostfire-run', 'track-design']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import poster from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-trailer-poster.webp';
+import frozenFang from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-frozen-fang.webp';
+import infernoRift from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-inferno-rift.webp';
+import splitRunePass from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-split-rune-pass.webp';
+import hellfireLeap from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-hellfire-leap.webp';
+import glacierCut from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-glacier-cut.webp';
+import dragonsMaw from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-dragons-maw.webp';
+import pitlane from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-pitlane.webp';
+import valhallaDescent from '../../assets/devlog/2026-10-frostfire-run/frostfire-run-valhalla-descent.webp';
+
+Frostfire Run is finished. Its lap runs between a frozen Nordic mountain landscape and a volcanic rift, with snow and blue ice giving way to basalt and lava before the road climbs back into the cold.
+
+With this track in place, all five tracks currently planned for the first Riff Racers demo now exist. That is a satisfying point to reach, especially because Frostfire was, for a while, the weakest of the five.
+
+The idea was there. Getting the track to live up to it took another round of fairly substantial changes.
+
+## Ice meets fire
+
+The starting point was simple: ice meets fire.
+
+I wanted snow, frozen waterfalls, mountain passes and cold blue light on one side of the lap. On the other, lava, basalt, sparks and the orange glow of volcanic rock. That contrast gave me plenty to work with visually.
+
+It also left a level-design problem. Putting a frozen area beside a volcanic one did not automatically make them feel like parts of the same place. The road needed to carry the player between them, with enough of one landscape visible from the other that the change made sense.
+
+Frozen Fang and Inferno Rift show the two ends of that idea. Between them, I had to think about the route, the landmarks and what the player would see approaching each transition.
+
+<figure class="devlog-figure">
+  <Picture
+    src={frozenFang}
+    alt="A red kart rounding Frozen Fang beneath a tall frozen waterfall, with snow-covered rocks and blue crystals beside the road."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Frozen Fang, on the cold side of the lap.</figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={infernoRift}
+    alt="The winding road through Inferno Rift, surrounded by basalt columns, orange lava fissures and volcanic peaks."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Inferno Rift brings the road down into the volcanic landscape.
+  </figcaption>
+</figure>
+
+I put together a short trailer showing the finished track in motion. It follows the lap through both sides of Frostfire, including the alternate routes.
+
+<VideoEmbed
+  videoId="tVvz5qD9b7Q"
+  title="Riff Racers – Frostfire Run | Final Demo Track Trailer"
+  poster={poster}
+  posterAlt="A kart driving towards the blue-and-orange Frostfire Gate beneath falling snow."
+  fallbackUrl="https://www.youtube.com/watch?v=tVvz5qD9b7Q"
+/>
+
+## Making the track actually flow
+
+The first version already had alternate routes and a big jump. They worked in principle, but some entrances felt attached to the track rather than part of it.
+
+High Road was a good example. At Split Rune Pass, the main Low Road curves around the icefall while a narrower, exposed route takes a higher line. That is a useful choice, but it loses something if the higher road seems to begin halfway across the asphalt.
+
+I went back and rebuilt the forks for High Road, Hellfire Leap and Glacier Cut. The road now opens up before each decision. A lane peels away from the racing line, carries the player into the alternate route and merges back alongside the main road at the other end.
+
+That meant changing the road itself, rather than only adjusting the shortcut. The approach and the merge were as much a part of the work as the route between them.
+
+<figure class="devlog-figure">
+  <Picture
+    src={splitRunePass}
+    alt="An elevated view of Split Rune Pass showing the narrow High Road branching left while the wider Low Road curves around a frozen waterfall."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>High Road and Low Road at Split Rune Pass.</figcaption>
+</figure>
+
+## Hellfire Leap
+
+Hellfire Leap is the faster, riskier line across the volcanic rift. The first ramp did its job, but it looked like a wedge placed on the road because I needed the kart to jump there.
+
+I rebuilt the setting around the remains of a broken bridge. The take-off sits on what is left of one end, with broken masonry and timber beneath it. Across the gap, the landing has its own matching structure and a proper connection back to the track.
+
+That gives the jump a reason to look the way it does. You are driving towards the surviving end of a crossing, with the missing section ahead of you.
+
+It still needs speed and commitment. The wider route around the rift remains available if you do not want to take the leap.
+
+<figure class="devlog-figure">
+  <Picture
+    src={hellfireLeap}
+    alt="A red kart airborne over the lava at Hellfire Leap, with the broken bridge's landing platform and the road beyond clearly visible."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Hellfire Leap, with the landing on the far side of the broken bridge.
+  </figcaption>
+</figure>
+
+## Glacier Cut
+
+Glacier Cut asks for something different. After the open gap of Hellfire Leap, this route is about precision: a shorter line through a narrow passage between ice walls, with small changes of direction inside it.
+
+The entrance needed the same attention as the other forks. The player should be able to see the choice coming and line up for it. I also cleared objects out of the route and reworked the exit so it feeds back into the main road cleanly.
+
+I like having these two kinds of risk on the same lap. Getting across the rift and keeping a tidy line through the glacier call for different decisions, even though both offer a way to save time.
+
+<figure class="devlog-figure">
+  <Picture
+    src={glacierCut}
+    alt="A kart entering the narrow Glacier Cut passage between tall blue ice walls with orange light glowing through the ice."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Glacier Cut trades the big jump for a tighter line through the ice.
+  </figcaption>
+</figure>
+
+## The track needed more than visual polish
+
+At one point, Frostfire was behind the other four tracks both technically and visually. There were graphical glitches, clipping, awkward road seams and gaps in collision. Some objects looked solid but could be driven through. The shortcut entrances and pit lane transitions still needed work, and too much of the background stood still.
+
+Adding more props would have left most of that untouched. I needed to go back through the track and fix the underlying problems.
+
+Collision took a fair amount of attention. A rock, barrier, ice block or solid metal structure gives the player an expectation. If the kart passes through it, the visible world and the driving stop agreeing with each other. I checked those surfaces alongside the road edges, ramps and route openings, where a small gap can matter much more at speed.
+
+The technical workflow helped here. Riff Racers now runs on **Defold 1.14.0**, with a Defold MCP setup that makes builds, logs and the running project easier to inspect. That let me check colliders, physics and runtime behaviour more directly while working through the changes. I have written more about that in [Under the Hood](/devlog/riff-racers-under-the-hood/); for Frostfire, its value was being able to check a change against the actual game and go back again when it still needed work.
+
+## Making the world feel alive
+
+Once the structure was in better shape, I could spend more time on what happens around the road.
+
+Moving banners, snowfall, steam, sparks and lava activity give the nearer areas some motion. Spectators gather around the gate, the Maw, the rift and the descent. Further away, volcanic plumes and occasional avalanches keep the mountains from feeling completely still.
+
+I did not want every part of the view competing for attention. Most of the movement stays around recognisable places, with quieter stretches between them. The falling ice and lava vents needed particular care because they can affect the kart, rather than only decorate the scene. Their warning cues matter more than how much activity I can fit around them.
+
+There are smaller details too, such as the hanging fire bowls beneath the Valhalla arches. They help give the final section some movement without putting another obstacle on the racing line.
+
+## Dragon's Maw
+
+Dragon's Maw became one of the most useful landmarks on the track. You approach it from the frozen side, drive through the skull and its rib-like arches, and emerge towards the volcanic area.
+
+I wanted that passage to do some of the work of joining the two landscapes. The large silhouette gives the player something to head towards, while the enclosed crossing creates room for the lighting and surroundings to change.
+
+It is a clear point in the lap where the cold mountain pass begins to give way to the rift.
+
+<figure class="devlog-figure">
+  <Picture
+    src={dragonsMaw}
+    alt="A kart approaching the glowing mouth of the large horned Dragon's Maw skull, with rib arches and spectators beside the road."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Dragon's Maw marks the passage from frost towards fire.
+  </figcaption>
+</figure>
+
+## The pit lane
+
+The pit lane needed more than a strip of road beside the straight. I widened and reshaped the approach, gave the entry a more natural taper and worked on the separation between the lane and the racing line. The exit needed a clean merge too.
+
+The service bays now have lighting, equipment and crew, so the area has a purpose beyond marking out space for a future system.
+
+Pit lanes have become part of how I design the Riff Racers tracks. The full pit-stop gameplay still needs work, but the space and its connections need to make sense before I build more on top of them.
+
+<figure class="devlog-figure">
+  <Picture
+    src={pitlane}
+    alt="The Frostfire start and finish straight beneath its ice-and-fire gate, with a separated pit lane and illuminated service bays on the right."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The pit lane and service bays alongside Frostfire Gate.
+  </figcaption>
+</figure>
+
+## Valhalla Descent
+
+After the tighter passages through frost and fire, Valhalla Descent opens the view again. The road heads downhill through the arches, with mountains around it and the event area coming back into sight.
+
+I wanted the end of the lap to have a little more room: more speed, longer views and crowds along the descent. The sequence of arches and fire leads you back towards Frostfire Gate, so the finish has an approach of its own.
+
+This wider view is one of my favourite ways to look at the track. You can see where the lap is going, rather than only the next corner.
+
+<figure class="devlog-figure">
+  <Picture
+    src={valhallaDescent}
+    alt="A wide view down Valhalla Descent, with a kart on the open road, snow-covered mountains, trackside spectators and firelit arches leading towards Frostfire Gate."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Valhalla Descent opens the landscape on the way back to the line.
+  </figcaption>
+</figure>
+
+## Five tracks done
+
+[Thunderforge](/devlog/riff-racers-thunderforge/) brought the lineup to four. Frostfire Run completes the five tracks currently planned for the first demo.
+
+That is a large milestone for the track side of the project. There is still plenty to do on Riff Racers itself, including drivers, karts, AI, balancing, the pit-stop system and the work needed to prepare the demo. Having the tracks in place gives me a much better foundation for that work.
+
+Frostfire took more rebuilding than I expected. It was frustrating to have a track that could be driven from start to finish and still see so much that needed changing. But going back through it was worthwhile. The alternate routes belong to the road now, the jump has a setting that explains it, and the lap feels more connected.
+
+It is satisfying to leave Frostfire in a place where it feels like the final track of this lineup. I can now give more attention to the systems that will carry the racing across all five.
