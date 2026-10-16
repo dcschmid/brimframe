@@ -103,9 +103,12 @@ const metadata = {
         class="article-image"
         src={post.data.heroImage}
         alt={post.data.heroImageAlt ?? ''}
+        width={1200}
         widths={[480, 800, 1200]}
         sizes="(max-width: 768px) 100vw, 800px"
-        formats={['avif', 'webp', 'png']}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        quality={90}
         loading="eager"
         fetchpriority="high"
       />

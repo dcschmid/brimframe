@@ -14,13 +14,16 @@ const { post, wide = false } = Astro.props;
     <Picture
       src={post.data.heroImage}
       alt={post.data.heroImageAlt ?? ''}
+      width={1200}
       widths={[480, 800, 1200]}
       sizes={
         wide
           ? '(min-width: 1280px) 1184px, calc(100vw - 5rem)'
           : '(min-width: 1280px) 384px, (min-width: 768px) 45vw, calc(100vw - 5rem)'
       }
-      formats={['avif', 'webp', 'png']}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      quality={90}
       loading="lazy"
       class="devlog-image"
     />

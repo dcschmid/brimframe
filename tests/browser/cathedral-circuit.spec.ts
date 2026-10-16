@@ -138,7 +138,9 @@ test('Cathedral Circuit is discoverable through the index and adjacent posts', a
   page,
 }) => {
   await page.goto('/devlog/');
-  const card = page.locator('.devlog-card').first();
+  const card = page.locator('.devlog-card').filter({
+    has: page.getByRole('link', { name: title, exact: true }),
+  });
   await expect(card).toContainText('Riff Racers heads somewhere darker.');
   await card.getByRole('link', { name: title, exact: true }).click();
   await expect(page).toHaveURL(route);

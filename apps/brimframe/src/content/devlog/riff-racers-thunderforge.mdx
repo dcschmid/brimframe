@@ -1,0 +1,363 @@
+---
+title: 'Thunderforge – When a Track Starts to Feel Like a Place'
+description: 'Building Thunderforge for Riff Racers: an industrial mountain track with stormy cliffs, huge jumps, shortcuts, hazards and a forge that finally feels alive.'
+intro: 'Riff Racers – Track 04: THUNDERFORGE.'
+excerpt: 'Thunderforge looked finished more than once. These are the final passes that turned a working race track into a place that feels alive.'
+publishDate: 2026-10-16
+heroImage: '../../assets/devlog/2026-10-thunderforge/thunderforge-hero.webp'
+heroImageAlt: 'An elevated view through Thunderforge’s orange-lit forge gate, with a kart on the wet road and industrial structures in the storm.'
+tags: ['riff-racers', 'development', 'thunderforge', 'track-design']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import poster from '../../assets/devlog/2026-10-thunderforge/thunderforge-trailer-poster.webp';
+import lightningClimb from '../../assets/devlog/2026-10-thunderforge/thunderforge-lightning-climb.webp';
+import brokenBridge from '../../assets/devlog/2026-10-thunderforge/thunderforge-broken-bridge.webp';
+import forgeInterior from '../../assets/devlog/2026-10-thunderforge/thunderforge-forge-interior.webp';
+import furnaceCut from '../../assets/devlog/2026-10-thunderforge/thunderforge-furnace-cut.webp';
+import hammer from '../../assets/devlog/2026-10-thunderforge/thunderforge-the-hammer.webp';
+import maintenanceTunnel from '../../assets/devlog/2026-10-thunderforge/thunderforge-maintenance-tunnel.webp';
+import startFinish from '../../assets/devlog/2026-10-thunderforge/thunderforge-start-finish.webp';
+import thunderRun from '../../assets/devlog/2026-10-thunderforge/thunderforge-thunder-run.webp';
+
+Thunderforge is done.
+
+Or, well… it was “done” a few times before it was actually done.
+
+That seems to be becoming a bit of a theme with Riff Racers.
+
+There is a point when building a track where all the important pieces are technically there. You can drive a full lap, the shortcuts work, the scenery is in place, and nothing obviously falls apart.
+
+And then you actually drive it a few more times and start noticing all the small things.
+
+A barrier that looks solid but you can drive straight through.
+
+A shortcut that technically works, but starts a little too suddenly and looks like somebody glued another piece of road onto the track.
+
+A ramp that does its job, but does not really feel like it belongs there.
+
+A pit lane that exists, but does not yet look like somewhere a racing team would actually use.
+
+Thunderforge had quite a few of those moments.
+
+So this track ended up getting a much more thorough final pass than I originally expected.
+
+<VideoEmbed
+  videoId="_cMQi0Td_SU"
+  title="Riff Racers – Thunderforge | Track 04 Trailer"
+  poster={poster}
+  posterAlt="A kart approaching the orange-lit forge machinery and the Furnace Cut entrance in the rain."
+  fallbackUrl="https://www.youtube.com/watch?v=_cMQi0Td_SU"
+/>
+
+## Into the forge
+
+The basic idea behind Thunderforge was fairly simple:
+
+What if a race track ran through a huge industrial mountain forge during a thunderstorm?
+
+That gave me a pretty clear visual direction right away.
+
+Dark mountains, wet roads, steel structures, orange furnace light, cold lightning, deep drops and huge industrial machinery.
+
+The important part was making sure it did not just become a dark track with a few glowing orange objects scattered around.
+
+I wanted the place to feel like an actual working industrial complex that happened to have a race track running through it.
+
+That meant thinking a bit more about why things were where they were.
+
+A maintenance tunnel should actually look like a maintenance tunnel.
+
+A shortcut should feel like an old service road or transport route.
+
+A jump should look like it came from damaged or repurposed industrial infrastructure rather than a random ramp sitting in the middle of the road.
+
+Those little decisions made a much bigger difference than I expected.
+
+<figure class="devlog-figure">
+  <Picture
+    src={lightningClimb}
+    alt="A kart climbing the wet mountain road between angular cliffs, orange guardrails and industrial towers."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Lightning Climb takes the racing line into the mountains above the forge.
+  </figcaption>
+</figure>
+
+## The track needed to flow better
+
+One of the things I spent quite a bit of time on was the way alternate routes connect to the main track.
+
+Earlier versions had a few places where shortcuts or jumps started too abruptly.
+
+They worked mechanically, but visually you could immediately tell that they had been added later.
+
+So I went back and rebuilt those transitions.
+
+Now the road actually splits before a shortcut.
+
+The player can see the decision coming.
+
+The shortcut has its own entrance, its own shape and then a proper merge back into the main route.
+
+It is a small thing, but it makes the whole track feel much more believable.
+
+The same happened with the major jumps.
+
+The Broken Bridge and The Hammer are still big arcade racing moments, but they now feel more like parts of Thunderforge rather than special objects placed there just because the track needed a jump.
+
+<figure class="devlog-figure">
+  <Picture
+    src={brokenBridge}
+    alt="A red kart airborne over the Broken Bridge gap, with the forge towers and another stretch of road beyond."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The Broken Bridge turns damaged infrastructure into a jump across the drop.
+  </figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={hammer}
+    alt="A kart jumping beside the elevated road at The Hammer, with orange forge lights against a dark storm sky."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The Hammer is the other big jump, built into the industrial track layout.
+  </figcaption>
+</figure>
+
+## Making the environment react
+
+Thunderforge also became a good place to push the environment a little further.
+
+The forge now has much more movement around the player.
+
+There are machines working in the background, steam, sparks, moving industrial elements and more activity around the pit and trackside areas.
+
+I did not want everything moving all the time.
+
+That would quickly become distracting and expensive for very little gain.
+
+Instead I tried to pick a few larger pieces of motion that you actually notice while racing.
+
+The goal was simply to make the world feel like it carries on beyond the racing line.
+
+That is something I want more of throughout Riff Racers.
+
+The track should not feel like a road floating inside a decorated level.
+
+It should feel like part of a place.
+
+<figure class="devlog-figure">
+  <Picture
+    src={forgeInterior}
+    alt="A kart rounding a bend inside the forge complex beneath steel beams, glowing orange wall panels and a horned hand sculpture."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Inside the forge complex, the machinery and track share the same space.
+  </figcaption>
+</figure>
+
+## Hazards, but not random punishment
+
+Thunderforge also gave me an excuse to experiment a bit more with hazards.
+
+Things like steam vents and industrial machinery fit the setting naturally.
+
+But I am trying to stay away from traps that just punish you randomly.
+
+If something can interfere with the race, I want the player to be able to read it.
+
+A warning light, an animation, a sound cue, a repeated timing pattern — something that lets you understand what is about to happen.
+
+The idea is that the first time you might get caught by it.
+
+The next time you know what to look for.
+
+That feels much fairer, especially in a racing game where losing half a second can already matter.
+
+<figure class="devlog-figure">
+  <Picture
+    src={furnaceCut}
+    alt="A kart approaching the marked Furnace Cut shortcut between large toothed wheels and orange-lit industrial walls."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Furnace Cut branches off through the machinery beside the main route.
+  </figcaption>
+</figure>
+
+## The boring stuff that matters
+
+A surprisingly large part of the final Thunderforge pass had nothing to do with making it prettier.
+
+It was collision work.
+
+There were objects close to the track that looked completely solid but did not actually have proper collision.
+
+That immediately breaks the illusion when you hit them and the kart simply passes through.
+
+So I went over the track again and checked barriers, machinery, pillars, tunnel walls, trackside objects and the pit area.
+
+If something looks like you should hit it, you should hit it.
+
+That sounds obvious, but it is exactly the kind of thing that is easy to miss while concentrating on the bigger picture.
+
+I also spent time hunting the less exciting visual problems:
+
+floating props, clipping, awkward road seams, overlapping geometry and a few places where surfaces could flicker.
+
+None of those things make a good screenshot on their own, but fixing them is what makes the final result stop feeling unfinished.
+
+<figure class="devlog-figure">
+  <Picture
+    src={maintenanceTunnel}
+    alt="A kart driving through the narrow Maintenance Tunnel, with overhead lights, close steel walls and orange and blue strips."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The Maintenance Tunnel is one of the tighter routes through Thunderforge.
+  </figcaption>
+</figure>
+
+## The pit lane
+
+The pit lane also got another pass.
+
+Pit stops are something I want to build on properly later, so right now the important part is making sure each track already has a believable foundation for them.
+
+For Thunderforge that meant improving the entry and exit, making the lane feel like it naturally branches away from the main straight and giving the service area a bit more life.
+
+I want it to look useful even before all of the final pit-stop gameplay exists.
+
+That way, when that system arrives later, I am not trying to force it into spaces that were never designed for it.
+
+<figure class="devlog-figure">
+  <Picture
+    src={startFinish}
+    alt="A kart on the main straight beneath the glowing Thunderforge start and finish gantry, with the service area on the right."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The start and finish straight, with the service area alongside it.
+  </figcaption>
+</figure>
+
+## Building with the actual game running
+
+One thing that has changed quite a bit in my workflow recently is how closely I can work against the running Defold project.
+
+Riff Racers is now on **Defold 1.14.0**, and I have also added a Defold MCP setup to the project.
+
+That means a lot more of the work can follow a proper loop:
+
+build something, run it, inspect it, find the problem, fix it, run it again.
+
+For a track like Thunderforge that matters a lot.
+
+A collider can look perfectly sensible in a file and still feel wrong when the kart hits it at speed.
+
+A ramp can look fine from above and still have an awkward landing.
+
+A shortcut can seem perfectly logical until you actually approach it at racing speed.
+
+The running game always gets the final vote.
+
+## Thunderforge's identity
+
+Every Riff Racers track needs one or two things that immediately tell you where you are.
+
+For Thunderforge, I think it has ended up being a combination of three things:
+
+the forge itself, the Broken Bridge jump and the storm hanging over the mountains.
+
+That contrast between cold blue lightning and the warm furnace glow ended up giving the track a very strong identity.
+
+And it is probably one of the reasons I kept polishing it longer than planned.
+
+Once the atmosphere started working, all the little rough edges became much easier to notice.
+
+So I kept going.
+
+<figure class="devlog-figure">
+  <Picture
+    src={thunderRun}
+    alt="A kart following Thunder Run past industrial towers as branching lightning crosses the dark blue sky."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Thunder Run brings the storm back into view on the way through the complex.
+  </figcaption>
+</figure>
+
+## Four tracks down
+
+Thunderforge is now the fourth track to reach this stage.
+
+There is still plenty left to do across Riff Racers, but getting another track to the point where I can stop looking at it as a collection of systems and start seeing it as an actual place is a really satisfying milestone.
+
+The next step is the same one I have been looking forward to after every finished track:
+
+driving it far too many times and seeing what breaks.
+
+That part somehow never gets old.
+
+For now though, Thunderforge is ready.
+
+And yes, jumping a kart across a broken industrial bridge during a thunderstorm is every bit as fun as I hoped it would be.

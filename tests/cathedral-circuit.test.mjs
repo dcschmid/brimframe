@@ -55,17 +55,18 @@ test('Cathedral metadata, social image and discovery use the published article',
   assert.equal($('.video-embed').prevAll('h2').length, 0);
   for (const file of ['index.html', 'devlog/index.html']) {
     const page = load(await read(file));
-    const first = page('.devlog-card').first();
-    assert.equal(first.find('h3 a').attr('href'), route);
-    assert.match(first.text(), /Riff Racers heads somewhere darker\./);
+    const card = page(`.devlog-card:has(h3 a[href="${route}"])`);
+    assert.equal(card.length, 1);
+    assert.match(card.text(), /Riff Racers heads somewhere darker\./);
   }
   const feed = load(await read('rss.xml'), { xmlMode: true });
-  assert.equal(
-    feed('item').first().find('link').text(),
-    `https://brimframe.de${route}`,
+  const item = feed('item').filter(
+    (_, node) =>
+      feed(node).find('link').text() === `https://brimframe.de${route}`,
   );
+  assert.equal(item.length, 1);
   assert.match(
-    feed('item').first().find('description').text(),
+    item.find('description').text(),
     /Riff Racers heads somewhere darker\./,
   );
   assert.ok((await read('sitemap-0.xml')).includes(route));

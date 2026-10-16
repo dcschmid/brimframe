@@ -639,6 +639,8 @@ nav ul {
   justify-content: space-between;
   gap: 1rem;
   min-height: 44px;
+  /* Keep wrapped titles fully visible when keyboard focus scrolls the page. */
+  scroll-margin-block: 3rem;
   text-decoration: none;
 }
 .devlog-card h3 {
@@ -774,6 +776,7 @@ nav ul {
 .page-intro {
   color: var(--text-soft);
   max-width: 52ch;
+  overflow-wrap: anywhere;
   margin-top: 1.5rem;
   font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
 }
