@@ -26,7 +26,13 @@ test('the official logo source is unchanged and responsive PNGs keep transparenc
     assert.equal(logo.attr('loading'), 'lazy');
     assert.ok(logo.attr('sizes'));
     const candidates = logo.attr('srcset')?.split(',') ?? [];
-    assert.ok(candidates.length >= 3);
+    assert.deepEqual(
+      candidates.map((candidate) =>
+        Number.parseInt(candidate.trim().split(/\s+/)[1]),
+      ),
+      [240, 360, 540, 900],
+      'ladder must match the rendered widths, no upscaling',
+    );
     for (const candidate of candidates) {
       const [url, descriptor] = candidate.trim().split(/\s+/);
       const file = path.join(output, url);

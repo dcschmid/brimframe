@@ -141,10 +141,12 @@ The original PNG source remains byte-for-byte unchanged. Astro's required Sharp
 image processor is installed explicitly and version-pinned in the app. It runs
 only during the static build and adds no browser dependency. Astro's `Picture`
 component generates responsive AVIF and WebP derivatives, with a lossless PNG
-fallback row at 240–1350 px for browsers supporting neither. The PNG row sets no
+fallback row at 240–900 px for browsers supporting neither. The PNG row sets no
 numeric `quality`, avoiding Sharp palette quantisation, so transparency, aspect
-ratio and the whole logo stay intact; there is no cropping, and retina sizes
-remain available. Its alt is empty because the nearby heading already
+ratio and the whole logo stay intact; there is no cropping, and the ladder
+covers rendered widths plus 2x pixel density. Its alt is empty because the
+nearby heading
+already
 names the game. The asset directory documents the source dimensions and SHA-256.
 
 The three initial attachments are brand/concept boards. No parts of those boards

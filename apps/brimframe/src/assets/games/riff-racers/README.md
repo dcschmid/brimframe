@@ -9,13 +9,16 @@ RGBA PNG. The SHA-256 of the original and repository copy is:
 ```
 
 `src/config/games.ts` imports the original metadata. Astro's `Picture`
-component generates responsive derivatives at 240, 360, 540, 720, 900 and 1350
-pixels wide in AVIF and WebP, with a lossless PNG fallback row for browsers
-that support neither. AVIF and WebP are lossy and drop the logo's alpha channel,
-so the PNG row keeps the transparency guarantee: it sets no numeric `quality`,
-which avoids enabling Sharp's palette quantisation. The browser picks AVIF
-first, then WebP, then PNG; the 1.5 MB source is never served. Its empty alt
-avoids repeating the adjacent game heading.
+component generates responsive derivatives at 240, 360, 540 and 900 pixels wide in
+AVIF and WebP, with a lossless PNG fallback row for browsers that support
+neither. The ladder covers the rendered widths (roughly 524 CSS px on mobile,
+448 px on desktop) plus the 2x device-pixel density of the largest of them, so
+no derivative upscales the source. The
+AVIF and WebP rows keep the logo's alpha channel; the lossless PNG row is the
+transparency guarantee for older browsers: it sets no numeric `quality`, which
+avoids enabling Sharp's palette quantisation. The browser picks AVIF first,
+then WebP, then PNG; the 1.5 MB source is never served. Its empty alt avoids
+repeating the adjacent game heading.
 Design boards are references only and are not used as production artwork.
 
 Optional owned artwork can be imported into the `artwork` field with descriptive

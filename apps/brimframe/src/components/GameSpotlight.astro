@@ -34,7 +34,7 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
         <Picture
           src={game.logo}
           width={900}
-          widths={[240, 360, 540, 720, 900, 1350]}
+          widths={[240, 360, 540, 900]}
           sizes="(min-width: 1280px) 448px, (min-width: 768px) 41vw, (min-width: 540px) 448px, calc(100vw - 96px)"
           formats={['avif', 'webp', 'png']}
           fallbackFormat="png"
