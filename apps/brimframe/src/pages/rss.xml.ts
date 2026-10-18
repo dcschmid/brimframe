@@ -17,6 +17,21 @@ export const GET = async (context: APIContext) => {
       categories: post.data.tags,
       author: `${site.developerName} (${site.contactEmail ?? site.url})`,
     })),
-    customData: `<language>${site.language}</language>`,
+    customData: [
+      `<language>${site.language}</language>`,
+      site.socialImage
+        ? [
+            '<image>',
+            `<url>${new URL(site.socialImage, site.url).href}</url>`,
+            `<title>${site.name}</title>`,
+            `<link>${site.url}</link>`,
+            '<width>1200</width>',
+            '<height>630</height>',
+            '</image>',
+          ].join('')
+        : '',
+    ]
+      .filter(Boolean)
+      .join(''),
   });
 };

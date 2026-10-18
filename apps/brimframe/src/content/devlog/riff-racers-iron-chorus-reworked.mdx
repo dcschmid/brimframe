@@ -2,7 +2,7 @@
 title: 'Iron Chorus: From Demo Track to Real Circuit'
 description: 'Iron Chorus started as one of Riff Racers’ earliest demo tracks. After several redesigns it has grown into a fuller circuit with new environments, hazards, shortcuts and a pitlane.'
 publishDate: 2026-10-14
-heroImage: '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage.png'
+heroImage: '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage.webp'
 heroImageAlt: 'Riff Racers karts racing past the main stage on the rebuilt Iron Chorus track, with the crowd and speaker towers filling the arena.'
 tags: ['riff-racers', 'development', 'iron-chorus', 'track-design']
 draft: false
@@ -12,14 +12,14 @@ featured: true
 
 import { Picture } from 'astro:assets';
 import VideoEmbed from '../../components/VideoEmbed.astro';
-import mainStageBeforeAfter from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage-before-after.png';
-import ampCanyon from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-amp-canyon.png';
-import crowd from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-crowd.png';
-import backstageShortcut from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-backstage-shortcut.png';
-import forge from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-forge.png';
-import pitlane from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-pitlane.png';
-import heroJump from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-hero-jump.png';
-import finale from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-finale.png';
+import mainStageBeforeAfter from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-main-stage-before-after.webp';
+import ampCanyon from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-amp-canyon.webp';
+import crowd from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-crowd.webp';
+import backstageShortcut from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-backstage-shortcut.webp';
+import forge from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-forge.webp';
+import pitlane from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-pitlane.webp';
+import heroJump from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-hero-jump.webp';
+import finale from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-finale.webp';
 import trailerPoster from '../../assets/devlog/2026-10-iron-chorus/riff-racers-devlog-iron-chorus-trailer-poster.jpg';
 
 **Iron Chorus was one of the first tracks I built for Riff Racers.** It worked, you could race on it, and it already had some of the heavy metal atmosphere I wanted for the game.
@@ -52,8 +52,12 @@ I wanted the new version to feel more like an actual place. Not just a road with
   <Picture
     src={mainStageBeforeAfter}
     alt="Side-by-side comparison of the Iron Chorus start and finish straight: the older, simpler version on the left and the rebuilt version with the main stage and crowd on the right."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -78,8 +82,12 @@ It also helped me move away from the very flat layout of the original track. Iro
   <Picture
     src={ampCanyon}
     alt="A kart racing through the rebuilt Amp Canyon section of Iron Chorus, with towering speaker and amplifier structures on both sides of the road."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -108,8 +116,12 @@ That has become a useful rule for the rest of the game:
   <Picture
     src={crowd}
     alt="The rebuilt crowd and grandstands around the Iron Chorus main stage, with the Riff Racers screen and speaker towers behind the start straight."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -136,8 +148,12 @@ Not glamorous work, but probably some of the most important work in the whole re
   <Picture
     src={backstageShortcut}
     alt="A kart taking the backstage shortcut on Iron Chorus, with the main road visible beyond the elevated section."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -162,8 +178,12 @@ That’s the balance I’m aiming for.
   <Picture
     src={forge}
     alt="The forge section of Iron Chorus with flames, industrial machinery and a moving hazard beside the racing line."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -196,8 +216,12 @@ I’m not quite ready to talk about exactly what those mechanics will be yet. I 
   <Picture
     src={pitlane}
     alt="The new pitlane beside the Iron Chorus start and finish straight, with service bays, a pit wall and backstage equipment."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -220,8 +244,12 @@ Iron Chorus is still supposed to be fast. There is just more happening during a 
   <Picture
     src={heroJump}
     alt="A kart mid-air on the hero jump of Iron Chorus, with the festival arena and crowd visible in the background."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -252,8 +280,12 @@ That should make rebuilding the remaining tracks a little less chaotic. Hopefull
   <Picture
     src={finale}
     alt="Riff Racers karts racing past the main stage on Iron Chorus as the sun sets over the festival arena."
+    width={1200}
     widths={[480, 800, 1200]}
     sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>

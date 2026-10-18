@@ -2,7 +2,7 @@
 title: 'Riff Racers: The Road to the First Demo'
 description: 'I’m working towards a Riff Racers demo in December 2026. Here’s what I’m planning for the five tracks, 12 drivers and 12 karts, and what still needs work.'
 publishDate: 2026-10-11
-heroImage: '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.png'
+heroImage: '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-gameplay-wip.webp'
 heroImageAlt: 'Gameplay from Riff Racers showing several karts racing through a brightly lit track at sunset with the race HUD visible.'
 tags: ['riff-racers', 'development', 'demo']
 draft: false
@@ -11,8 +11,8 @@ featured: true
 ---
 
 import { Picture } from 'astro:assets';
-import trackWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.png';
-import driverKartWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.png';
+import trackWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.webp';
+import driverKartWip from '../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.webp';
 
 I’m working towards the first public demo of Riff Racers, aiming for December 2026. There’s still work to do before I can put a build out, particularly on the
 racing AI and handling.
@@ -37,11 +37,14 @@ affect a race. Some of those ideas will get cut if they don’t work well in pla
 
 <figure class="devlog-figure">
   <Picture
-    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-track-wip.png"
+    src={trackWip}
     alt="Work-in-progress Riff Racers track at night, with a curved road running past a large building with glowing stained-glass windows."
+    width={1200}
     widths={[480, 800, 1200, 1600]}
     sizes="(max-width: 768px) 100vw, 800px"
-    src={trackWip}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>
@@ -58,11 +61,14 @@ animations, and there’s balancing to do as well.
 
 <figure class="devlog-figure">
   <Picture
-    src="../../assets/devlog/2026-10-first-demo/riff-racers-devlog-driver-kart-wip.png"
+    src={driverKartWip}
     alt="A Riff Racers driver sitting in a red, white and black kart, with two other drivers and karts lined up behind."
+    width={1200}
     widths={[480, 800, 1200, 1600]}
     sizes="(max-width: 768px) 100vw, 800px"
-    src={driverKartWip}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
     loading="lazy"
   />
   <figcaption>

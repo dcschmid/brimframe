@@ -27,6 +27,6 @@ const posts = await getPublishedPosts();
     <h2 id="updates-title" class="visually-hidden">
       Published updates
     </h2>
-    <DevlogList posts={posts} />
+    <DevlogList posts={posts} eagerFirst />
   </section>
 </SiteLayout>

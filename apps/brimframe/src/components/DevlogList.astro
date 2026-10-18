@@ -3,14 +3,20 @@ import type { CollectionEntry } from 'astro:content';
 import DevlogCard from './DevlogCard.astro';
 interface Props {
   posts: CollectionEntry<'devlog'>[];
+  /** Load the first card eagerly; use only where it sits near the initial view. */
+  eagerFirst?: boolean;
 }
-const { posts } = Astro.props;
+const { posts, eagerFirst = false } = Astro.props;
 ---
 
 {posts.length ? (
   <div class="devlog-grid">
-    {posts.map((post) => (
-      <DevlogCard post={post} wide={posts.length === 1} />
+    {posts.map((post, index) => (
+      <DevlogCard
+        post={post}
+        wide={posts.length === 1}
+        eager={eagerFirst && index === 0}
+      />
     ))}
   </div>
 ) : (

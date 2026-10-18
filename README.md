@@ -246,8 +246,10 @@ height and alt). Indexable pages also include canonical URLs. The SEO component
 emits only known Organization facts (logo, founder, email, slogan); devlog articles emit
 BlogPosting JSON-LD with a BreadcrumbList graph and use their hero image for `og:image`.
 `public/robots.txt` (points crawlers at the sitemap) and the `@astrojs/rss`
-devlog feed (`/rss.xml`, published posts only, linked from every page head)
-use `https://brimframe.de`. The custom
+devlog feed (`/rss.xml`, published posts only, linked from every page head; the
+channel also carries the site image) use `https://brimframe.de`. The sitemap
+marks every devlog URL with the article's `updatedDate`, or its `publishDate`
+when never updated, as `lastmod`. The custom
 404 is noindex. Legal pages awaiting launch review are noindex and excluded from the
 sitemap until `legal.ready` is true.
 
@@ -314,6 +316,10 @@ an operational policy; the static website cannot delete email automatically.
 3. Create a Blueprint in Render using the root `render.yaml`.
 4. Review the Static Site named **brimframe** and leave the root directory unset.
 5. Verify the initial output through its Render URL, then configure custom DNS.
+6. After each deploy that changes indexable content, run `pnpm notify:indexnow`
+   to ping IndexNow (Bing, Yandex, …) with the built sitemap URLs. The key file
+   already ships in `public/`; the script reads the fresh `sitemap-0.xml` from
+   `apps/brimframe/dist`, so build locally first when pinging.
 
 The Blueprint uses `type: web`, `runtime: static`, a pinned pnpm bootstrap and
 `install --frozen-lockfile`. It builds from the repository root with a workspace

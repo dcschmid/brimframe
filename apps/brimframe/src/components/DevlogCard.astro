@@ -5,8 +5,9 @@ import { formatDate } from '../utils/devlog';
 interface Props {
   post: CollectionEntry<'devlog'>;
   wide?: boolean;
+  eager?: boolean;
 }
-const { post, wide = false } = Astro.props;
+const { post, wide = false, eager = false } = Astro.props;
 ---
 
 <article class="devlog-card">
@@ -24,7 +25,8 @@ const { post, wide = false } = Astro.props;
       formats={['avif', 'webp']}
       fallbackFormat="jpg"
       quality={90}
-      loading="lazy"
+      loading={eager ? 'eager' : 'lazy'}
+      {...(eager ? { fetchpriority: 'high' as const } : {})}
       class="devlog-image"
     />
   )}

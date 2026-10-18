@@ -18,6 +18,14 @@ test('RSS feed is valid and excludes drafts; items carry absolute links', async 
   const $ = load(feed, { xmlMode: true });
   assert.equal($('channel > title').text(), 'BrimFrame Devlog');
   assert.equal($('channel > language').text(), 'en');
+  assert.equal(
+    $('channel > image > url').text(),
+    'https://brimframe.de/og-image.png',
+  );
+  assert.equal($('channel > image > title').text(), 'BrimFrame');
+  assert.equal($('channel > image > link').text(), 'https://brimframe.de');
+  assert.equal($('channel > image > width').text(), '1200');
+  assert.equal($('channel > image > height').text(), '630');
   assert.ok(
     $('item').length === 0 || $('item > link').length === $('item').length,
   );
@@ -154,4 +162,68 @@ test('OG image is a real 1200x630 PNG within social-card size budget', async () 
   assert.equal(meta.height, 630);
   const { size } = await stat(path.join(root, 'og-image.png'));
   assert.ok(size < 300 * 1024, `og-image.png too large: ${size}`);
+});
+
+test('sitemap carries a lastmod for every published devlog article', async () => {
+  const $ = load(await read('sitemap-0.xml'), { xmlMode: true });
+  const devlog = $('url')
+    .toArray()
+    .map((el) => $(el))
+    .filter((url) =>
+      url.find('loc').text().startsWith('https://brimframe.de/devlog/'),
+    );
+  const articles = devlog.filter(
+    (url) => url.find('loc').text() !== 'https://brimframe.de/devlog/',
+  );
+  const feed = load(await read('rss.xml'), { xmlMode: true });
+  assert.equal(articles.length, feed('item').length);
+  for (const url of articles) {
+    const lastmod = url.find('lastmod').text();
+    assert.match(
+      lastmod,
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+      `${url.find('loc').text()} needs an ISO lastmod`,
+    );
+  }
+});
+
+test('every published devlog article ships avif and webp sources with a light fallback', async () => {
+  const feed = load(await read('rss.xml'), { xmlMode: true });
+  for (const link of feed('item > link')
+    .toArray()
+    .map((el) => feed(el).text())) {
+    const slug = link.split('/').filter(Boolean).pop();
+    const page = load(await read(`devlog/${slug}/index.html`));
+    const images = page('article img');
+    assert.ok(images.length > 0, `${slug}: article needs images`);
+    for (const node of images.toArray()) {
+      const image = page(node);
+      assert.equal(
+        image.parent('picture').find('source[type="image/avif"]').length,
+        1,
+        `${slug}: missing avif source`,
+      );
+      assert.equal(
+        image.parent('picture').find('source[type="image/webp"]').length,
+        1,
+        `${slug}: missing webp source`,
+      );
+      assert.ok(
+        (await stat(path.join(root, image.attr('src')))).size < 300 * 1024,
+        `${slug}: fallback ${image.attr('src')} exceeds 300 kB`,
+      );
+    }
+  }
+});
+
+test('devlog index loads the first card eagerly and the rest lazily', async () => {
+  const $ = load(await read('devlog/index.html'));
+  const cards = $('.devlog-card');
+  assert.ok(cards.length > 1);
+  const first = $(cards[0]).find('img');
+  assert.equal(first.attr('loading'), 'eager');
+  assert.equal(first.attr('fetchpriority'), 'high');
+  for (const card of cards.toArray().slice(1)) {
+    assert.equal($(card).find('img').attr('loading'), 'lazy');
+  }
 });

@@ -3,7 +3,7 @@ import EditorialLayout from '../layouts/EditorialLayout.astro';
 import Values from '../components/Values.astro';
 import { site } from '../config/site';
 import { Picture } from 'astro:assets';
-import danielPortrait from '../assets/about/daniel-portrait.png';
+import danielPortrait from '../assets/about/daniel-portrait.webp';
 ---
 
 <EditorialLayout
@@ -18,12 +18,17 @@ import danielPortrait from '../assets/about/daniel-portrait.png';
     <div class="prose">
       <Picture
         src={danielPortrait}
+        width={1024}
         widths={[640, 1024, 1600]}
         sizes="(min-width: 52rem) 42rem, calc(100vw - 3rem)"
         alt="Daniel at his laptop, working on a game, on a sunlit terrace"
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        quality={90}
         class="about-portrait"
         loading="eager"
         decoding="async"
+        fetchpriority="high"
       />
       <p>
         I’m Daniel. I’ve worked as a web developer for about twenty years, and I
