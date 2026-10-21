@@ -58,14 +58,13 @@ test('Thunderforge metadata and discovery use the published article and its own 
   assert.equal(article.publisher.name, 'BrimFrame');
   assert.equal(article.datePublished, '2026-10-16T00:00:00.000Z');
   assert.equal(article.image.url, image);
-  for (const file of ['index.html', 'devlog/index.html']) {
-    const page = load(await read(file));
-    const card = page(`.devlog-card:has(h3 a[href="${route}"])`);
-    assert.equal(card.length, 1);
-    assert.match(card.find('img').attr('src'), /^\/_astro\/thunderforge-hero/);
-    assert.match(card.text(), /Thunderforge looked finished more than once\./);
-    assert.equal(card.find('time').attr('datetime'), article.datePublished);
-  }
+  // The homepage shows only the three newest posts; older updates stay in the archive.
+  const page = load(await read('devlog/index.html'));
+  const card = page(`.devlog-card:has(h3 a[href="${route}"])`);
+  assert.equal(card.length, 1);
+  assert.match(card.find('img').attr('src'), /^\/_astro\/thunderforge-hero/);
+  assert.match(card.text(), /Thunderforge looked finished more than once\./);
+  assert.equal(card.find('time').attr('datetime'), article.datePublished);
   const feed = load(await read('rss.xml'), { xmlMode: true });
   assert.equal(
     feed('item').filter(

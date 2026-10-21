@@ -63,21 +63,21 @@ test('weather publishes with BrimFrame attribution, current metadata and discove
   assert.equal(article.image.url, hero);
   for (const file of ['index.html', 'devlog/index.html']) {
     const page = load(await read(file));
-    assert.equal(page('.devlog-card h3 a').first().attr('href'), route);
-    assert.match(
-      page('.devlog-card').first().find('img').attr('src'),
-      /dynamic-weather-hero/,
-    );
+    const card = page(`.devlog-card:has(a[href="${route}"])`);
+    assert.equal(card.length, 1);
+    assert.match(card.find('img').attr('src'), /dynamic-weather-hero/);
   }
   const feed = load(await read('rss.xml'), { xmlMode: true });
-  assert.equal(
-    feed('item').first().find('link').text(),
-    `https://brimframe.de${route}`,
+  const item = feed('item').filter(
+    (_, node) => feed(node).find('title').text() === title,
   );
-  assert.match(feed('item').first().find('author').text(), /^BrimFrame /);
+  assert.equal(item.find('link').text(), `https://brimframe.de${route}`);
+  assert.match(item.find('author').text(), /^BrimFrame /);
   assert.ok((await read('sitemap-0.xml')).includes(route));
   assert.equal(
-    $('.article-navigation a').attr('href'),
+    $('.article-navigation a')
+      .filter((_, node) => $(node).text().includes('Older update'))
+      .attr('href'),
     '/devlog/riff-racers-frostfire-run/',
   );
   const older = load(await read('devlog/riff-racers-frostfire-run/index.html'));
