@@ -31,15 +31,15 @@ There are no empty shared packages. Root commands select `@brimframe/studio`.
 ## Requirements and setup
 
 - Node **24.21.0**, pinned in `.node-version` and bounded by root `engines`.
-- pnpm **10.33.0**, pinned in `packageManager` and `engines`.
-- Astro **7.3.8**, the stable registry release verified during implementation.
+- pnpm **12.14.0**, pinned in `packageManager` and `engines`.
+- Astro **7.4.1**, pinned in the application dependencies.
 
 If you use nvm:
 
 ```sh
 nvm install "$(cat .node-version)"
 nvm use "$(cat .node-version)"
-npm install --global pnpm@10.33.0
+npm install --global pnpm@12.14.0
 pnpm install --frozen-lockfile
 pnpm dev
 ```

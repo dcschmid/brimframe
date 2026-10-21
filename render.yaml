@@ -4,8 +4,8 @@ services:
     name: brimframe
     runtime: static
     buildCommand: >-
-      npx --yes pnpm@10.33.0 install --frozen-lockfile &&
-      npx --yes pnpm@10.33.0 --filter @brimframe/studio build
+      npx --yes pnpm@12.14.0 install --frozen-lockfile &&
+      npx --yes pnpm@12.14.0 --filter @brimframe/studio build
     staticPublishPath: apps/brimframe/dist
     autoDeployTrigger: checksPass
     domains:

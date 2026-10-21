@@ -13,7 +13,7 @@ Root `tests/` holds automated checks; `scripts/` holds utility scripts. Deployme
 
 ## Build, Test, and Development Commands
 
-Use Node 24.21.0 and pnpm 10.33.0. Run commands from the repository root:
+Use Node 24.21.0 and pnpm 12.14.0. Run commands from the repository root:
 
 - `pnpm install --frozen-lockfile`: install pinned dependencies.
 - `pnpm dev`: serve locally at `http://127.0.0.1:4321`.
