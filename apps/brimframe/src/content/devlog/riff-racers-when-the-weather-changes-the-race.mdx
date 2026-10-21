@@ -1,0 +1,284 @@
+---
+title: 'Riff Racers – When the Weather Changes the Race'
+description: 'From sunny races to wet roads and snow-covered corners: a look at how dynamic weather is changing the feel of Riff Racers.'
+publishDate: 2026-10-21
+author: 'BrimFrame'
+heroImage: '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-hero.webp'
+heroImageAlt: 'Several Riff Racers karts throwing up water spray on the wet Iron Chorus track, with heavy rain falling in front of the illuminated main stage.'
+tags: ['riff-racers', 'development', 'dynamic-weather']
+draft: false
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import sunny from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-sunny-race.webp';
+import cloudy from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-overcast.webp';
+import wetRoad from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-wet-road.webp';
+import lightning from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-rain-and-lightning.webp';
+import afterRain from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-after-the-rain.webp';
+import snowTracks from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-snow-tracks.webp';
+import snowSpray from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-snow-spray.webp';
+import packedSnow from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-packed-snow.webp';
+import wetDrift from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-wet-drift.webp';
+import finalRace from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-clear-skies.webp';
+import poster from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-trailer-poster.webp';
+
+I've been spending quite a bit of time on something I originally thought would be a fairly small addition to Riff Racers: the weather.
+
+The idea sounded simple enough. Some races would be sunny, others cloudy, and occasionally there would be rain or snow. A little variety to make racing on the same tracks feel different from one run to the next.
+
+Well, that turned into a much bigger job than I expected.
+
+And I'm glad it did.
+
+## A weather system that didn't want to rain
+
+One of the first things I noticed during testing was that I could start race after race and somehow end up with perfectly dry weather every time.
+
+Technically, a completely sunny race is supposed to be possible. That was always part of the plan. But when every race looks the same, the whole idea of dynamic weather loses its point.
+
+<figure class="devlog-figure">
+  <Picture
+    src={sunny}
+    alt="A pack of karts entering a dry corner on Iron Chorus beneath a blue sky, with the main stage ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    A dry race on Iron Chorus. Sometimes the sun stays out.
+  </figcaption>
+</figure>
+
+So I went back to the weather system and spent more time on how conditions are selected, how they change during a race, and how those changes actually appear on screen.
+
+The goal isn't to guarantee rain every few laps. Quite the opposite.
+
+Sometimes the sun should stay out for the entire race. Sometimes the sky should gradually become overcast. Another time, the rain might start halfway through, get heavier, and eventually stop.
+
+The important part is not knowing exactly what you're going to get when you hit Start Race.
+
+<figure class="devlog-figure">
+  <Picture
+    src={cloudy}
+    alt="Karts racing along a dry Iron Chorus straight beneath grey clouds, between speaker towers and trackside flames."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Overcast skies, with the road still dry.</figcaption>
+</figure>
+
+## Rain needs to feel like rain
+
+Getting the weather to change was only one part of the work.
+
+At first, it was too easy to end up with weather that existed in the game logic but didn't make much of an impression while driving.
+
+I wanted more than a few particles falling from the sky.
+
+When it rains, the road should start looking wet. The surface gets darker and picks up highlights from the surroundings. Water sprays out behind the tires, especially when the karts are moving quickly or sliding through a corner.
+
+<figure class="devlog-figure">
+  <Picture
+    src={wetRoad}
+    alt="Karts leaving white water spray across the wet guitar bridge on Iron Chorus, with reflections beneath the tires and rain streaking through the scene."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Rain, reflections and water spray on the guitar bridge.
+  </figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={lightning}
+    alt="A lightning bolt above Thunderforge as a kart leaves a wake of water spray on the rain-soaked road."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Heavy rain and lightning on Thunderforge.</figcaption>
+</figure>
+
+And when the rain stops, the road shouldn't instantly become dry again.
+
+That's one of my favorite details in the current version. The weather above you and the condition of the road are two different things. A race can continue on a wet surface even after the last raindrops have fallen.
+
+It adds a little unpredictability without turning the handling into a guessing game.
+
+<figure class="devlog-figure">
+  <Picture
+    src={afterRain}
+    alt="Karts racing towards the Iron Chorus main stage under clearing skies, with the road still reflective and water spraying behind the tires."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>The shower has passed, but the road stays wet.</figcaption>
+</figure>
+
+## Snow is a different story
+
+[Frostfire Run](/devlog/riff-racers-frostfire-run/) has been a particularly nice place to work on the winter effects.
+
+Snowfall alone doesn't really sell the feeling of driving through a snowy environment. The road needs to look different, and the karts need to interact with it.
+
+Now there's snow being kicked up behind the tires, visible trails across the surface, and more movement around the vehicles when they slide through a corner.
+
+<figure class="devlog-figure">
+  <Picture
+    src={snowTracks}
+    alt="A kart leaving parallel tire tracks on Frostfire Run's snowy High Road, with falling snow and the firelit Dragon's Maw ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Tire tracks across the snow on High Road.</figcaption>
+</figure>
+
+It's a small thing when you're looking at an individual effect, but once several karts are racing together, it changes the atmosphere quite a lot.
+
+<figure class="devlog-figure">
+  <Picture
+    src={snowSpray}
+    alt="Several karts racing around a snowy Frostfire Run corner, throwing up broad clouds of powder beneath falling snow and strings of flags."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Several karts together make the snow spray much easier to appreciate.
+  </figcaption>
+</figure>
+
+The combination of cold blue lighting, warm lights around the track, falling snow, and the tire effects is becoming one of my favorite looks in the demo.
+
+<figure class="devlog-figure">
+  <Picture
+    src={packedSnow}
+    alt="A field of karts rounding a blue-lit Frostfire Run bend on packed snow, leaving tire tracks beneath orange trackside lights."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Cold blue light, warm trackside lamps and the tracks left by the field.
+  </figcaption>
+</figure>
+
+## It also changes how the karts drive
+
+I didn't want the weather to be purely visual.
+
+Wet roads and snowy surfaces affect grip, braking, and drifting. The idea is to make those differences noticeable while keeping the handling firmly on the arcade side.
+
+Riff Racers isn't trying to become a racing simulator.
+
+I still want the karts to be fun to throw into corners, even when the conditions aren't ideal.
+
+<figure class="devlog-figure">
+  <Picture
+    src={wetDrift}
+    alt="A close rear view of Riff's red kart sliding through a wet Iron Chorus corner, with water spraying from the tires and more karts ahead."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Water spray around the tires in a wet corner.</figcaption>
+</figure>
+
+The AI drivers also need to deal with those changing conditions. Some are more aggressive, some take a cleaner line, and others are more comfortable sliding around.
+
+There's still balancing work to do here, especially with the full field of 12 drivers, but I like where this is heading. Weather gives the different driving styles another opportunity to stand out.
+
+## Same track, different race
+
+What I like most about this feature is that it adds variety without needing another track.
+
+A familiar corner can feel different when the surface is wet. A snowy section looks completely different once several karts have driven through it. And a race that starts under clear skies doesn't necessarily have to finish that way.
+
+Of course, sometimes nothing dramatic happens with the weather at all.
+
+That's fine too.
+
+I don't want every race to turn into a storm just because the game has a weather system.
+
+## A closer look
+
+I've put together a longer gameplay video and a collection of screenshots showing the different conditions, from clear weather and changing clouds to rain, wet roads, and snow.
+
+<VideoEmbed
+  videoId="iSuBuV3RGTs"
+  title="Riff Racers – Dynamic Weather Showcase"
+  poster={poster}
+  posterAlt="Several karts racing through falling snow on Frostfire Run, with the title Riff Racers Dynamic Weather."
+  fallbackUrl="https://www.youtube.com/watch?v=iSuBuV3RGTs"
+/>
+
+There's no game music in the video this time. I'm still working on replacing and refining the soundtrack, including music that fits the individual tracks. For now, I'd rather show the racing and the weather without a soundtrack that's going to change anyway.
+
+The weather system is in a much better place now, although there are still details I want to polish. The intensity of the effects, the handling in different conditions, and the way the AI reacts all need a bit more testing.
+
+But seeing the karts race through a snowy corner with particles flying behind them, or watching the road gradually change during a rain shower, makes all that work feel worthwhile.
+
+<figure class="devlog-figure">
+  <Picture
+    src={finalRace}
+    alt="A wide view of karts rounding the Iron Chorus main-stage corner on a dry road under clear blue skies."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>Back at the main stage, under clear skies this time.</figcaption>
+</figure>
+
+It's one of those additions that started out as a small idea and ended up making the whole game feel a little more alive.
+
+And that's a pretty good reason to keep working on it.
+
+— BrimFrame

@@ -53,12 +53,11 @@ test('Cathedral metadata, social image and discovery use the published article',
   assert.equal(article.image.url, image);
   assert.equal($('iframe').length, 0);
   assert.equal($('.video-embed').prevAll('h2').length, 0);
-  for (const file of ['index.html', 'devlog/index.html']) {
-    const page = load(await read(file));
-    const card = page(`.devlog-card:has(h3 a[href="${route}"])`);
-    assert.equal(card.length, 1);
-    assert.match(card.text(), /Riff Racers heads somewhere darker\./);
-  }
+  // The homepage shows only the three newest posts; older updates stay in the archive.
+  const page = load(await read('devlog/index.html'));
+  const card = page(`.devlog-card:has(h3 a[href="${route}"])`);
+  assert.equal(card.length, 1);
+  assert.match(card.text(), /Riff Racers heads somewhere darker\./);
   const feed = load(await read('rss.xml'), { xmlMode: true });
   const item = feed('item').filter(
     (_, node) =>

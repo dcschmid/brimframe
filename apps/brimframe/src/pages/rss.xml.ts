@@ -15,7 +15,7 @@ export const GET = async (context: APIContext) => {
       pubDate: post.data.publishDate,
       link: `/devlog/${post.id}/`,
       categories: post.data.tags,
-      author: `${site.developerName} (${site.contactEmail ?? site.url})`,
+      author: `${post.data.author ?? site.developerName} (${site.contactEmail ?? site.url})`,
     })),
     customData: [
       `<language>${site.language}</language>`,

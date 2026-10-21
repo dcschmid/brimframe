@@ -72,20 +72,23 @@ test('Frostfire publishes through the existing metadata, cards, feed and navigat
   );
   for (const file of ['index.html', 'devlog/index.html']) {
     const page = load(await read(file));
-    assert.equal(page('.devlog-card h3 a').first().attr('href'), route);
-    assert.match(
-      page('.devlog-card').first().find('img').attr('src'),
-      /frostfire-run-hero/,
-    );
+    const card = page(`.devlog-card:has(a[href="${route}"])`);
+    assert.equal(card.length, 1);
+    assert.match(card.find('img').attr('src'), /frostfire-run-hero/);
   }
   const feed = load(await read('rss.xml'), { xmlMode: true });
   assert.equal(
-    feed('item').first().find('link').text(),
+    feed('item')
+      .filter((_, node) => feed(node).find('title').text() === title)
+      .find('link')
+      .text(),
     `https://brimframe.de${route}`,
   );
   assert.ok((await read('sitemap-0.xml')).includes(route));
   assert.equal(
-    $('.article-navigation a').attr('href'),
+    $('.article-navigation a')
+      .filter((_, node) => $(node).text().includes('Older update'))
+      .attr('href'),
     '/devlog/riff-racers-thunderforge/',
   );
 });

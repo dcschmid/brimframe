@@ -27,6 +27,20 @@ for (const route of routes) {
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.locator('#main-content')).toHaveCount(1);
     await expect(page.locator('h1')).toHaveCount(1);
+    if (route === '/') {
+      // Audit the final colors after the hero's entrance animation.
+      await page.locator('.hero').evaluate(async (hero) => {
+        await Promise.all(
+          hero
+            .getAnimations({ subtree: true })
+            .filter(
+              (animation) =>
+                animation.effect?.getComputedTiming().iterations !== Infinity,
+            )
+            .map((animation) => animation.finished),
+        );
+      });
+    }
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa', 'best-practice'])
       .analyze();

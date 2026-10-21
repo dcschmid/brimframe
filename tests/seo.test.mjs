@@ -117,7 +117,16 @@ test('devlog articles emit BlogPosting and BreadcrumbList JSON-LD', async () => 
     const crumbs = blocks.find((b) => b['@type'] === 'BreadcrumbList');
     assert.ok(article, `${link}: needs BlogPosting JSON-LD`);
     assert.ok(article.headline, `${link}: headline`);
-    assert.equal(article.author?.name, 'Daniel Schmid', `${link}: author`);
+    assert.equal(
+      page('.article-heading .article-meta > span').first().text(),
+      `By ${article.author?.name}`,
+      `${link}: visible and structured author agree`,
+    );
+    assert.equal(
+      article.author?.['@type'],
+      article.author?.name === 'BrimFrame' ? 'Organization' : 'Person',
+      `${link}: author type`,
+    );
     assert.ok(article.datePublished, `${link}: datePublished`);
     const image = article.image;
     assert.ok(image, `${link}: image from real content`);

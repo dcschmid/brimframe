@@ -13,6 +13,7 @@ const devlog = defineCollection({
         intro: z.string().min(1).max(300).optional(),
         excerpt: z.string().min(1).max(300).optional(),
         publishDate: z.coerce.date(),
+        author: z.string().min(1).optional(),
         updatedDate: z.coerce.date().optional(),
         heroImage: image().optional(),
         heroImageAlt: z.string().optional(),
