@@ -1,0 +1,231 @@
+---
+title: 'Beyond the Finish Line – Building Championships and a Racing Career in Riff Racers'
+description: 'How I’m adding world championships, career points, trophies, more expressive menus and a 3D victory celebration to Riff Racers.'
+intro: 'Connecting five races into a championship, and giving their results a place in a lasting racing career.'
+excerpt: 'The Metal World tracks now form a five-race championship. I’ve been building the points, persistent records and celebrations around it, while giving the menus more of the game’s character.'
+publishDate: 2026-11-05
+author: 'Daniel Schmid'
+heroImage: '../../assets/devlog/2026-11-championship-career/riff-racers-championship-driver-selection.webp'
+heroImageAlt: 'Riff Racers championship setup with Kira Pulse’s own 3D model, twelve driver cards, five difficulty choices and a Start Championship button; five driver models are marked 3D pending.'
+tags:
+  [
+    'riff-racers',
+    'development',
+    'defold',
+    'kart-racing',
+    'world-championship',
+    'racing-career',
+    'game-ui',
+  ]
+draft: true
+game: 'riff-racers'
+featured: true
+---
+
+import { Picture } from 'astro:assets';
+import worldSelection from '../../assets/devlog/2026-11-championship-career/riff-racers-championship-world-selection.webp';
+import raceResults from '../../assets/devlog/2026-11-championship-career/riff-racers-championship-race-results.webp';
+import standings from '../../assets/devlog/2026-11-championship-career/riff-racers-championship-standings.webp';
+import career from '../../assets/devlog/2026-11-championship-career/riff-racers-racing-career.webp';
+import careerRecords from '../../assets/devlog/2026-11-championship-career/riff-racers-racing-career-records.webp';
+import victory from '../../assets/devlog/2026-11-championship-career/riff-racers-championship-victory.webp';
+import trophy from '../../assets/devlog/2026-11-championship-career/riff-racers-trophy-collection.webp';
+
+An individual race can be fun and still leave an awkward question when it ends: what am I racing towards next?
+
+With the [five Metal World tracks in place](/devlog/riff-racers-frostfire-run/), I wanted their results to belong together. A good finish should help with the next challenge. A difficult race should leave something worth recovering from. And finishing an entire world should leave a record you can return to.
+
+That has become the next part of Riff Racers: World Championships and My Racing Career. The progression works in the current development build, including saving and resuming a championship. The presentation has also moved forward, although there are still some very visible gaps in the character assets.
+
+## Five races, one world champion
+
+The Metal Championship takes the same twelve drivers through Iron Chorus, Razorline Riot, Cathedral Circuit, Thunderforge and Frostfire Run, in that order. Cathedral Circuit is the track I introduced in [Into the Cathedral](/devlog/riff-racers-into-the-cathedral/).
+
+You choose a driver and difficulty at the start, then keep both for the series. The points from all five races decide the champion. Winning the opener helps, but it leaves four races for somebody else to catch up.
+
+I like what that asks of the tracks. Being quick on Iron Chorus matters, but you also need to get through the cathedral and bring a useful result home from Frostfire. Consistency has somewhere to show up now.
+
+<figure class="devlog-figure">
+  <Picture
+    src={worldSelection}
+    alt="Metal Championship world selection with a concert-stage illustration and five course previews, from Iron Chorus to Frostfire Run; the completed results are test data."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    One world, five races. This in-game menu preview uses test results; the
+    large stage image is interface artwork, with actual track views beneath it.
+  </figcaption>
+</figure>
+
+## Every position matters
+
+First place earns 25 championship points, second gets 20 and third gets 16. The scale continues down to one point for twelfth. Every classified finisher earns something; a DNF or disqualification earns zero.
+
+That gives a battle further down the field a consequence beyond the current race. Recovering from tenth to eighth is worth two extra points. It might not feel like much beside a win, but over five races those small recoveries can change the table.
+
+The results screen shows the race classification and points together. The standings then show the running total, the latest gain and movement through the championship. I want the connection between the race you just finished and the series you are still in to be easy to read.
+
+<figure class="devlog-figure">
+  <Picture
+    src={raceResults}
+    alt="In-game race-results test showing Mika Blaze first with 25 points, all twelve driver entries, and zero points for the disqualified and non-finishing drivers."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Testing the results presentation, including DNF and disqualification. These
+    finishing times and positions are controlled test data.
+  </figcaption>
+</figure>
+
+There is a full race test behind the presentation too. In one automated run through all five tracks, Valen Koa won with 85 points and Mika finished third with 63. The test used ordinary driving inputs through the race engine, with full three-lap Warm-Up races and accelerated simulation time. It restarted the game after race two and checked the completed career again after reloading.
+
+That checks a different question from whether a menu looks good: does the same championship survive leaving the game and coming back?
+
+<figure class="devlog-figure">
+  <Picture
+    src={standings}
+    alt="Final standings from a completed five-race Warm-Up test: Valen Koa wins with 85 points, Nia Solara takes second with 68, and Mika Blaze finishes third with 63."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The settled final standings from that actual five-race engine test, after
+    reloading the completed championship.
+  </figcaption>
+</figure>
+
+## Building a racing career
+
+Each world has its own championship, while My Racing Career holds the longer view: career points, world titles, race wins, podium finishes and records by world and difficulty.
+
+Career points use your best completed championship score for each world and difficulty. Finish with 100 points, improve to 115, then score 90 on another attempt, and that record contributes 115. Repeating a familiar championship cannot inflate the score endlessly.
+
+Wins and completed championships still have their own counters. I wanted room for both kinds of progress: improving a personal best and keeping a history of what you have done. An unfinished series stays separate from those completed statistics.
+
+<figure class="devlog-figure">
+  <Picture
+    src={career}
+    alt="My Racing Career overview using a 120-point Headliner test profile, with one world title, four race wins, five podium finishes and one earned difficulty trophy."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The career overview, shown with a controlled 120-point test profile to
+    review the earned trophy and statistics layout.
+  </figcaption>
+</figure>
+
+Difficulty keeps its own records and trophy. Warm-Up runs for three laps, Opening Act for five, Headliner for seven, Encore for nine and Legendary Set for eleven. All five keep the full twelve-driver field.
+
+The world records screen below belongs to the completed 63-point run. Third overall is a recorded achievement, but it does not award a champion trophy. Those distinctions need to stay clear when several attempts and difficulties sit alongside one another.
+
+<figure class="devlog-figure">
+  <Picture
+    src={careerRecords}
+    alt="Reloaded Metal Championship career records showing Mika Blaze’s actual Warm-Up best of 63 points, third overall and zero difficulty trophies, with no completed records at the other difficulties."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The saved result from the full championship test: 63 points, third overall,
+    and no world-title trophy.
+  </figcaption>
+</figure>
+
+## Making the menus feel like part of the game
+
+The early screens could show the information, but too much of the game disappeared between races. Lists of names and numbers needed some of the personality of an arcade kart racer.
+
+The setup at the top of this article puts the driver cards beside a large animated character, with a biography and all five difficulty choices in view. World selection brings the five courses together. Results and standings give more space to the driver, the outcome and the next track.
+
+There is practical work underneath that presentation: keyboard and controller focus, shortcuts between selection sections, and layouts checked in widescreen, 4:3 and ultrawide windows. Choosing a driver should be enjoyable without making starting the race laborious.
+
+Seven drivers currently have their own presentation models. The other five cards explicitly say “3D pending”. Their identities and results work; their finished character presentation still needs assets.
+
+## A proper championship celebration
+
+After five races, I wanted a moment to let the result settle. The ceremony now has a real 3D podium, the top-three positions, concert lighting, confetti and a champion lifting the trophy.
+
+Getting the cup to follow the character was a separate job from building the stage. In [Defold 1.14.0](/devlog/riff-racers-under-the-hood/), the trophy follows the animated hand bone. The lift and hold animations were prepared for each of the seven available character rigs, keeping the cup in the hand as the arm moves.
+
+<figure class="devlog-figure">
+  <Picture
+    src={victory}
+    alt="Native-rendered ceremony test with Mika Blaze raising a gold trophy on the centre podium, Kira Pulse second and Tex Rivers third, beneath cyan and pink stage lights and confetti."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Mika’s real model and trophy-lift animation in the running game. This
+    ceremony uses controlled test standings, separate from the Valen-winning
+    race run.
+  </figcaption>
+</figure>
+
+The ceremony is still incomplete across the roster. Luca Moretti, Leo Cruz, Sage Chen, Valen Koa and Imani Reed lack their own models and compatible rigs. When one reaches the podium, that slot is explicitly marked as missing. Valen won the full test championship, but he cannot perform this lift yet.
+
+The trophy collection is working too. You can inspect an earned cup in 3D, while locked trophies explain the requirement. The championship is saved before the celebration starts, so skipping it or closing the game should not cost the result.
+
+<figure class="devlog-figure">
+  <Picture
+    src={trophy}
+    alt="3D Metal Champion Trophy inspection for a Headliner test record of 120 points with Mika Blaze, showing one world title, four race wins and five podiums."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Inspecting an earned Metal Champion Trophy using the same Headliner test
+    profile as the career overview.
+  </figcaption>
+</figure>
+
+## One world today, more music worlds tomorrow
+
+Metal remains the only installed world. The [demo plan](/devlog/riff-racers-road-to-first-demo/) is one world with five tracks. Beyond that, my intended scope is five worlds and 25 tracks for the full game, with another five worlds and 25 tracks as future DLC. Those additional worlds are plans, not playable content.
+
+Each should have an independent championship feeding into the same career. A broader Grand Championship is a possible later step; it is not available now.
+
+For the moment, I’m concentrating on making Metal hold together. The [racing AI](/devlog/riff-racers-the-grid-fights-back/) and [changing weather](/devlog/riff-racers-when-the-weather-changes-the-race/) give individual races more variety. Championship progression gives their results somewhere to go.
+
+There is still character work and polish ahead, but the game is starting to hold a longer story than one trip to the finish line. That is a satisfying piece to have in place.
+
+Thanks for following along as I keep building it.
+
+— Daniel

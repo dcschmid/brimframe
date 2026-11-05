@@ -1,0 +1,102 @@
+{
+  "prepared": "2026-11-05",
+  "processing": "Sharp WebP quality 90, effort 6; original pixels retained without crop, retouch or resize",
+  "images": [
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/driver-kira_pulse-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-championship-driver-selection.webp",
+      "section": "Hero / menu presentation",
+      "alt": "Riff Racers championship setup with Kira Pulse’s own 3D model, twelve driver cards, five difficulty choices and a Start Championship button; five driver models are marked 3D pending.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 100978,
+      "provenance": "Native-rendered setup with controlled review-profile progress",
+      "originalSha256": "6c94817243f401ae5fb867c28ab08dffb17b0c801a66105a1df3a6c0ac995e4a",
+      "optimizedSha256": "e5e3a00293fdaaff5b45d0d29459d3f62b5d12b33d1937e49b99e77c9a879fd0"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/world-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-championship-world-selection.webp",
+      "section": "Five races, one world champion",
+      "alt": "Metal Championship world selection with a concert-stage illustration and five course previews, from Iron Chorus to Frostfire Run; the completed results are test data.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 130576,
+      "provenance": "Native-rendered UI; synthetic completed standings; illustrated world card",
+      "originalSha256": "99155dcae68ec1ce738362cf55c2abba29a3593673710351a0e84eccb7a2d36f",
+      "optimizedSha256": "69d3b40d0bd0f49d530d94d20cefd2ffb50e82ad1137c655bfed36e1b611ed95"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/results-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-championship-race-results.webp",
+      "section": "Every position matters",
+      "alt": "In-game race-results test showing Mika Blaze first with 25 points, all twelve driver entries, and zero points for the disqualified and non-finishing drivers.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 123408,
+      "provenance": "Native-rendered UI; synthetic race classification, times and DNF/DSQ cases",
+      "originalSha256": "0ebd1b37130036c17a133217f94bd9f88da54ef2d295cd311ffffa551011f168",
+      "optimizedSha256": "a96f6ef38157e8145107f88c0940e6968c5f229b33e19fc9b75753b6062880f9"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/native-championship/verify-completed-championship_standings-1.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-championship-standings.webp",
+      "section": "Every position matters",
+      "alt": "Final standings from a completed five-race Warm-Up test: Valen Koa wins with 85 points, Nia Solara takes second with 68, and Mika Blaze finishes third with 63.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 111852,
+      "provenance": "Real full-distance automated championship, settled standings after reload",
+      "originalSha256": "62f9dfd497c2467dd712f665bd10fd3cb05ad66c115cf4dca985c5acd6822842",
+      "optimizedSha256": "9dea16a9e69dc477c2e6950777fbf7b8cb1f15921593d1dab870278111c1b81b"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/career-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-racing-career.webp",
+      "section": "Building a racing career",
+      "alt": "My Racing Career overview using a 120-point Headliner test profile, with one world title, four race wins, five podium finishes and one earned difficulty trophy.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 119880,
+      "provenance": "Native-rendered UI; synthetic 120-point Headliner profile",
+      "originalSha256": "143a6a734659981b8074d29848613e93871ddee19738b94f4c1ff1497440f8b3",
+      "optimizedSha256": "57c9d4b483d91053e43e53030016630d8ab8b53015106c46ce4aac85f6b4fe6c"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/native-championship/verify-completed-career-1.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-racing-career-records.webp",
+      "section": "Building a racing career",
+      "alt": "Reloaded Metal Championship career records showing Mika Blaze’s actual Warm-Up best of 63 points, third overall and zero difficulty trophies, with no completed records at the other difficulties.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 102868,
+      "provenance": "Real saved and reloaded 63-point Warm-Up championship",
+      "originalSha256": "4c63b650e8b0b9ea8b25f201a084f296c2ca2c5af3ffff495645aeca339a7630",
+      "optimizedSha256": "e4748d65da83697fb6f82fc51f37d214e699136963e4c0b87b1b5e7285be73bb"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/ceremony-lift-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-championship-victory.webp",
+      "section": "A proper championship celebration",
+      "alt": "Native-rendered ceremony test with Mika Blaze raising a gold trophy on the centre podium, Kira Pulse second and Tex Rivers third, beneath cyan and pink stage lights and confetti.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 76372,
+      "provenance": "Real native 3D characters and skeletal trophy animation; synthetic classification",
+      "originalSha256": "42688258bee045fa42a1da7a2b70bf427c4b8e3d4b663df4caaaa8900525d7d7",
+      "optimizedSha256": "357b55195779ed135762af6b4815094cb18b170d8d03bfadc6ff6e17bf125691"
+    },
+    {
+      "original": "/home/danielschmid/Downloads/Riff Racers/Championship-UI-Review/after/trophy-1280x720.png",
+      "websitePath": "apps/brimframe/src/assets/devlog/2026-11-championship-career/riff-racers-trophy-collection.webp",
+      "section": "A proper championship celebration",
+      "alt": "3D Metal Champion Trophy inspection for a Headliner test record of 120 points with Mika Blaze, showing one world title, four race wins and five podiums.",
+      "width": 1280,
+      "height": 720,
+      "bytes": 57596,
+      "provenance": "Real native 3D trophy inspection; synthetic 120-point Headliner profile",
+      "originalSha256": "53d635814795f8d7f750080dcd240f85547a03c7b11758dd3ad29addbd429d01",
+      "optimizedSha256": "eec3a8c1671250f9741a00798ee16d16b1a939c72c8f26d63f7fe74e1e3d6f8e"
+    }
+  ]
+}
