@@ -1,6 +1,6 @@
 # Beyond the Finish Line — content review
 
-Prepared on 5 November 2026. **Draft for review; not published or deployed.**
+Prepared on 5 November 2026. **Publication approved; enabled for production.**
 
 ## Article and publication
 
@@ -8,14 +8,14 @@ Prepared on 5 November 2026. **Draft for review; not published or deployed.**
 - Article: `apps/brimframe/src/content/devlog/riff-racers-beyond-the-finish-line-championship-career.mdx`
 - Author: Daniel Schmid / BrimFrame; English, first-person singular.
 - Length: approximately 1,100 words of prose; 1,239 words including image captions.
-- Provisional publication date: `2026-11-05`. Check the actual date when approving publication.
-- Review branch: `content/riff-racers-championship-career`.
+- Publication date: `2026-11-05`.
+- Publication branch: `main`; the original draft was reviewed on `content/riff-racers-championship-career`.
 - Preview: http://127.0.0.1:4322/devlog/riff-racers-beyond-the-finish-line-championship-career/
-- Intended public URL: https://brimframe.de/devlog/riff-racers-beyond-the-finish-line-championship-career/
+- Public URL: https://brimframe.de/devlog/riff-racers-beyond-the-finish-line-championship-career/
 
-The source remains `draft: true`. The regular build excludes the article from routes, homepage, listing, RSS and sitemap. An isolated copy at `artifacts/championship-career-review/site/` changes only this article’s draft flag to build a publication preview. No production deployment or indexing notification was run.
+The owner approved publication on 5 November 2026. The source now uses `draft: false`, so the regular build includes the article in its routes, homepage, listing, RSS and sitemap. The original draft was checked using an isolated publication preview at `artifacts/championship-career-review/site/`.
 
-After explicit publication approval, verify the publication date, set `draft: false`, and follow the existing Git/CI/deployment process. Do not copy the isolated preview output into production.
+Publication follows the existing Git/CI/Render workflow: push `main`, pass Website checks / quality, and let Render deploy that commit. Production is built from the repository; the isolated preview output is not used for deployment. The validation results below document the original draft and publication-preview review.
 
 ## Integration
 
@@ -136,4 +136,4 @@ Review artifacts (ignored by Git):
 
 ## Remaining items
 
-No unresolved article, asset or layout problem was found. Publication approval and the final publication date remain pending by request. The game’s missing five presentation models and planned worlds are honestly described in the article. Untracked browser-snapshot formatting is the sole repository-wide check caveat.
+No unresolved article, asset or layout problem was found. Publication is approved for 5 November 2026. The game’s missing five presentation models and planned worlds are honestly described in the article. Untracked browser-snapshot formatting is the sole repository-wide check caveat in the local review checkout.

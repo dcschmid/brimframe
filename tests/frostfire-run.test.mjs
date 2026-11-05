@@ -70,13 +70,23 @@ test('Frostfire publishes through the existing metadata, cards, feed and navigat
       .itemListElement.at(-1).name,
     title,
   );
-  for (const file of ['index.html', 'devlog/index.html']) {
-    const page = load(await read(file));
-    const card = page(`.devlog-card:has(a[href="${route}"])`);
-    assert.equal(card.length, 1);
-    assert.match(card.find('img').attr('src'), /frostfire-run-hero/);
-  }
+  const listing = load(await read('devlog/index.html'));
+  const card = listing(`.devlog-card:has(a[href="${route}"])`);
+  assert.equal(card.length, 1);
+  assert.match(card.find('img').attr('src'), /frostfire-run-hero/);
   const feed = load(await read('rss.xml'), { xmlMode: true });
+  const latestRoutes = feed('item > link')
+    .toArray()
+    .slice(0, 3)
+    .map((node) => new URL(feed(node).text()).pathname);
+  const home = load(await read('index.html'));
+  assert.deepEqual(
+    home('.devlog-card h3 a')
+      .toArray()
+      .map((node) => home(node).attr('href')),
+    latestRoutes,
+    'The homepage shows the three latest posts; older posts remain in the devlog.',
+  );
   assert.equal(
     feed('item')
       .filter((_, node) => feed(node).find('title').text() === title)

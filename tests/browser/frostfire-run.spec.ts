@@ -171,11 +171,21 @@ test('Frostfire keeps its local poster and trailer link without JavaScript', asy
 test('Frostfire is discoverable and connects to the previous update', async ({
   page,
 }) => {
-  for (const listing of ['/', '/devlog/']) {
-    await page.goto(listing);
-    await page.getByRole('link', { name: title, exact: true }).click();
-    await expect(page).toHaveURL(route);
-  }
+  await page.goto('/devlog/');
+  const latestRoutes = await page
+    .locator('.devlog-card h3 a')
+    .evaluateAll((links) =>
+      links.slice(0, 3).map((link) => link.getAttribute('href')),
+    );
+  await page.goto('/');
+  expect(
+    await page
+      .locator('.devlog-card h3 a')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href'))),
+  ).toEqual(latestRoutes);
+  await page.goto('/devlog/');
+  await page.getByRole('link', { name: title, exact: true }).click();
+  await expect(page).toHaveURL(route);
   await page.getByRole('link', { name: /Older update/ }).click();
   await expect(page).toHaveURL('/devlog/riff-racers-thunderforge/');
   await page.getByRole('link', { name: /Newer update/ }).click();
