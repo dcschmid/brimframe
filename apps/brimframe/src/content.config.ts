@@ -9,6 +9,8 @@ const devlog = defineCollection({
     z
       .object({
         title: z.string().min(1).max(120),
+        seoTitle: z.string().min(1).max(70).optional(),
+        seoDescription: z.string().min(1).max(160).optional(),
         description: z.string().min(1).max(300),
         intro: z.string().min(1).max(300).optional(),
         excerpt: z.string().min(1).max(300).optional(),

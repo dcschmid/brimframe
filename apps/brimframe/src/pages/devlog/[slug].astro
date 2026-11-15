@@ -32,7 +32,7 @@ const metadata = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
-  description: post.data.description,
+  description: post.data.seoDescription ?? post.data.description,
   datePublished: post.data.publishDate.toISOString(),
   dateModified: (post.data.updatedDate ?? post.data.publishDate).toISOString(),
   ...(post.data.heroImage
@@ -50,6 +50,11 @@ const metadata = {
   author: {
     '@type': author === site.name ? 'Organization' : 'Person',
     name: author,
+    ...(author === site.name
+      ? { url: new URL('/', site.url).href }
+      : author === site.developerName
+        ? { url: new URL('/about/', site.url).href }
+        : {}),
   },
   publisher: { '@type': 'Organization', name: site.name, url: site.url },
   mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
@@ -58,8 +63,8 @@ const metadata = {
 ---
 
 <SiteLayout
-  title={post.data.title}
-  description={post.data.description}
+  title={post.data.seoTitle ?? post.data.title}
+  description={post.data.seoDescription ?? post.data.description}
   type="article"
   structuredData={metadata}
   image={ogImage?.src}

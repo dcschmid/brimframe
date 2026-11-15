@@ -11,7 +11,7 @@ const read = (file) => readFile(path.join(root, file), 'utf8');
 test('Cathedral metadata, social image and discovery use the published article', async () => {
   const $ = load(await read(`${route}/index.html`));
   const description =
-    'A look behind the creation of Cathedral Circuit, the dark gothic third track for Riff Racers, featuring shortcuts, jumps, hazards, a pit lane and a living cathedral environment.';
+    'Building Cathedral Circuit for Riff Racers: a gothic track with shortcuts, jumps, hazards, a pit lane and a living cathedral environment.';
   assert.equal($('meta[name="description"]').attr('content'), description);
   assert.equal(
     $('meta[property="og:description"]').attr('content'),

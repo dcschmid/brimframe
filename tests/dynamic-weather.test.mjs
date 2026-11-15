@@ -58,6 +58,7 @@ test('weather publishes with BrimFrame attribution, current metadata and discove
   assert.deepEqual(article.author, {
     '@type': 'Organization',
     name: 'BrimFrame',
+    url: 'https://brimframe.de/',
   });
   assert.equal(article.datePublished, '2026-10-21T00:00:00.000Z');
   assert.equal(article.image.url, hero);

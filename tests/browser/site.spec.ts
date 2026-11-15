@@ -83,7 +83,7 @@ test('the brand and game introduction have readable names and an informative gam
   page,
 }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle('BrimFrame — Independent Games');
+  await expect(page).toHaveTitle('BrimFrame — Solo Game Studio & Riff Racers');
   const brand = page.locator('.site-header .brand-link');
   await expect(brand).toHaveAccessibleName('BRIMFRAME Independent Games home');
   await expect(brand.locator('svg')).toBeVisible();

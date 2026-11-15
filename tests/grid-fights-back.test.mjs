@@ -63,6 +63,7 @@ test('the grid fights back publishes with Daniel as author, its own metadata and
   assert.deepEqual(article.author, {
     '@type': 'Person',
     name: 'Daniel Schmid',
+    url: 'https://brimframe.de/about/',
   });
   assert.equal(article.headline, title);
   assert.equal(article.datePublished, '2026-10-21T00:00:00.000Z');

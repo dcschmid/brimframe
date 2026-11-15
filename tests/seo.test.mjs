@@ -127,6 +127,13 @@ test('devlog articles emit BlogPosting and BreadcrumbList JSON-LD', async () => 
       article.author?.name === 'BrimFrame' ? 'Organization' : 'Person',
       `${link}: author type`,
     );
+    assert.equal(
+      article.author.url,
+      article.author.name === 'BrimFrame'
+        ? 'https://brimframe.de/'
+        : 'https://brimframe.de/about/',
+      `${link}: author identity URL`,
+    );
     assert.ok(article.datePublished, `${link}: datePublished`);
     const image = article.image;
     assert.ok(image, `${link}: image from real content`);
@@ -235,4 +242,40 @@ test('devlog index loads the first card eagerly and the rest lazily', async () =
   for (const card of cards.toArray().slice(1)) {
     assert.equal($(card).find('img').attr('loading'), 'lazy');
   }
+});
+
+test('homepage identifies the website separately from its organization', async () => {
+  const $ = load(await read('index.html'));
+  const website = $('script[type="application/ld+json"]')
+    .toArray()
+    .map((node) => JSON.parse($(node).html()))
+    .find((data) => data['@type'] === 'WebSite');
+  assert.equal(website?.name, 'BrimFrame');
+  assert.equal(website?.url, 'https://brimframe.de/');
+});
+
+test('article SEO overrides preserve the visible headline and introduction', async () => {
+  const $ = load(
+    await read(
+      'devlog/riff-racers-beyond-the-finish-line-championship-career/index.html',
+    ),
+  );
+  assert.equal(
+    $('title').text(),
+    'Riff Racers: Championships and Racing Career — BrimFrame',
+  );
+  assert.equal(
+    $('h1').text(),
+    'Beyond the Finish Line – Building Championships and a Racing Career in Riff Racers',
+  );
+  const razorline = load(
+    await read('devlog/riff-racers-razorline-riot/index.html'),
+  );
+  assert.ok(
+    razorline('meta[name="description"]').attr('content').length <= 160,
+  );
+  assert.match(
+    razorline('.page-intro').text(),
+    /Here’s how it went from an old demo layout to a finished track/,
+  );
 });
