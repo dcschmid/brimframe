@@ -135,7 +135,13 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
     z-index: -1;
   }
   .game-visual.has-artwork .game-identity {
-    background: linear-gradient(180deg, #090e16b3, transparent 35%, #090e16e6);
+    /* Keep the small heading readable even over the brightest artwork. */
+    background: linear-gradient(
+      180deg,
+      #090e16cc 25%,
+      transparent 55%,
+      #090e16e6
+    );
   }
   .game-identity {
     flex: 1;

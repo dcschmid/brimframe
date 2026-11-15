@@ -6,7 +6,11 @@
 >
   <div class="container consent-inner">
     <div class="consent-copy">
-      <h2 id="analytics-consent-title" tabindex="-1">
+      <h2
+        id="analytics-consent-title"
+        tabindex="-1"
+        aria-describedby="analytics-consent-status"
+      >
         Your privacy choices
       </h2>
       <p>
@@ -20,7 +24,12 @@
         withdraw consent at any time using “Cookie settings” in the footer.{' '}
         <a href="/datenschutz/#cookies-tracking">Read the Privacy Policy</a>.
       </p>
-      <p class="consent-status" role="status" aria-live="polite"></p>
+      <p
+        id="analytics-consent-status"
+        class="consent-status"
+        role="status"
+        aria-live="polite"
+      ></p>
     </div>
     <div class="consent-actions">
       <button

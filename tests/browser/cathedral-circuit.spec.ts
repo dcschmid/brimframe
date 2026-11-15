@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures.ts';
 import { AxeBuilder } from '@axe-core/playwright';
-import { checkSkipLink } from './accessibility.ts';
+import { checkSkipLink, checkVideoGeometry } from './accessibility.ts';
 
 const route = '/devlog/riff-racers-into-the-cathedral/';
 const title = 'Riff Racers Devlog: Into the Cathedral';
@@ -81,7 +81,7 @@ for (const width of [320, 375, 768, 1440]) {
 }
 
 for (const activation of ['Enter', 'Space', 'pointer'] as const) {
-  test(`Cathedral trailer needs ${activation} activation and keeps its 16:9 space`, async ({
+  test(`Cathedral trailer needs ${activation} activation and keeps accessible player dimensions`, async ({
     page,
   }) => {
     const loads: string[] = [];
@@ -127,7 +127,7 @@ for (const activation of ['Enter', 'Space', 'pointer'] as const) {
     for (const width of [320, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       const frame = (await iframe.boundingBox())!;
-      expect(frame.width / frame.height).toBeCloseTo(16 / 9, 1);
+      checkVideoGeometry(frame);
       expect(frame.x).toBeGreaterThanOrEqual(0);
       expect(frame.x + frame.width).toBeLessThanOrEqual(width);
     }

@@ -146,6 +146,9 @@ test('rejection is remembered and settings reopen without changing the choice', 
   await expect(page.locator('.consent-status')).toHaveText(
     'Analytics is currently off.',
   );
+  await expect(
+    page.getByRole('heading', { name: 'Your privacy choices' }),
+  ).toHaveAccessibleDescription('Analytics is currently off.');
   await page.getByRole('button', { name: 'Keep current choice' }).click();
   await expect(settings).toBeFocused();
   await expect(page.locator(script)).toHaveCount(0);

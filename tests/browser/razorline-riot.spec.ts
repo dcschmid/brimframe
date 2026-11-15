@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures.ts';
 import { AxeBuilder } from '@axe-core/playwright';
-import { checkSkipLink } from './accessibility.ts';
+import { checkSkipLink, checkVideoGeometry } from './accessibility.ts';
 
 const route = '/devlog/riff-racers-razorline-riot/';
 const ironChorus = '/devlog/riff-racers-iron-chorus-reworked/';
@@ -94,7 +94,7 @@ for (const activation of ['Enter', 'Space', 'pointer'] as const) {
     const play = page.getByRole('button', { name: `Play ${playerTitle}` });
     await play.scrollIntoViewIfNeeded();
     const before = (await facade.boundingBox())!;
-    expect(before.width / before.height).toBeCloseTo(16 / 9, 1);
+    checkVideoGeometry(before);
     expect(loads).toEqual([]);
     if (activation === 'pointer') {
       await play.click({ clickCount: 2 });
@@ -141,7 +141,7 @@ for (const activation of ['Enter', 'Space', 'pointer'] as const) {
     for (const width of [320, 768, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       const frame = (await iframe.boundingBox())!;
-      expect(frame.width / frame.height).toBeCloseTo(16 / 9, 1);
+      checkVideoGeometry(frame);
       expect(frame.x).toBeGreaterThanOrEqual(0);
       expect(frame.x + frame.width).toBeLessThanOrEqual(width);
     }

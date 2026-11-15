@@ -1,5 +1,14 @@
 import { expect, type Page } from '@playwright/test';
 
+export function checkVideoGeometry(box: { width: number; height: number }) {
+  // Respect YouTube's minimum viewport, retaining 16:9 on larger screens.
+  expect(box.width).toBeGreaterThanOrEqual(200);
+  expect(box.height).toBeGreaterThanOrEqual(200);
+  if (box.width >= 360) {
+    expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
+  }
+}
+
 // Use real keyboard input: a focus() call would not verify the first Tab target.
 export async function checkSkipLink(page: Page) {
   const skip = page.getByRole('link', {

@@ -102,7 +102,11 @@ const privacyId = `video-privacy-${videoId}`;
   }
   .video-facade {
     position: relative;
+    width: 100%;
+    min-width: 0;
     aspect-ratio: 16 / 9;
+    /* Reserve YouTube's minimum 200px content height plus the two borders. */
+    min-height: 202px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;

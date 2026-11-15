@@ -1,6 +1,6 @@
 import { test, expect } from './fixtures.ts';
 import { AxeBuilder } from '@axe-core/playwright';
-import { checkSkipLink } from './accessibility.ts';
+import { checkSkipLink, checkVideoGeometry } from './accessibility.ts';
 
 const route = '/devlog/riff-racers-when-the-weather-changes-the-race/';
 const title = 'Riff Racers – When the Weather Changes the Race';
@@ -52,7 +52,13 @@ for (const [width, height] of [
       const box = (await image.boundingBox())!;
       expect(box.x).toBeGreaterThanOrEqual(0);
       expect(box.x + box.width).toBeLessThanOrEqual(width);
-      expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
+      if (
+        await image.evaluate((node) => node.classList.contains('video-poster'))
+      ) {
+        checkVideoGeometry(box);
+      } else {
+        expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
+      }
     }
     await expect(page.locator('iframe')).toHaveCount(0);
     const audit = await new AxeBuilder({ page })
@@ -134,7 +140,7 @@ for (const activation of ['Enter', 'Space', 'pointer'] as const) {
     ]) {
       await page.setViewportSize({ width, height });
       const box = (await iframe.boundingBox())!;
-      expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
+      checkVideoGeometry(box);
       expect(box.x + box.width).toBeLessThanOrEqual(width);
     }
     await expect(
