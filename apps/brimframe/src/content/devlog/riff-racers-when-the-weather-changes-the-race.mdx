@@ -25,13 +25,11 @@ import wetDrift from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weathe
 import finalRace from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-clear-skies.webp';
 import poster from '../../assets/devlog/2026-10-dynamic-weather/dynamic-weather-trailer-poster.webp';
 
-I've been spending quite a bit of time on something I originally thought would be a fairly small addition to Riff Racers: the weather.
+I expected weather to be a small addition to Riff Racers. It has taken considerably more work than I planned.
 
 The idea sounded simple enough. Some races would be sunny, others cloudy, and occasionally there would be rain or snow. A little variety to make racing on the same tracks feel different from one run to the next.
 
-Well, that turned into a much bigger job than I expected.
-
-And I'm glad it did.
+Working on it has given me more ways to vary a race than I first expected.
 
 ## A weather system that didn't want to rain
 
@@ -58,9 +56,7 @@ Technically, a completely sunny race is supposed to be possible. That was always
 
 So I went back to the weather system and spent more time on how conditions are selected, how they change during a race, and how those changes actually appear on screen.
 
-The goal isn't to guarantee rain every few laps. Quite the opposite.
-
-Sometimes the sun should stay out for the entire race. Sometimes the sky should gradually become overcast. Another time, the rain might start halfway through, get heavier, and eventually stop.
+A race should be able to stay sunny throughout, gradually become overcast, or turn rainy halfway through before clearing up again.
 
 The important part is not knowing exactly what you're going to get when you hit Start Race.
 
@@ -87,7 +83,7 @@ At first, it was too easy to end up with weather that existed in the game logic 
 
 I wanted more than a few particles falling from the sky.
 
-When it rains, the road should start looking wet. The surface gets darker and picks up highlights from the surroundings. Water sprays out behind the tires, especially when the karts are moving quickly or sliding through a corner.
+When it rains, the road should start looking wet. The surface gets darker and picks up highlights from the surroundings. Water sprays out behind the tyres, especially when the karts are moving quickly or sliding through a corner.
 
 <figure class="devlog-figure">
   <Picture
@@ -123,7 +119,7 @@ When it rains, the road should start looking wet. The surface gets darker and pi
 
 And when the rain stops, the road shouldn't instantly become dry again.
 
-That's one of my favorite details in the current version. The weather above you and the condition of the road are two different things. A race can continue on a wet surface even after the last raindrops have fallen.
+That's one of my favourite details in the current version. The weather above you and the condition of the road are two different things. A race can continue on a wet surface even after the last raindrops have fallen.
 
 It adds a little unpredictability without turning the handling into a guessing game.
 
@@ -148,7 +144,7 @@ It adds a little unpredictability without turning the handling into a guessing g
 
 Snowfall alone doesn't really sell the feeling of driving through a snowy environment. The road needs to look different, and the karts need to interact with it.
 
-Now there's snow being kicked up behind the tires, visible trails across the surface, and more movement around the vehicles when they slide through a corner.
+Now there's snow being kicked up behind the tyres, visible trails across the surface, and more movement around the vehicles when they slide through a corner.
 
 <figure class="devlog-figure">
   <Picture
@@ -184,7 +180,7 @@ It's a small thing when you're looking at an individual effect, but once several
   </figcaption>
 </figure>
 
-The combination of cold blue lighting, warm lights around the track, falling snow, and the tire effects is becoming one of my favorite looks in the demo.
+The combination of cold blue lighting, warm lights around the track, falling snow, and the tyre effects is becoming one of my favourite looks in the demo.
 
 <figure class="devlog-figure">
   <Picture
@@ -209,9 +205,7 @@ I didn't want the weather to be purely visual.
 
 Wet roads and snowy surfaces affect grip, braking, and drifting. The idea is to make those differences noticeable while keeping the handling firmly on the arcade side.
 
-Riff Racers isn't trying to become a racing simulator.
-
-I still want the karts to be fun to throw into corners, even when the conditions aren't ideal.
+Riff Racers is an arcade racer. I still want the karts to be fun to throw into corners, even in poor conditions.
 
 <figure class="devlog-figure">
   <Picture
@@ -225,7 +219,7 @@ I still want the karts to be fun to throw into corners, even when the conditions
     quality={90}
     loading="lazy"
   />
-  <figcaption>Water spray around the tires in a wet corner.</figcaption>
+  <figcaption>Water spray around the tyres in a wet corner.</figcaption>
 </figure>
 
 The AI drivers also need to deal with those changing conditions. Some are more aggressive, some take a cleaner line, and others are more comfortable sliding around.
@@ -277,8 +271,6 @@ But seeing the karts race through a snowy corner with particles flying behind th
   <figcaption>Back at the main stage, under clear skies this time.</figcaption>
 </figure>
 
-It's one of those additions that started out as a small idea and ended up making the whole game feel a little more alive.
-
-And that's a pretty good reason to keep working on it.
+There is more work ahead, but the changing conditions already make familiar laps feel different.
 
 — BrimFrame

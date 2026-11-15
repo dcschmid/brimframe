@@ -27,7 +27,7 @@ import trailerPoster from '../../assets/devlog/2026-10-iron-chorus/riff-racers-d
 
 But after spending more time on Riff Racers — updating the characters, the karts and the overall visual direction — the track started to feel like exactly what it was: an early demo track.
 
-So I decided to rebuild it. Not from scratch, but pretty close.
+I decided to rebuild most of it.
 
 <VideoEmbed
   videoId="v3FUxVP3HwU"
@@ -43,11 +43,11 @@ The original version was simple. There was a road, some speakers, a crowd, a few
 
 And honestly, that was fine at the time.
 
-The problem was that the rest of Riff Racers kept moving forward. The characters became more expressive, the karts got a stronger visual identity, and I settled on a more consistent stylized 3D look for the game. Iron Chorus suddenly felt very flat in comparison.
+The problem was that the rest of Riff Racers kept moving forward. The characters became more expressive, the karts got a stronger visual identity, and I settled on a more consistent stylised 3D look for the game. Iron Chorus suddenly felt very flat in comparison.
 
 The track was also short. A good lap could be finished in roughly 40 seconds, and many sections were essentially just roads connecting one corner to the next.
 
-I wanted the new version to feel more like an actual place. Not just a road with metal-themed props next to it.
+I wanted the new version to feel like a festival you could race through, with distinct areas around the circuit.
 
 <figure class="devlog-figure">
   <Picture
@@ -73,9 +73,7 @@ One of the main goals of the rework was to give each part of the lap its own ide
 
 You now move through different areas of the Iron Chorus festival instead of driving through variations of the same scenery. The start and finish sit inside the main festival arena, surrounded by the crowd and the main stage. From there the track moves into huge speaker and amplifier structures, elevated sections, industrial areas, backstage passages and eventually back towards the arena.
 
-The idea is that you should be able to look at a screenshot and immediately know roughly where on the track it was taken.
-
-That sounds like a small thing, but it made a surprisingly big difference.
+The different areas give you landmarks, so a screenshot should tell you roughly where on the track it was taken.
 
 It also helped me move away from the very flat layout of the original track. Iron Chorus now has much more verticality. Parts of the circuit pass above and below other sections, there are larger elevation changes, and the jumps are integrated into the track instead of simply looking like ramps someone dropped onto the road five minutes before the race.
 
@@ -101,9 +99,9 @@ It also helped me move away from the very flat layout of the original track. Iro
 
 This rework also taught me something about the visual style of Riff Racers.
 
-I still want the game to have a clean, stylized and relatively low-poly look. But there is a pretty big difference between _stylized_ and _unfinished_.
+I still want the game to have a clean, stylised and relatively low-poly look. But there is a pretty big difference between _stylised_ and _unfinished_.
 
-Some of the earlier assets were technically doing their job, but they were too simple. The audience was a good example. From a distance, the original grandstands often looked more like rows of colored blocks than actual people. For the new version I spent more time making the spectators readable as spectators, while still keeping them simple enough for a racing game where you fly past them at speed.
+Some of the earlier assets were technically doing their job, but they were too simple. The audience was a good example. From a distance, the original grandstands often looked more like rows of coloured blocks than actual people. For the new version I spent more time making the spectators readable as spectators, while still keeping them simple enough for a racing game where you fly past them at speed.
 
 The same happened with the stages, speaker towers, industrial machinery, flames and trackside props.
 
@@ -126,8 +124,8 @@ That has become a useful rule for the rest of the game:
     loading="lazy"
   />
   <figcaption>
-    The crowd now reads as spectators instead of rows of colored blocks, even at
-    racing speed.
+    The crowd now reads as spectators instead of rows of coloured blocks, even
+    at racing speed.
   </figcaption>
 </figure>
 
@@ -139,7 +137,7 @@ Some early versions of Iron Chorus looked nicer but still felt a little too much
 
 Shortcuts now have proper entrances and exits instead of suddenly appearing in the middle of the main route. Jumps are built into the surrounding road geometry. Solid-looking objects actually need to behave like solid objects when you hit them.
 
-That last one sounds obvious, but it is exactly the kind of thing that becomes very noticeable once you start polishing a track. If there is a huge equipment case sitting next to the racing line and you can simply drive through it, the illusion falls apart immediately.
+One problem became particularly noticeable during polishing: you could drive straight through some of the huge equipment cases beside the racing line.
 
 I went through the track again specifically looking for those kinds of problems: missing collisions, awkward barriers, track seams, objects clipping into one another, strange ramp transitions and visual glitches.
 
@@ -261,11 +259,7 @@ Iron Chorus is still supposed to be fast. There is just more happening during a 
 
 ## When is a track actually finished?
 
-This was probably the hardest part.
-
-There is always one more thing you could improve. Another prop. Another light. Another animation. Another corner that could maybe be five percent better.
-
-At some point you have to stop.
+Knowing when to stop was probably the hardest part. There was always another prop, light or animation to adjust, or a corner that could maybe be five percent better.
 
 Iron Chorus has now gone through several major iterations, followed by passes for collision, track flow, hazards, animation, the pitlane, AI behaviour and visual glitches.
 
@@ -299,7 +293,7 @@ That should make rebuilding the remaining tracks a little less chaotic. Hopefull
 
 Iron Chorus is only the first of the original demo tracks to receive this treatment. There are four more waiting.
 
-And each of them needs to feel like its own place rather than simply being Iron Chorus with different colors.
+Each needs its own layout and atmosphere.
 
 The next one is **Razorline Riot**.
 

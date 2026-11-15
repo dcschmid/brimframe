@@ -24,15 +24,9 @@ import closeRacing from '../../assets/devlog/2026-10-cathedral-circuit/cathedral
 import pitlane from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-pitlane.webp';
 import finalApproach from '../../assets/devlog/2026-10-cathedral-circuit/cathedral-circuit-final-approach.webp';
 
-After the noise and aggression of the [previous tracks](/devlog/riff-racers-razorline-riot/), I wanted the third demo track to feel completely different.
+After the noise and aggression of the [previous tracks](/devlog/riff-racers-razorline-riot/), I wanted the third demo track to feel old, huge and slightly dangerous. A ruined cathedral seemed like an unlikely place for a race, which made me want to try it.
 
-Not just another circuit with a different color palette.
-
-I wanted somewhere that felt old, huge, slightly dangerous, and almost impossible to build a race track through.
-
-So naturally, I built one through a ruined cathedral.
-
-Welcome to **Cathedral Circuit**.
+That became **Cathedral Circuit**.
 
 <VideoEmbed
   videoId="MvOc2T5NI2g"
@@ -44,23 +38,11 @@ Welcome to **Cathedral Circuit**.
 
 ## A darker side of Riff Racers
 
-The initial idea was fairly simple:
-
-A race at night, running through the remains of a massive gothic cathedral.
-
-Moonlight through broken arches. Stained glass. Firelight. Old stone. Towers disappearing into the darkness.
-
-But there was one problem I ran into pretty quickly.
-
-Making something dark is easy.
-
-Making something dark **and still readable at racing speed** is much harder.
+I pictured a night race through a massive gothic cathedral: moonlight through broken arches, stained glass, firelight and towers disappearing into the darkness. The difficulty was keeping all of that **readable at racing speed**.
 
 Early versions leaned too heavily into black and very dark materials. They looked atmospheric when standing still, but once I actually started driving the track, a lot of the architecture simply disappeared.
 
-Walls blended into the background. Corners became harder to read. Depth was getting lost.
-
-So the final look became much more about contrast than darkness.
+Walls blended into the background, corners became harder to read and the scene lost depth. I needed stronger contrast to make the route visible.
 
 Deep blues and muted purples form most of the environment, while fire, stained glass and warmer lighting pick out the important parts of the scene.
 
@@ -82,17 +64,7 @@ That verticality became one of the defining ideas for the track.
 
 The main nave gives the start and finish a large, open space, while other sections become much tighter and more technical before opening up again around the Grand Apse and Bell Tower.
 
-I wanted the lap to have a rhythm to it rather than throwing something at the player every few seconds.
-
-Fast section.
-
-Technical section.
-
-A moment to look around.
-
-Then something slightly stupid and dangerous.
-
-Which brings me to the shortcuts.
+I wanted fast sections to lead into tighter, technical ones, with a little room to look around before the next risky shortcut.
 
 <figure class="devlog-figure">
   <Picture
@@ -133,13 +105,7 @@ It worked mechanically, but it looked wrong.
 
 So a lot of the later work was about making these routes grow naturally out of the environment.
 
-An old corridor continues where the main route turns away.
-
-A damaged gallery becomes an alternative line.
-
-A collapsed floor gradually turns into a ramp instead of suddenly placing one in the middle of the road.
-
-Small things, but they make a surprisingly big difference.
+An old corridor continues where the main route turns away, and a damaged gallery offers an alternative line. A collapsed floor gradually becomes a ramp. Those connections make the shortcuts feel like routes through the building.
 
 <figure class="devlog-figure">
   <Picture
@@ -193,7 +159,7 @@ Ask me how I know.
 
 ## The Bell Tower needed to do something
 
-The Bell Tower became one of my favorite areas of the track.
+The Bell Tower became one of my favourite areas of the track.
 
 It's already one of the stronger visual landmarks, so leaving it as completely static scenery felt like a missed opportunity.
 
@@ -238,17 +204,7 @@ A huge environment can look surprisingly dead when everything in it is frozen.
 
 So Cathedral Circuit now has a lot more subtle movement in the background.
 
-Banners move.
-
-Fire flickers.
-
-Smoke and particles drift through parts of the ruins.
-
-The crowd has more variation and movement.
-
-There are people on balconies and around some of the larger spectator areas.
-
-The Bell Tower actually feels like a functioning part of the environment rather than a large static prop.
+Banners move, fire flickers, and smoke and particles drift through the ruins. The crowd has more variation and movement, with people on balconies and in the larger spectator areas. The moving Bell Tower mechanism helps that part of the building feel active too.
 
 None of these things are supposed to pull your attention away from driving.
 
@@ -305,33 +261,11 @@ Once the track looked good, there was still a lot of work left.
 
 And this is the bit screenshots tend not to show.
 
-Driving directly into walls.
-
-Driving into pillars.
-
-Driving into barriers.
-
-Trying to enter shortcuts from completely stupid angles.
-
-Missing jumps on purpose.
-
-Testing the sides of ramps.
-
-Finding objects that looked solid but didn't actually have collision.
-
-Finding collision where there shouldn't have been any.
-
-Watching AI drivers discover exciting new ways to become permanently attached to gothic architecture.
+I drove into walls, pillars and barriers, approached shortcuts from bad angles, missed jumps on purpose and tested the sides of ramps. I found solid-looking objects with no collision, collision where it did not belong, and AI drivers getting thoroughly stuck in gothic architecture.
 
 A fair amount of the final work on Cathedral Circuit was simply trying to break it.
 
-If something looked solid, it needed to behave like it was solid.
-
-If a shortcut existed, the AI needed to understand it.
-
-If there was a jump, it had to work at more than one exact speed.
-
-If you fell off somewhere, the respawn needed to put you somewhere sensible.
+Solid objects needed reliable collision, and the AI needed to understand the shortcuts. Jumps had to work at more than one exact speed, with sensible respawn positions when a kart fell off.
 
 It isn't the glamorous part of building a track, but it is usually the difference between something that looks finished and something that actually feels finished.
 

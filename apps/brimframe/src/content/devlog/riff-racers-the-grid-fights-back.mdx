@@ -22,7 +22,7 @@ import ironChorusSideBySide from '../../assets/devlog/2026-10-grid-fights-back/g
 import thunderforgePass from '../../assets/devlog/2026-10-grid-fights-back/grid-fights-back-thunderforge-pass.webp';
 import photoFinish from '../../assets/devlog/2026-10-grid-fights-back/grid-fights-back-thunderforge-photo-finish.webp';
 
-For a while, [Riff Racers](/games/) had a problem that sounds pleasant until you think about it: I kept winning. Even on the highest difficulty I could often finish ten or fifteen seconds ahead, and a ten-second lead in a kart race isn't really a race. It's a time trial with eleven other karts parked somewhere behind you.
+For a while, [Riff Racers](/games/) had a problem that sounds pleasant until you think about it: I kept winning. Even on the highest difficulty I could often finish ten or fifteen seconds ahead, and a ten-second lead in a kart race isn't really a race. It felt like a time trial with eleven other karts somewhere behind me.
 
 I didn't want to fix that with a bigger top speed, which only moves the gap around. So I measured what the AI was doing wrong. The karts that used to win lapped about five percent slower on average than a reference driver in the same kart who simply used everything the game offers: drifting into boosts, chaining them, taking shortcuts. On Thunderforge and Frostfire Run the AI never drifted at all, because it only drifted at spots I had marked by hand and those two tracks had none.
 
@@ -83,7 +83,7 @@ Mistakes got the same treatment. A kart with another close behind it slips more 
 
 ## Twelve drivers shouldn't drive like twelve clones
 
-Making every driver better would have been easy, and dull. Each of the twelve racers has a temperament that decides what they do when it matters.
+I wanted the twelve racers to make different decisions under pressure. Each now has a temperament that shapes how they race.
 
 Mika Blaze is the front-runner, attacking more than anyone and making some of the biggest mistakes. Kira Pulse is the precision driver, one of the cleanest on the grid. Tex Rivers defends harder than anyone, which costs lap time, so Tex wins the least in my simulated races. That trade-off is deliberate. Jax Monroe takes every shortcut and jump on offer, and in my last batch of simulated races Jax won the most and made the most mistakes. Sage Chen weighs things up before committing, and Imani Reed stays composed after a bad moment and tends to make a move late in the race. The other six have their own styles too, from Rhythm Kaur's patience to Zoe Volt's quick temper.
 
@@ -127,7 +127,7 @@ Difficulty doesn't flatten any of this. It changes how skilled and how intense e
 
 ## What happens when another driver remembers you?
 
-This is the part I've enjoyed building most: racers now remember what other racers did to them, within the current race. If a driver is pushed wide or loses places after a meaningful collision, it can hold that against the other driver. The memory is directed, so if, say, Jax shoves Kira wide, Kira holds a grudge against Jax and not the other way around. A grudge isn't a command to ram anyone. It tilts decisions the AI already makes: defending harder, attacking sooner, staying alongside longer. It works between any two racers, so you're not automatically the center of every conflict.
+This is the part I've enjoyed building most: racers now remember what other racers did to them, within the current race. If a driver is pushed wide or loses places after a meaningful collision, it can hold that against the other driver. The memory is directed, so if, say, Jax shoves Kira wide, Kira holds a grudge against Jax and not the other way around. A grudge isn't a command to ram anyone. It tilts decisions the AI already makes: defending harder, attacking sooner, staying alongside longer. It works between any two racers, so you're not automatically the centre of every conflict.
 
 Not every touch makes an enemy. A gentle brush counts for nothing, and blame is judged conservatively. If both karts held their lines, or it's part of a pile-up, nobody is blamed, which is the case for between a third and a half of the serious incidents in my test races. A push that costs a place irritates the victim, a repeat escalates it, and a clean pass on the offender cuts it in half. Nothing carries over to the next race.
 
@@ -153,13 +153,13 @@ What I did record is a small real example, from an AI-only race on Thunderforge.
   </figcaption>
 </figure>
 
-In the fifteen races I recorded, no grudge holder hit the other driver, as the one at fault, within forty seconds of the grudge forming. So there's no revenge shot, and I won't pretend there is one.
+In the fifteen races I recorded, no grudge holder hit the other driver, as the one at fault, within forty seconds of the grudge forming. The footage does not show a retaliatory collision.
 
 ## Hard but fair
 
 The balance I care about most is that the AI should be tough without cheating. Aggression alone doesn't get there: too much and you get constant crashes, too little and the field is passive. That goes for every difficulty, not only Legendary Set.
 
-So difficulty is driving ability and behavior, meaning how cleanly drivers brake and corner, use boost and shortcuts, slip and fight. It isn't a smaller field. All twelve racers take part in every race, and the length goes from three laps on Warm-Up to eleven on Legendary Set, which leaves more room for mistakes, position changes and rivalries.
+Difficulty changes driving ability and behaviour: how cleanly drivers brake and corner, how they use boost and shortcuts, and how often they make mistakes or fight for position. All twelve racers take part in every race, and the length goes from three laps on Warm-Up to eleven on Legendary Set, which leaves more room for mistakes, position changes and rivalries.
 
 I should be upfront about one thing, because "without cheating" isn't the whole story. A field of equally fast, error-free drivers still finishes four or five seconds apart. Closing that gap takes catch-up, or an adaptive ladder that retunes the AI between races, and I had ruled catch-up out earlier. In the end I added a bounded version, pack pace. A driver more than about half a second behind drives closer to a flawless driver in the same kart, never beyond it, and the leader eases off the throttle slightly (at most twelve percent) when the pack is far behind. Nobody gets a faster kart, and the AI can't tell who is human. It's still rubber banding, and you may notice it.
 
@@ -191,7 +191,7 @@ One finding stuck with me: the opening lap matters far more than the grid. A kar
 
 The "player" in those simulations is a ghost: the same driving code with no random errors, a little slower than perfect. It's a model of a strong, tidy driver, not a recording of anybody. Set 1.5 percent off the reference pace, it wins about 95 percent of Warm-Up races and about 5 percent of Legendary Set, which makes a useful ladder but isn't a playtest.
 
-On the real engine I ran 25 full-distance races on a single seed, all five tracks at all five difficulties with twelve AI racers. All finished, with no script errors. Everything above was measured on dry roads, so the [weather system](/devlog/riff-racers-when-the-weather-changes-the-race/) still needs its own runs, and as I write this the new behavior has been tested by machines, not by people.
+On the real engine I ran 25 full-distance races on a single seed, all five tracks at all five difficulties with twelve AI racers. All finished, with no script errors. Everything above was measured on dry roads, so the [weather system](/devlog/riff-racers-when-the-weather-changes-the-race/) still needs its own runs, and as I write this the new behaviour has only been tested by machines so far.
 
 ## Every race should have its own story
 

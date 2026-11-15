@@ -74,7 +74,7 @@ test('desktop navigation reaches Games and only the real game appears', async ({
   } else {
     await expect(feature.getByRole('link')).toHaveCount(0);
     await expect(
-      feature.getByText('Dedicated game site in development.'),
+      feature.getByText('A separate website for the game is in development.'),
     ).toBeVisible();
   }
 });

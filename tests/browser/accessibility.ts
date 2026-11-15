@@ -2,8 +2,10 @@ import { expect, type Page } from '@playwright/test';
 
 export function checkVideoGeometry(box: { width: number; height: number }) {
   // Respect YouTube's minimum viewport, retaining 16:9 on larger screens.
-  expect(box.width).toBeGreaterThanOrEqual(200);
-  expect(box.height).toBeGreaterThanOrEqual(200);
+  // Firefox may report a 200px edge as 199.99996948242188 after layout.
+  const roundingTolerance = 0.001;
+  expect(box.width).toBeGreaterThanOrEqual(200 - roundingTolerance);
+  expect(box.height).toBeGreaterThanOrEqual(200 - roundingTolerance);
   if (box.width >= 360) {
     expect(box.width / box.height).toBeCloseTo(16 / 9, 1);
   }

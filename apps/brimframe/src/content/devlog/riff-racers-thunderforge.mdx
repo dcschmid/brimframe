@@ -24,27 +24,13 @@ import maintenanceTunnel from '../../assets/devlog/2026-10-thunderforge/thunderf
 import startFinish from '../../assets/devlog/2026-10-thunderforge/thunderforge-start-finish.webp';
 import thunderRun from '../../assets/devlog/2026-10-thunderforge/thunderforge-thunder-run.webp';
 
-Thunderforge is done.
-
-Or, well… it was “done” a few times before it was actually done.
-
-That seems to be becoming a bit of a theme with Riff Racers.
+Thunderforge is done, after a few more final passes than I expected. That is becoming a familiar experience with Riff Racers.
 
 There is a point when building a track where all the important pieces are technically there. You can drive a full lap, the shortcuts work, the scenery is in place, and nothing obviously falls apart.
 
 And then you actually drive it a few more times and start noticing all the small things.
 
-A barrier that looks solid but you can drive straight through.
-
-A shortcut that technically works, but starts a little too suddenly and looks like somebody glued another piece of road onto the track.
-
-A ramp that does its job, but does not really feel like it belongs there.
-
-A pit lane that exists, but does not yet look like somewhere a racing team would actually use.
-
-Thunderforge had quite a few of those moments.
-
-So this track ended up getting a much more thorough final pass than I originally expected.
+On Thunderforge, I found barriers you could drive through, shortcuts that began too abruptly, ramps that looked out of place and a pit lane that did not yet look useful. Those problems needed another pass through the track.
 
 <VideoEmbed
   videoId="_cMQi0Td_SU"
@@ -56,13 +42,7 @@ So this track ended up getting a much more thorough final pass than I originally
 
 ## Into the forge
 
-The basic idea behind Thunderforge was fairly simple:
-
-What if a race track ran through a huge industrial mountain forge during a thunderstorm?
-
-That gave me a pretty clear visual direction right away.
-
-Dark mountains, wet roads, steel structures, orange furnace light, cold lightning, deep drops and huge industrial machinery.
+Thunderforge began as a race through a huge industrial mountain forge during a thunderstorm. I pictured dark mountains, wet roads, steel structures, orange furnace light, cold lightning, deep drops and huge machinery.
 
 The important part was making sure it did not just become a dark track with a few glowing orange objects scattered around.
 
@@ -105,13 +85,7 @@ They worked mechanically, but visually you could immediately tell that they had 
 
 So I went back and rebuilt those transitions.
 
-Now the road actually splits before a shortcut.
-
-The player can see the decision coming.
-
-The shortcut has its own entrance, its own shape and then a proper merge back into the main route.
-
-It is a small thing, but it makes the whole track feel much more believable.
+The road now splits before each shortcut, giving the player time to choose a line. Each alternate route has an entrance and a proper merge back into the main road.
 
 The same happened with the major jumps.
 
@@ -159,11 +133,7 @@ The forge now has much more movement around the player.
 
 There are machines working in the background, steam, sparks, moving industrial elements and more activity around the pit and trackside areas.
 
-I did not want everything moving all the time.
-
-That would quickly become distracting and expensive for very little gain.
-
-Instead I tried to pick a few larger pieces of motion that you actually notice while racing.
+Animating everything would be distracting and expensive for little gain. I chose a few larger pieces of motion that you can notice while racing.
 
 The goal was simply to make the world feel like it carries on beyond the racing line.
 
@@ -202,9 +172,7 @@ If something can interfere with the race, I want the player to be able to read i
 
 A warning light, an animation, a sound cue, a repeated timing pattern — something that lets you understand what is about to happen.
 
-The idea is that the first time you might get caught by it.
-
-The next time you know what to look for.
+A hazard might catch you the first time, but its warning should help you avoid it on the next lap.
 
 That feels much fairer, especially in a racing game where losing half a second can already matter.
 
@@ -227,9 +195,7 @@ That feels much fairer, especially in a racing game where losing half a second c
 
 ## The boring stuff that matters
 
-A surprisingly large part of the final Thunderforge pass had nothing to do with making it prettier.
-
-It was collision work.
+Much of the final Thunderforge pass went into collision work.
 
 There were objects close to the track that looked completely solid but did not actually have proper collision.
 
@@ -241,9 +207,7 @@ If something looks like you should hit it, you should hit it.
 
 That sounds obvious, but it is exactly the kind of thing that is easy to miss while concentrating on the bigger picture.
 
-I also spent time hunting the less exciting visual problems:
-
-floating props, clipping, awkward road seams, overlapping geometry and a few places where surfaces could flicker.
+I also checked for floating props, clipping, awkward road seams, overlapping geometry and flickering surfaces.
 
 None of those things make a good screenshot on their own, but fixing them is what makes the final result stop feeling unfinished.
 
@@ -317,9 +281,7 @@ The running game always gets the final vote.
 
 Every Riff Racers track needs one or two things that immediately tell you where you are.
 
-For Thunderforge, I think it has ended up being a combination of three things:
-
-the forge itself, the Broken Bridge jump and the storm hanging over the mountains.
+For Thunderforge, the main landmarks are the forge itself, the Broken Bridge jump and the storm over the mountains.
 
 That contrast between cold blue lightning and the warm furnace glow ended up giving the track a very strong identity.
 

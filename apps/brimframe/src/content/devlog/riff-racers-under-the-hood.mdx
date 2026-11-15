@@ -10,7 +10,7 @@ game: 'riff-racers'
 featured: true
 ---
 
-I thought it might be interesting to talk a little about the technical side of **Riff Racers** — not just what the game looks like, but how it is actually being built.
+Here is how I use Defold, Blender and AI coding tools to build **Riff Racers**.
 
 Riff Racers is developed in **Defold**, currently using **Defold 1.14.0**, while **Blender** plays an important role on the asset and 3D side of the project.
 
@@ -28,17 +28,13 @@ For Riff Racers I set up a **Defold MCP server**, based on `Fulviuus/defold-mcp`
 
 I also use **Blender through MCP**, which brings the same basic idea to the asset side of development.
 
-The important part is that these tools are not simply looking at random folders full of source files and trying to guess what is going on.
-
-Through MCP they can work much more closely with the actual tools and project.
+Through MCP, the coding tools can inspect and work with the game project and the Blender scene directly.
 
 On the Defold side, that means being able to inspect the game, work with project files, build it, run it and use Defold-specific information.
 
 On the Blender side, it means being able to work much closer to the actual 3D scene instead of treating Blender files as a black box.
 
-That has made a surprisingly big difference.
-
-Instead of saying:
+That changes what I can ask them to do. Instead of saying:
 
 > Here are some Lua files and some assets. Try to guess how everything fits together.
 
@@ -46,13 +42,11 @@ the workflow becomes much closer to:
 
 > Here is the actual game and here is the actual scene. Look at what is there, understand it, change it, test it and see what happened.
 
-And that is a much more useful way to work.
+Being able to check the result in the running project makes the tools more useful to me.
 
 ## Blender is part of the track-building process
 
-Blender is not something I only use at the beginning to create an asset and then forget about it.
-
-It has become part of the iteration loop as well.
+I return to Blender throughout development to revise assets as I test them in the game.
 
 If something on a track looks wrong, needs a cleaner shape, a better transition or simply does not fit the environment anymore, I can go back to Blender, adjust it and bring the result back into the game.
 
@@ -68,7 +62,7 @@ Those are the kinds of things where being able to move between **Defold and Blen
 
 And having MCP available on both sides makes that workflow even more interesting.
 
-## AI is part of the toolbox, not the game designer
+## Where I use AI
 
 I’m a solo developer, so I use AI quite heavily during development. But I don’t really think of it as pressing a button and asking it to “make a game”.
 
@@ -80,15 +74,9 @@ Then the next pass becomes very specific:
 
 make the shortcut flow naturally out of the road, fix the collision, adjust the geometry if necessary, give the background more movement, improve the racing line, test the AI again, drive several laps and see whether the result actually feels better.
 
-Sometimes a change works immediately.
+Sometimes a change works immediately. Often I need to try again. Repeating that cycle takes up much of my time on Riff Racers.
 
-Very often it doesn’t.
-
-And then we do another pass.
-
-That cycle is probably the biggest part of making Riff Racers.
-
-## Building tracks as places, not just roads
+## Building each track’s setting
 
 One thing I have been putting much more effort into recently is making every circuit feel like an actual location instead of a road placed on top of a background.
 
@@ -102,7 +90,7 @@ That means looking at things such as:
 - spectators that actually read as spectators
 - surface transitions that look natural
 - geometry that feels like it belongs to the environment
-- visual landmarks that make different parts of a circuit recognizable
+- visual landmarks that make different parts of a circuit recognisable
 
 The goal is that you should eventually be able to look at a screenshot and immediately know which Riff Racers track you are looking at.
 
@@ -142,8 +130,6 @@ And the **MCP integrations for Defold and Blender** allow those tools to work mu
 
 Then I sit in the middle of all of it, deciding what the game should be, rejecting the things that don’t work, keeping the things that do, and occasionally wondering why someone decided that putting another obstacle directly in the racing line was a good idea.
 
-It is a bit experimental.
-
-But it is also a genuinely fun way to build a game.
+The workflow is experimental, and I enjoy working this way.
 
 And as Riff Racers gets closer to the next playable version, I’ll probably share more of this side of development as well — including some of the things that worked, some that absolutely did not, and how the tracks have changed along the way.
