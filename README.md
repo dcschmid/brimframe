@@ -152,30 +152,18 @@ names the game. The asset directory documents the source dimensions and SHA-256.
 The three initial attachments are brand/concept boards. No parts of those boards
 have been cropped, traced or embedded.
 
-Owned game artwork can be assigned to `artwork` with `artworkAlt`. Astro's
-`Picture` component generates responsive AVIF and WebP derivatives for artwork
-and devlog images, with a PNG fallback row. Below-fold images are lazy-loaded
-with intrinsic dimensions. The hero
-uses the owner-supplied clean logo and teaser references as visual direction,
-without embedding their raster files. `src/assets/brand/hero-frame.svg` contains
-static BF architecture, recessed surfaces, perspective seams and orange edge
-lighting. CSS adds restrained ambient gradients and framing. Desktop artwork
-sits beside the HTML hero statement; mobile artwork occupies its own space
-below the calls to action. No animation, WebGL, external asset request or extra
-JavaScript is required. Its named `artwork` slot remains a replacement point for
-final owned artwork. All hero copy stays in HTML; decorative SVGs are excluded
-from the accessibility tree and keyboard navigation.
+Owned game artwork is assigned to `artwork` with `artworkAlt`. Astro's
+`Picture` component generates responsive image derivatives. Below-fold images
+are lazy-loaded with intrinsic dimensions. The homepage hero uses an existing
+Riff Racers gameplay image beside its HTML introduction, stacking below the
+copy on small screens. The original game logo remains intact in the game
+feature. The former decorative frame illustration and its component are no
+longer used.
 
-The Games heading, studio sections and closing section use static, decorative
-frame lines and low-opacity ambient gradients. The game feature keeps most of
-its colour in the original logo. These details add no client JavaScript.
-
-Inter and Orbitron are self-hosted through Fontsource variable packages. Only
-Latin WOFF2 subsets load, using `font-display: swap`. Inter is preloaded on
-every page. Orbitron is preloaded only on the pages that use it (the home and
-About pages, via the `displayFont` layout prop); it is reserved for the hero
-and the value numerals, and body text uses Inter. Package licenses remain in
-the dependencies. No Google Fonts runtime requests are made.
+Inter is self-hosted through Fontsource. Its Latin WOFF2 subset uses
+`font-display: swap` and is preloaded on every page. The unused Orbitron font,
+dependency and layout preload option have been removed. No Google Fonts
+runtime requests are made.
 
 ## Type scale and spacing
 
@@ -188,15 +176,44 @@ lockup. `--muted` and `--text-soft` keep the secondary copy above 9:1 contrast
 on the dark surfaces. Vertical gaps use `--space-section`,
 `--space-section-tight` and `--space-heading`; keep new sections on those tokens.
 The wordmark width is the `--wordmark-width` token, and the navigation is
-centred on the wordmark letters from the same value. The V1 visual design is
-frozen: change it only for a usability or accessibility problem.
+centred on the wordmark letters from the same value. Keep token and component
+cleanup visually neutral.
 
 Navigation uses padded targets and a persistent current-page underline, including
-in system high-contrast colours. Small-screen hero buttons span the available
-width. Devlog cards adapt to the number of published posts: one update uses a
-wide title/summary layout, while multiple updates form a responsive grid. Body
+in system high-contrast colours. The homepage gives the latest update more
+space; the devlog archive uses image-and-text rows that stack on mobile. Body
 copy uses the brighter `--text-soft` token on editorial pages. Interactive borders
 use `--control-border`; keep the quieter `--border` token for decorative dividers.
+
+Use `--space-1` through `--space-6` for exact matches to the shared spacing
+scale (0.5, 1, 1.5, 2, 3 and 4rem). Section spacing stays fluid through the
+section tokens. One-off optical adjustments and control padding keep their
+existing values; do not round them to the scale without visual review.
+
+## Buttons and action colors
+
+`LinkButton.astro` renders a native link and accepts `href`,
+`variant="primary" | "secondary"` (default: primary), and `arrow` (default:
+false). Use it for navigation. Native action buttons, such as analytics choices,
+share `.button` and the variant classes without changing their button semantics.
+
+| Style               | Use                                           | States and size                                              |
+| ------------------- | --------------------------------------------- | ------------------------------------------------------------ |
+| `.button-primary`   | Main navigation action                        | Default, hover/focus-visible and active; minimum height 52px |
+| `.button-secondary` | Secondary navigation or equal consent choices | Default, hover/focus-visible and active; minimum height 52px |
+| `.button-text`      | Cookie settings and consent close             | Underline, shared focus ring; minimum height 44px            |
+
+The consent panel alone uses a compact layout below 48rem: 48px minimum
+height, smaller text and local padding. It is not a separate shared size API.
+Textbutton alignment, padding and footer hover decoration remain local.
+Menu and video controls keep their specialized styles. These controls do not
+implement loading or disabled states because their current flows do not use them.
+
+Action text and primary/secondary state colors are named in `global.css` as
+`--action-*` tokens. Video play shares `--action-text` but intentionally keeps
+`--accent-soft` for hover. `--border-subtle` joins identical game-panel dividers;
+nearby border shades remain distinct. The literal `theme-color` metadata in
+`SiteLayout.astro` mirrors `--background`, not `--action-text`.
 
 ## Devlog authoring
 

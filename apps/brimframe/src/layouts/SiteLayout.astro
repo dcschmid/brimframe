@@ -5,7 +5,6 @@ import AnalyticsConsent from '../components/AnalyticsConsent.astro';
 import SEO from '../components/SEO.astro';
 import { site } from '../config/site';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
-import orbitronFont from '@fontsource-variable/orbitron/files/orbitron-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 interface Props {
   title: string;
@@ -19,10 +18,8 @@ interface Props {
   structuredData?: Record<string, unknown>;
   breadcrumbs?: { name: string; path?: string }[];
   language?: string;
-  /** Preload the display face; only pages that actually use it should. */
-  displayFont?: boolean;
 }
-const { language = site.language, displayFont = false, ...seo } = Astro.props;
+const { language = site.language, ...seo } = Astro.props;
 ---
 
 <!doctype html>
@@ -30,7 +27,8 @@ const { language = site.language, displayFont = false, ...seo } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0B0F14" />
+    <!-- Match --background in global.css; metadata requires a literal color. -->
+    <meta name="theme-color" content="#111313" />
     <SEO {...seo} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -47,15 +45,6 @@ const { language = site.language, displayFont = false, ...seo } = Astro.props;
       type="font/woff2"
       crossorigin
     />
-    {displayFont && (
-      <link
-        rel="preload"
-        href={orbitronFont}
-        as="font"
-        type="font/woff2"
-        crossorigin
-      />
-    )}
   </head>
   <body>
     <SiteHeader />

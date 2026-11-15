@@ -27,7 +27,7 @@ const { compact = false } = Astro.props;
     height: auto;
   }
   .wordmark-caption {
-    margin-top: 0.5rem;
+    margin-top: var(--space-1);
     /* Scales with the wordmark but never drops below 12px. */
     font-size: clamp(0.75rem, 4.2cqi, 0.8125rem);
     font-weight: 500;

@@ -7,7 +7,6 @@ interface Props {
   intro: string;
   noindex?: boolean;
   language?: string;
-  displayFont?: boolean;
 }
 const {
   title,
@@ -16,7 +15,6 @@ const {
   intro,
   noindex = false,
   language,
-  displayFont = false,
 } = Astro.props;
 ---
 
@@ -24,7 +22,6 @@ const {
   title={title}
   description={description}
   noindex={noindex}
-  displayFont={displayFont}
   {...(language ? { language } : {})}
 >
   <div class="page-heading container">

@@ -49,13 +49,13 @@ import racing from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-i
 
 <style>
   .hero {
-    padding-block: clamp(3rem, 7vw, 6rem);
+    padding-block: clamp(var(--space-5), 7vw, 6rem);
     border-bottom: 1px solid var(--border);
   }
   .hero-grid {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    gap: clamp(2rem, 5vw, 5rem);
+    gap: clamp(var(--space-4), 5vw, 5rem);
     align-items: center;
   }
   .hero-copy {
@@ -75,7 +75,7 @@ import racing from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-i
   .hero-description {
     color: var(--text-soft);
     max-width: 42ch;
-    margin-block: 1.75rem 2rem;
+    margin-block: 1.75rem var(--space-4);
   }
   .hero-scene {
     min-width: 0;
@@ -90,7 +90,7 @@ import racing from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-i
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.5rem 1rem;
+    gap: var(--space-1) var(--space-2);
     padding-top: 0.75rem;
     color: var(--muted);
     font-size: var(--fs-small);

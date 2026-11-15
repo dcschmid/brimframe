@@ -157,7 +157,7 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     line-height: 1.15;
     margin: auto;
-    padding-block: 2rem;
+    padding-block: var(--space-4);
     text-align: center;
     letter-spacing: -0.05em;
   }
@@ -165,7 +165,7 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
     width: min(100%, 28rem);
     height: auto;
     margin: auto auto 0;
-    padding-block: 2rem 0;
+    padding-block: var(--space-4) 0;
     filter: drop-shadow(0 2px 8px #000);
     box-sizing: content-box;
     object-fit: contain;
@@ -198,14 +198,14 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
     padding: var(--card-pad);
     display: flex;
     flex-direction: column;
-    border-left: 1px solid #ffffff14;
+    border-left: 1px solid var(--border-subtle);
     background: var(--surface);
   }
   .game-labels {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.25rem 1.5rem;
+    gap: 0.25rem var(--space-3);
     margin-bottom: auto;
     font-size: var(--fs-label);
     line-height: 1.6;
@@ -232,7 +232,7 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
   .game-details h3 {
     font-size: clamp(2rem, 3.2vw, 2.75rem);
     line-height: 1.1;
-    margin-block: 2.25rem 1rem;
+    margin-block: 2.25rem var(--space-2);
   }
   .game-details > p {
     color: var(--muted);
@@ -249,7 +249,7 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
   .game-site-status {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--space-2);
     font-size: var(--fs-ui);
     line-height: 1.6;
     color: var(--muted);
@@ -265,14 +265,14 @@ const { game, headingLevel: Heading = 'h2' } = Astro.props;
     }
     .game-details {
       border-left: 0;
-      border-top: 1px solid #ffffff14;
+      border-top: 1px solid var(--border-subtle);
     }
     .game-labels {
       margin-bottom: 0;
     }
     .game-details h2,
     .game-details h3 {
-      margin-block: 1.5rem 0.75rem;
+      margin-block: var(--space-3) 0.75rem;
     }
     .game-details > p {
       margin-bottom: 1.75rem;

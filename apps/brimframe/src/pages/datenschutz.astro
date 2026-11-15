@@ -346,17 +346,17 @@ const updatedDate = new Intl.DateTimeFormat('en-GB', {
   .privacy-contents ol {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-    column-gap: 3rem;
+    column-gap: var(--space-5);
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: var(--space-3);
   }
   .privacy-contents a {
     display: inline-block;
     min-height: 44px;
-    padding-block: 0.5rem;
+    padding-block: var(--space-1);
     overflow-wrap: anywhere;
   }
   address {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-3);
   }
 </style>
