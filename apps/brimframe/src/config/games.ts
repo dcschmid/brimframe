@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import riffRacersArtwork from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-hero.webp';
 import riffRacersLogo from '../assets/games/riff-racers/logo.png';
 
 export interface Game {
@@ -23,7 +24,8 @@ export const games: readonly Game[] = [
     status: 'In Development',
     gameSiteUrl: null,
     logo: riffRacersLogo,
-    artwork: null,
-    artworkAlt: '',
+    artwork: riffRacersArtwork,
+    artworkAlt:
+      'Twelve karts racing from the Iron Chorus starting grid beneath the Riff Racers gantry.',
   },
 ];

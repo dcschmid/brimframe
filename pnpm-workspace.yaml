@@ -1,6 +1,11 @@
 packages:
   - apps/*
 
+# Keep Astro's WASM tooling on compatible stable Emnapi peers.
+overrides:
+  '@emnapi/core': 1.11.3
+  '@emnapi/runtime': 1.11.3
+
 onlyBuiltDependencies:
   - esbuild
   - sharp

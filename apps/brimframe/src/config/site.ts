@@ -21,7 +21,7 @@ export const site: SiteConfig = {
   developerName,
   studioIntroduction: `BrimFrame is an independent solo game studio by ${developerName} in Germany.`,
   url: 'https://brimframe.de',
-  tagline: 'Different Games. New Worlds. Same Passion.',
+  tagline: 'Games by Daniel Schmid. Currently making Riff Racers.',
   description: `BrimFrame is an independent solo game studio by ${developerName} in Germany, currently developing the arcade racer Riff Racers.`,
   locale: 'en_GB',
   language: 'en',

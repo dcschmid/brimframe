@@ -79,7 +79,7 @@ test('desktop navigation reaches Games and only the real game appears', async ({
   }
 });
 
-test('the brand and hero retain readable HTML names alongside decorative vector artwork', async ({
+test('the brand and game introduction have readable names and an informative gameplay image', async ({
   page,
 }) => {
   await page.goto('/');
@@ -90,24 +90,28 @@ test('the brand and hero retain readable HTML names alongside decorative vector 
   await expect(brand.locator('svg')).toHaveAttribute('aria-hidden', 'true');
   const headline = page.getByRole('heading', {
     level: 1,
-    name: 'Different Games. New Worlds. Same Passion.',
+    name: 'I’m making Riff Racers.',
   });
   await expect(headline).toBeVisible();
   await expect(
-    page.getByRole('link', { name: 'Explore Games', exact: true }),
+    page.getByRole('link', { name: 'About the game', exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole('link', { name: 'About BrimFrame', exact: true }),
+    page.getByRole('link', { name: 'Meet the developer', exact: true }),
   ).toBeVisible();
-  await expect(page.locator('.hero-artwork')).toHaveAttribute(
-    'aria-hidden',
-    'true',
+  const gameplay = page.locator('.hero-scene img');
+  await expect(gameplay).toHaveAccessibleName(
+    'Karts racing side by side on the Iron Chorus track in Riff Racers.',
   );
-  await expect(page.locator('.hero-artwork [tabindex]')).toHaveCount(0);
-  await expect(page.locator('.hero-artwork svg')).toHaveAttribute(
-    'focusable',
-    'false',
-  );
+  await expect(gameplay).toBeVisible();
+  await expect
+    .poll(() =>
+      gameplay.evaluate((image) => (image as HTMLImageElement).naturalWidth),
+    )
+    .toBeGreaterThan(0);
+  await expect(
+    page.getByRole('link', { name: 'The racing AI' }),
+  ).toHaveAttribute('href', '/devlog/riff-racers-the-grid-fights-back/');
 });
 
 test('mobile menu works with pointer, keyboard and Escape', async ({

@@ -1,4 +1,7 @@
 ---
+import { Picture } from 'astro:assets';
+import cathedral from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-cathedral-pack.webp';
+import frostfire from '../assets/devlog/2026-10-grid-fights-back/grid-fights-back-frostfire-attack.webp';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import GameSpotlight from '../components/GameSpotlight.astro';
 import ContactCallout from '../components/ContactCallout.astro';
@@ -27,8 +30,43 @@ import { games } from '../config/games';
       <GameSpotlight game={game} />
     ))}
   </section>
+  <section class="container game-field-notes" aria-labelledby="on-track-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">From the current build</p>
+        <h2 id="on-track-title">On the track.</h2>
+      </div>
+      <a class="text-link" href="/devlog/riff-racers-the-grid-fights-back/">
+        How the drivers race <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <div class="game-screenshots">
+      <figure>
+        <Picture
+          src={cathedral}
+          alt="A pack of Riff Racers karts racing through Cathedral Circuit."
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 48vw, 100vw"
+          formats={['avif', 'webp']}
+          loading="lazy"
+        />
+        <figcaption>Cathedral Circuit / Racing in a pack</figcaption>
+      </figure>
+      <figure>
+        <Picture
+          src={frostfire}
+          alt="Riff Racers karts battling on the Frostfire Run track."
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 48vw, 100vw"
+          formats={['avif', 'webp']}
+          loading="lazy"
+        />
+        <figcaption>Frostfire Run / Work in progress</figcaption>
+      </figure>
+    </div>
+  </section>
   <div class="container game-afterword">
-    <p class="eyebrow">Different Games. New Worlds. Same Passion.</p>
+    <p class="eyebrow">What comes next</p>
     <p>
       BrimFrame gives me room to try other genres later. For now, I have one
       game to finish.

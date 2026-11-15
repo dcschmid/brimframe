@@ -5,16 +5,22 @@ interface Props {
   posts: CollectionEntry<'devlog'>[];
   /** Load the first card eagerly; use only where it sits near the initial view. */
   eagerFirst?: boolean;
+  featured?: boolean;
 }
-const { posts, eagerFirst = false } = Astro.props;
+const { posts, eagerFirst = false, featured = false } = Astro.props;
 ---
 
 {posts.length ? (
-  <div class="devlog-grid">
+  <div
+    class:list={[
+      'devlog-grid',
+      { 'devlog-grid-featured': featured && posts.length > 1 },
+    ]}
+  >
     {posts.map((post, index) => (
       <DevlogCard
         post={post}
-        wide={posts.length === 1}
+        wide={posts.length === 1 || (featured && index === 0)}
         eager={eagerFirst && index === 0}
       />
     ))}

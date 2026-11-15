@@ -36,8 +36,8 @@ import Frame from '../assets/brand/hero-frame.svg';
   @media (max-width: 47.99rem) {
     .hero-artwork {
       position: relative;
-      height: auto;
-      margin-top: 1.5rem;
+      height: clamp(10rem, 42vw, 16rem);
+      margin-top: 0.5rem;
       mask-image: linear-gradient(
         to bottom,
         transparent,
@@ -53,11 +53,11 @@ import Frame from '../assets/brand/hero-frame.svg';
     }
     .hero-architecture {
       position: relative;
-      width: min(112%, 40rem);
-      margin-left: -9%;
+      width: min(78%, 26rem);
+      margin-left: auto;
       right: auto;
-      top: auto;
-      transform: none;
+      top: 50%;
+      transform: translateY(-50%);
       mask-image: linear-gradient(90deg, transparent, #000 16%);
     }
   }
