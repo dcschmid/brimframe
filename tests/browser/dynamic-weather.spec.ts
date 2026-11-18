@@ -184,7 +184,8 @@ test('Dynamic weather keeps its local poster and trailer link without JavaScript
 test('Dynamic weather is discoverable and connects to the previous update', async ({
   page,
 }) => {
-  for (const listing of ['/', '/devlog/']) {
+  // The homepage lists only the three newest posts; the archive lists all.
+  for (const listing of ['/devlog/']) {
     await page.goto(listing);
     await page.getByRole('link', { name: title, exact: true }).click();
     await expect(page).toHaveURL(route);

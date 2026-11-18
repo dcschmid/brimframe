@@ -62,7 +62,9 @@ test('weather publishes with BrimFrame attribution, current metadata and discove
   });
   assert.equal(article.datePublished, '2026-10-21T00:00:00.000Z');
   assert.equal(article.image.url, hero);
-  for (const file of ['index.html', 'devlog/index.html']) {
+  // The homepage lists only the three newest posts, so the weather post is
+  // guaranteed there only while it is among them; the archive always lists it.
+  for (const file of ['devlog/index.html']) {
     const page = load(await read(file));
     const card = page(`.devlog-card:has(a[href="${route}"])`);
     assert.equal(card.length, 1);
