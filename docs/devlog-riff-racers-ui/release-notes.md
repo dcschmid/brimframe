@@ -75,7 +75,7 @@ Internal links: `/games/`, `/devlog/riff-racers-beyond-the-finish-line-champions
 
 ## Corrected in the final review
 
-Three statements were corrected on 2026-11-18 (details in `implementation.md`): the mini-map line-audit sentence, the scope of the lock-hint claim, and the weather sentence in the video paragraph. Re-read these three before approving the text.
+Four statements were corrected on 2026-11-18 (details in `implementation.md`): the mini-map line-audit sentence, the scope of the lock-hint claim, the weather sentence in the video paragraph and “save format”. Re-read these four before approving the text.
 
 ## After the merge
 
