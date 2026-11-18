@@ -73,6 +73,10 @@ Internal links: `/games/`, `/devlog/riff-racers-beyond-the-finish-line-champions
 6. New tags `controller` and `accessibility` are not used by other articles. The site renders tags without a whitelist.
 7. Image sign-off. None of the screenshots has been reviewed by the owner yet.
 
+## Corrected in the final review
+
+Three statements were corrected on 2026-11-18 (details in `implementation.md`): the mini-map line-audit sentence, the scope of the lock-hint claim, and the weather sentence in the video paragraph. Re-read these three before approving the text.
+
 ## After the merge
 
 - Add the article URL to the YouTube video description. Today the description cannot link to a page that does not exist.
