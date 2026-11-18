@@ -1,0 +1,308 @@
+---
+title: 'The Interface Joins the Race – Fixing the Riff Racers UI in One Week'
+seoTitle: 'Riff Racers UI: One Week of Menu and HUD Fixes'
+seoDescription: 'What changed in the Riff Racers interface in one November week: driver select, grid tyres, the race HUD, results, controller focus and accessibility.'
+description: 'I audited the Riff Racers interface before changing it, then spent a week fixing what was actually wrong: driver select, grid tyres, the race HUD, results and accessibility.'
+intro: 'A week of fixing the menus, the HUD and the controller flow, and an honest list of what is still open.'
+excerpt: 'An old build could lose a race result if you pressed Escape too early. That one bug set the tone for a week of fixing how the Riff Racers interface behaves in and around the race.'
+publishDate: 2026-11-18
+author: 'Daniel Schmid'
+heroImage: '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-grid-forecast-and-tyres.webp'
+heroImageAlt: 'Riff Racers starting grid on Iron Chorus in heavy rain: a forecast panel on the left, a tyre panel on the right and the player’s red kart still visible between them.'
+tags: ['riff-racers', 'development', 'game-ui', 'controller', 'accessibility']
+draft: false
+game: 'riff-racers'
+featured: false
+---
+
+import { Picture } from 'astro:assets';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import poster from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-showcase-poster.webp';
+import driverBefore from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-driver-select-before-720p.webp';
+import driverAfter from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-driver-select-after-720p.webp';
+import trackBefore from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-track-select-before.webp';
+import trackAfter from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-track-select-after.webp';
+import hudBefore from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-race-hud-before.webp';
+import hudAfter from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-race-hud-after.webp';
+import hub from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-championship-hub-series-card.webp';
+import podium from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-photo-finish-podium.webp';
+import rewind from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-riff-rewind-offer.webp';
+import handheld from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-handheld-track-select-1280x800.webp';
+import accessibility from '../../assets/devlog/2026-11-ui-sprint/riff-racers-ui-accessibility-options.webp';
+
+Press Escape a moment after you cross the finish line in an older build of Riff Racers and the race result is gone. No fans, no record, straight back to the main menu. I found that in the audit that opened this sprint. The menus and the HUD were not ugly. In a handful of places they were quietly wrong, and in a racing game that sort of mistake lands on the player in the middle of a race.
+
+Over one week in November I went through the whole interface of [Riff Racers](/games/): menus, HUD, controller navigation, accessibility options, results and Riff Rewind. That came to 156 commits.
+
+Everything here happens in the first world, Metal, the one the demo is built around. The other music worlds I have written about before, in [Beyond the Finish Line](/devlog/riff-racers-beyond-the-finish-line-championship-career/), are still plans, not content.
+
+## Audit first, redraw second
+
+Before I changed anything, I measured. The audit found a mostly solid design and a list of behaviour problems I could put numbers on, so I fixed those instead of redrawing screens that worked. A layout check that measures real text rectangles inside the engine found no clipped, overlapping or off-edge text at 1280×800, 1280×720 and 1920×1080.
+
+That is why the main menu looks exactly as it did, on purpose. What changed is how it behaves. With a series in progress, the menu now opens on Continue Championship, one press from the start. Quit asks before it closes the game, which costs four inputs instead of two, and that is the point.
+
+## A kart that did not fit the frame
+
+In driver select, all twelve karts were cut off by the right edge of the screen at 1280×720. Leo Cruz’s was the worst, 73 pixels out. Holding a direction piled up as many as twelve driver models at once. Now each kart is fitted from its own model bounds, at most two models are alive, and a BACK button lets you leave without picking anyone.
+
+<figure class="devlog-figure">
+  <Picture
+    src={driverBefore}
+    alt="The Riff Racers driver select at 1280×720 in an earlier build: twelve driver portraits on the left, Leo Cruz on the podium with the Latin Pop Kart running into the right edge of the screen."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Before: build 7c62d59 from 14 November, driver select at 1280×720. The kart
+    runs into the right edge.
+  </figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={driverAfter}
+    alt="The same driver select in the current build: Leo Cruz and the Latin Pop Kart sit fully inside the frame, and a BACK / KEEP MIKA BLAZE button has appeared under the portraits."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    After: main at 4de82a8, same screen, same size, same driver. The kart has
+    room to spare and the new BACK button is below the grid.
+  </figcaption>
+</figure>
+
+The measurement comes from the model bounds in a debug build. Driver select only exists in the championship hub, not in Quick Race or co-op, and every driver has one fixed kart. There is no kart choice and no tuning.
+
+## Tracks and sets, written out
+
+Track select now shows five tiles, each with a preview, a lock or trophy state and, new, the track’s name underneath. The lock hint is a whole sentence, “Top 3 unlocks Razorline Riot.”, where it used to be cut off. Difficulty has five cards from Warm-Up (three laps) to Legendary Set (eleven), each with a one-word character, and the selected card says SELECTED instead of relying on colour alone.
+
+<figure class="devlog-figure">
+  <Picture
+    src={trackBefore}
+    alt="Track select in an earlier build: Iron Chorus is shown large with its preview, and below it five tiles marked only with the numbers 01 to 05."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Before: build 27ee798 from 14 November. The tiles carry numbers only.
+  </figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={trackAfter}
+    alt="Track select in the current build: the same Iron Chorus page, with five preview tiles that carry the names Iron Chorus, Razorline Riot, Cathedral Circuit, Thunderforge and Frostfire Run, and a BACK button in the header."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    After: main at 4de82a8. This is a fresh profile, so only Iron Chorus is open
+    and the other four are locked.
+  </figcaption>
+</figure>
+
+## Tyres before the green light
+
+On the grid, the tyre choice could not be changed with any input device. The countdown wiped the steering before the choice read it, and a band across the middle of the screen hid my own kart. Now the forecast sits on the left, the tyre options and their grip on the right, my kart stays visible, and Enter or A starts the race. The image at the top of this post is that screen. I forced the rain with a developer switch for the capture; the weather system itself is the one in [When the Weather Changes the Race](/devlog/riff-racers-when-the-weather-changes-the-race/).
+
+There is a price. When the forecast asks for a weather decision and nobody confirms, the grid waits up to ten seconds. On my machine, with a debug engine, the time from confirming Quick Race to being able to drive went from about 6.4 seconds to about 16.4. If you confirm, you never notice. Whether ten seconds is the right wait, or whether it should default to off, is still my call.
+
+## The race still matters most
+
+In the HUD, the time column moves aside from 10:00 so its digits stop covering their own labels, and the mini-map moved to the right and shrank, so it sits on the racing line far less often: in my line audit at 1280×800, on a straight, from 7.6 per cent of frames to 2.0. The pair below is the same seeded race at the same moment. It shows where things sit, not that they read better.
+
+<figure class="devlog-figure">
+  <Picture
+    src={hudBefore}
+    alt="The race HUD in an earlier build, six seconds after the green light on Iron Chorus: first place and lap at the top left, a larger mini-map at the left edge, time at the top right and 90 km/h at the lower right."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Before: build cabe390 from 13 November, six seconds after green, Iron
+    Chorus, race driven by the game’s AI.
+  </figcaption>
+</figure>
+
+<figure class="devlog-figure">
+  <Picture
+    src={hudAfter}
+    alt="The same moment in the current build: the mini-map is smaller and sits at the right edge beside the grandstand; position, lap, time and speed are where they were, apart from small details such as the speed-percentage label."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    After: main at 4de82a8, same seed and moment, 0:06.21 against 0:06.20.
+  </figcaption>
+</figure>
+
+The tactical corner got more honest too. A pit tip now says it is optional and names the real button for the device in use, a gauge shows tyre wear, and the “stop requested” state, which never reached the advisor and so was never shown, now appears. I checked that in a staged scene and in a rain race with a stop at 1280×800. I have not driven a stop by hand yet.
+
+None of this touches driving physics, the AI, scoring, the tyre model, weather or the save format. It does cost something: the race HUD grew from 535 to 564 GUI nodes, out of a budget of 1,024. On my laptop, in a debug build, I alternated runs of a build from the evening of 12 November and the final one on the same scene, and could not separate any frame-rate difference from the noise.
+
+## Fewer interruptions between races
+
+The championship hub now answers where I stand: my place, my points, the leader and the gap, and a route that says done, next race or later. The picture is a real saved series, with the player slot driven by the game’s AI through a developer switch, not a state I set up by hand.
+
+<figure class="devlog-figure">
+  <Picture
+    src={hub}
+    alt="The Metal Championship hub after two of five races: standing 10th with 13 points, the leader 20 points ahead, a Continue Championship button for race 3 at Cathedral Circuit, and a route showing Iron Chorus and Razorline Riot done."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The championship hub, main at 4de82a8, after two races raced by the game’s
+    AI.
+  </figcaption>
+</figure>
+
+The results card now counts a hammered Enter as one press, so you see the result before the next race starts. The Escape problem from the start of this post is fixed as well: the result is committed before Back is allowed to do anything.
+
+A close finish used to be invisible. Now a plate names it and gives the margin, and the podium gestures read who fought whom.
+
+<figure class="devlog-figure">
+  <Picture
+    src={podium}
+    alt="The podium after a race on Iron Chorus: Sage Chen first, Imani Reed second, Valen Koa third, with a plate reading Race to the line, win by 0.271 seconds; the player’s own result, fourth place, sits on the left."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The plate names the margin between the winner and second place, 0.271
+    seconds. The player’s kart, driven by the game’s AI, finished fourth.
+  </figcaption>
+</figure>
+
+Riff Rewind’s offer used to say only how many highlights it had found, and a single Enter or click ended the whole cut. It now lists them, with driver, lap and length, says that skipping discards them for good and that nothing is saved unless you choose it, and works with keyboard, controller or pointer. That is for solo races. A championship or co-op finish has no way into the highlight library yet.
+
+<figure class="devlog-figure">
+  <Picture
+    src={rewind}
+    alt="The Riff Rewind offer: Watch Highlights and Skip buttons on the left, a list of five highlights with drivers, laps and seven seconds each on the right, and the note that skipping discards the highlights and nothing is saved unless you choose it."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The Riff Rewind offer after a solo race, main at 4de82a8.
+  </figcaption>
+</figure>
+
+## Built for a controller, checked at handheld sizes
+
+Every menu path, from the title screen to quitting, runs with a controller alone. I tested that with a virtual gamepad on my development machine. I have not tried a physical pad or a Steam Deck, so please do not read any “verified” into it.
+
+What it caught was small and annoying. Focus jumped back to the first row after Settings or Credits. Two held directions alternated instead of the newest one winning. A double tap across a screen change picked Quick Race or skipped the intro. The dialog that asks whether to swap two bindings opened on SWAP when the capture ended on a held direction. Focus now returns to the row you left, the newest direction wins, the double tap is dropped, and that dialog opens on KEEP BINDINGS. The full focus model is only in two places so far, the main menu and the pause confirmation; the double-tap guard reaches further.
+
+<figure class="devlog-figure">
+  <Picture
+    src={handheld}
+    alt="Track select at 1280×800: the title, the track description, the large preview and the five named tiles are all fully inside the frame, with controller hints at the bottom."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    Track select at 1280×800. The layout audit measures real text rectangles at
+    1280×800, 1280×720 and 1920×1080. It says nothing about how this looks on a
+    handheld screen in your hands.
+  </figcaption>
+</figure>
+
+## Accessibility, and an honest default
+
+Accessibility has seven options now. HUD Detail is new. The six that already existed now take effect on every screen, where before the opening flash and the Credits slide ignored them. Both reduction options are off by default, and Reduced Motion alone does not remove the opening flash. Reduced Stage Flashes does. There is still no adjustable menu text size, no colour-blind mode, no screen reader and no subtitles. That is seven options where there were six, and it is nowhere near finished.
+
+<figure class="devlog-figure">
+  <Picture
+    src={accessibility}
+    alt="The Settings screen on the Accessibility page, listing HUD Scale at 100 per cent, Strong UI Focus, Reduced Stage Flashes, Reduced Bright Effects, Reduced Fog and Reduced Motion all off, and HUD Detail set to Full."
+    width={1200}
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 800px"
+    formats={['avif', 'webp']}
+    fallbackFormat="jpg"
+    quality={90}
+    loading="lazy"
+  />
+  <figcaption>
+    The seven Accessibility options, all at their defaults.
+  </figcaption>
+</figure>
+
+## Tried, dropped, and still open
+
+I also built a runtime vector-font pilot for the HUD numerals, measured it against the bitmap font in isolation at three resolutions, decided against it and removed it again.
+
+What is still open: two interface styles sit side by side, and the shared design tokens only reach the Controls settings so far. The co-op HUD has no map, callouts or pit and tyre panel. Quick Race and co-op have no driver choice. The grid wait is undecided. And everything I have said about controllers rests on a virtual gamepad.
+
+## The same week in 88 seconds
+
+If you would rather see it move, I cut a short tour of these screens and of races on all five tracks. It is real in-engine footage from a Linux debug build. The game’s own AI drives the player’s kart, the menus run on the virtual gamepad, and I set the weather in the rain and snow shots with developer switches. It has no music for now.
+
+<VideoEmbed
+  videoId="tN3YGgsmaJQ"
+  title="Riff Racers – Sprint 2 UI/UX Showcase | The Interface Joins the Race"
+  poster={poster}
+  posterAlt="A red kart leads on a night track in Riff Racers; the HUD shows first place of twelve, lap 1 of 7, lap time and speed, and a callout reads “Position gained 1st – passed Sage Chen” beside lit stained-glass windows."
+  fallbackUrl="https://www.youtube.com/watch?v=tN3YGgsmaJQ"
+/>
+
+## One week, and then back to the game
+
+The next job on my list is visual effects. The demo is still being put together, and I have no date to give you.
+
+If you want to follow along, [the devlog](/devlog/) is where it shows up first.
+
+— Daniel
